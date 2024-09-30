@@ -12,20 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->id();
-            $table->integer('student-id');
-            $table->string('s_ProgramCode');
+            $table->id('s_id');
+            $table->integer('s_StudentNo')->length(6)->unique();
+            $table->foreignId('program_id')->constrained('programs');
 
             // Name
             $table->string('s_Surname');
             $table->string('s_FirstName');
             $table->string('s_MiddleName');
-            
-            $table->string('s_Sex');
+
+            $table->enum('s_Sex',['male','female']);
             $table->date('s_Birthdate');
             $table->string('s_ContactNo');
             $table->string('s_EmailAddress');
-            
+
             // City Address
             $table->string('s_c_HouseNo');
             $table->string('s_c_Street');
@@ -43,6 +43,8 @@ return new class extends Migration
             // Contact Person
             $table->string('s_ContactPersonName');
             $table->string('s_ContactPersonNo');
+
+            $table->foreignId('sec_id')->constrained('sections');
 
             $table->timestamps();
         });
