@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id('s_id');
-            $table->integer('s_StudentNo')->length(6)->unique();
-            $table->foreignId('program_id')->constrained('programs');
+            $table->integer('s_StudentNo')->length(6); //->unique();
+            $table->foreignId('program_id')->references('program_id')->on('programs')->onDelete('set null');
 
             // Name
             $table->string('s_Surname');
@@ -44,7 +44,7 @@ return new class extends Migration
             $table->string('s_ContactPersonName');
             $table->string('s_ContactPersonNo');
 
-            $table->foreignId('sec_id')->constrained('sections');
+            $table->foreignId('sec_id')->references('sec_id')->on('sections')->onDelete('set null');
 
             $table->timestamps();
         });

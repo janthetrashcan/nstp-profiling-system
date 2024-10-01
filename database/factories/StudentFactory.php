@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use App\Models\Student;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Student>
@@ -17,16 +19,16 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            's_StudentNo' => fake()->randomNumber(6),
-
+            's_StudentNo' => fake()->numberBetween(100000,999999),
+            'program_id' => fake()->numberBetween(0,27),
 
             's_Surname' => fake()->lastName(),
             's_FirstName' => fake()->firstName(),
             's_MiddleName' => fake()->lastName(),
 
             's_Sex' => fake()->randomElement(['male','female']),
-            's_Birthdate' => fake()->date('m-d-y'),
-            's_ContactNo' => strval(fake()->randomNumber(11)),
+            's_Birthdate' => fake()->date('mm-dd-yyyy'),
+            's_ContactNo' => strval(fake()->phoneNumber()),
             's_EmailAddress' => fake()->email(),
 
             's_c_HouseNo' => fake()->streetName(),
@@ -42,9 +44,9 @@ class StudentFactory extends Factory
             's_p_Province' => fake()->city(),
 
             's_ContactPersonName' => fake()->name(),
-            's_ContactPersonNo' => strval(fake()->randomNumber(11)),
+            's_ContactPersonNo' => strval(fake()->phoneNumber()),
 
-            'sec_id' => fake()->numberBetween(1, 20)
+            'sec_id' => fake()->numberBetween(1, 10)
         ];
     }
 }

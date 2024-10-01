@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Formator;
 use App\Models\User;
+use App\Models\Student;
+use App\Models\Section;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,15 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            `user_id` => 1,
-            'u_Email' => 'test@example.com',
-            'u_Surname' => 'test',
-            'u_FirstName' => 'test',
-            'u_MiddleName' => 'test',
-            'u_Password' => bcrypt('password123!')
-        ]);
+        User::factory(10)->create();
+        $this->call(ProgramSeeder::class);
+        Formator::factory(10)->create();
+        $this->call(SectionSeeder::class);
+        Student::factory(10)->create();
     }
 }

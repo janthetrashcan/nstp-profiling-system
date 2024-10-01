@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id('sec_id');
             $table->char('sec_Section');
             $table->enum('sec_Component',['cwts','lts','rotc']);
-            $table->integer('sec_StudentCount');
-            $table->string('sec_BarangayAssigned');
+            $table->integer('sec_StudentCount')->nullable();
+            $table->string('sec_BarangayAssigned')->nullable();
 
-            $table->foreignId('f_id')->constrained('formators');
+            $table->foreignId('f_id')->references('f_id')->on('formators')->onDelete('set null');
 
             $table->timestamps();
         });
