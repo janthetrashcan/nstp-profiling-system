@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Formator;
 use App\Models\Section;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
