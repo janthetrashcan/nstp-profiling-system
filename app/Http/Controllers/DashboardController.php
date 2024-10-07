@@ -21,14 +21,17 @@ class DashboardController extends Controller
     public function showStudentList(Request $request){
         $students = Student::query()->orderBy('s_StudentNo', 'asc')->paginate(10);
         // dd($students);
-
         return view('dashboard.studentlist', ['students' => $students]);
     }
 
-    public function showStudentProfile(Student $student): Factory|View{
+    public function showStudentProfile(string $s_id){
+        // dd($student);
+        $student = Student::where('s_id', $s_id)->first();
+        if($student === null){
+            abort(404);
+        }
 
-
-        return view();
+        return view('dashboard.studentprofile', ['student' => $student]);
     }
 
     /**

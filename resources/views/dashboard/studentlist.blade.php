@@ -60,7 +60,7 @@
     </div>
 
     @foreach($students as $student)
-    <div class='cursor-default flex flex-row justify-between overflow-x-scroll h-auto p-4 rounded-lg hover:bg-slate-200 transition-colors duration-200 linear'>
+    <a href='{{ route('dashboard.showstudent', ['s_id' => $student->s_id]) }}' class='cursor-default flex flex-row justify-between overflow-x-scroll h-auto p-3 rounded-lg hover:bg-slate-200 transition-colors duration-200 linear'>
         <input type='checkbox' class='w-4'>
 
         <p class='text-lg w-1/12 overflow-x-hidden'>
@@ -96,7 +96,7 @@
             <x-carbon-trash-can class='text-brand-text-dark-bg h-6'/>
         </div>
         -->
-    </div>
+    </a>
     @endforeach
 
     <div id='page-buttons' class='flex flex-row justify-end gap-6'>
