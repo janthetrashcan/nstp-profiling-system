@@ -30,13 +30,13 @@
 
         <!--  STUDENT NAME  -->
 
-        <p class='text-lg w-2/12 font-semibold overflow-x-scroll'>
+        <p class='text-lg w-2/12 font-semibold overflow-x-hidden'>
             Family Name
         </p>
-        <p class='text-lg w-2/12 font-semibold overflow-x-scroll'>
+        <p class='text-lg w-2/12 font-semibold overflow-x-hidden'>
             First Name
         </p>
-        <p class='text-lg w-2/12 font-semibold overflow-x-scroll'>
+        <p class='text-lg w-2/12 font-semibold overflow-x-hidden'>
             Middle Name
         </p>
 
@@ -60,7 +60,7 @@
     </div>
 
     @foreach($students as $student)
-    <a href='{{ route('dashboard.showstudent', ['s_id' => $student->s_id]) }}' class='cursor-default flex flex-row justify-between overflow-x-scroll h-auto p-3 rounded-lg hover:bg-slate-200 transition-colors duration-200 linear'>
+    <a href='{{ route('dashboard.showstudent', ['s_id' => $student->s_id]) }}' class='cursor-default flex flex-row justify-between overflow-x-hidden h-auto p-3 rounded-lg hover:bg-slate-200 transition-colors duration-200 linear'>
         <input type='checkbox' class='w-4'>
 
         <p class='text-lg w-1/12 overflow-x-hidden'>
@@ -69,13 +69,13 @@
 
         <!--  STUDENT NAME  -->
 
-        <p class='text-lg w-2/12 overflow-x-scroll'>
+        <p class='text-lg w-2/12 overflow-x-hidden'>
             {{ Str::upper($student->s_Surname) }}
         </p>
-        <p class='text-lg w-2/12 overflow-x-scroll'>
+        <p class='text-lg w-2/12 overflow-x-hidden'>
             {{ Str::upper($student->s_FirstName) }}
         </p>
-        <p class='text-lg w-2/12 overflow-x-scroll'>
+        <p class='text-lg w-2/12 overflow-x-hidden'>
             {{ Str::upper($student->s_MiddleName) }}
         </p>
 

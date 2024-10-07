@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>NSTP Profiling System</title>
+    <script src="{{ asset('js/app.js') }}"></script>
     @vite('resources/css/app.css')
 </head>
 
@@ -26,9 +27,9 @@
         <div id='side-panel' class='flex flex-col w-1/5 h-full pt-24 pb-12 px-6 mt-3 bg-slate-200 justify-between items-start z-20'>
 
             <div id='functions-panel' class='flex flex-col w-full gap-y-6 justify-start items-start'>
-                <button class='bg-slate-100 flex flex-row w-fit h-20 px-6 py-4 justify-start items-center rounded-2xl gap-2'>
+                <button class='bg-slate-100 flex flex-row flex-wrap w-fit h-fit px-6 py-4 justify-start items-center rounded-2xl gap-2'>
                     <x-carbon-add class='h-8 font-bold' />
-                    <h1 class='font-semibold text-lg'>Import Data</h1>
+                    <h1 class='font-semibold text-lg text-left'>Import Data</h1>
                 </button>
 
                 <div id='navigation-panel' class='w-full flex flex-col gap-y-2 justify-start items-start'>
