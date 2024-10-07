@@ -25,6 +25,12 @@ class DashboardController extends Controller
         return view('dashboard.studentlist', ['students' => $students]);
     }
 
+    public function showStudentProfile(Student $student): Factory|View{
+
+
+        return view();
+    }
+
     /**
      * Show the form for creating a new resource.
      */
