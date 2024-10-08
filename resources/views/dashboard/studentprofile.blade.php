@@ -23,7 +23,6 @@
     <div id='student-profile' class='flex flex-col gap-y-3'>
         <p>Viewing {{ $student->s_StudentNo }}
 
-
         <div id='student-info' class='flex flex-col gap-y-2 p-6 w-96 rounded-xl bg-slate-200'>
             <h1 class='text-2xl font-bold mb-4'>Student Information</h1>
             <div class='flex flex-row gap-3'>

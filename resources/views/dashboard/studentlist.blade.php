@@ -24,30 +24,30 @@
     <div class='cursor-default flex flex-row justify-between w-full h-auto p-4 rounded-lg'>
         <span class='w-4'></span>
 
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden'>
+        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
             Student ID
         </p>
 
         <!--  STUDENT NAME  -->
 
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden'>
+        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
             Family Name
         </p>
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden'>
+        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
             First Name
         </p>
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden'>
+        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
             Middle Name
         </p>
 
 
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden'>
+        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
             Program
         </p>
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden'>
+        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
             Component
         </p>
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden'>
+        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
             Section
         </p>
 
@@ -60,33 +60,33 @@
     </div>
 
     @foreach($students as $student)
-    <a href='{{ route('dashboard.showstudent', ['s_id' => $student->s_id]) }}' class='cursor-default flex flex-row justify-between overflow-x-hidden h-auto p-3 rounded-lg hover:bg-slate-200 transition-colors duration-200 linear'>
+    <a href='{{ route('dashboard.showstudent', ['s_id' => $student->s_id]) }}' class='cursor-default flex flex-row justify-between overflow-x-hidden h-auto px-4 py-3 rounded-lg hover:bg-slate-200 transition-colors duration-200 linear'>
         <input type='checkbox' class='w-4'>
 
-        <p class='text-lg w-1/12 overflow-x-hidden'>
+        <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
             {{ $student->s_StudentNo }}
         </p>
 
         <!--  STUDENT NAME  -->
 
-        <p class='text-lg w-2/12 overflow-x-hidden'>
+        <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
             {{ Str::upper($student->s_Surname) }}
         </p>
-        <p class='text-lg w-2/12 overflow-x-hidden'>
+        <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
             {{ Str::upper($student->s_FirstName) }}
         </p>
-        <p class='text-lg w-2/12 overflow-x-hidden'>
+        <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
             {{ Str::upper($student->s_MiddleName) }}
         </p>
 
 
-        <p class='text-lg w-1/12 overflow-x-hidden'>
+        <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
             {{ Str::upper($student->program->program_Code) }}
         </p>
-        <p class='text-lg w-1/12 overflow-x-hidden'>
+        <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
             {{ Str::upper($student->section->sec_Component) }}
         </p>
-        <p class='text-lg w-1/12 overflow-x-hidden'>
+        <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
             {{ Str::upper($student->section->sec_Section) }}
         </p>
 

@@ -27,7 +27,7 @@
         <div id='side-panel' class='flex flex-col w-1/5 h-full pt-24 pb-12 px-6 mt-3 bg-slate-200 justify-between items-start z-20'>
 
             <div id='functions-panel' class='flex flex-col w-full gap-y-6 justify-start items-start'>
-                <button class='bg-slate-100 flex flex-row flex-wrap w-fit h-fit px-6 py-4 justify-start items-center rounded-2xl gap-2'>
+                <button class='bg-slate-100 flex flex-row flex-wrap w-fit h-fit pl-4 pr-6 py-4 justify-start items-center rounded-2xl gap-2 shadow-sm hover:shadow-lg transition-shadow duration-200 linear'>
                     <x-carbon-add class='h-8 font-bold' />
                     <h1 class='font-semibold text-lg text-left'>Import Data</h1>
                 </button>
@@ -48,7 +48,7 @@
             </div>
             <div id='profile-section' class='justify-self-end'>
                 <div id='header-rhs' class='flex flex-row justify-end items-center gap-x-3'>
-                    <x-carbon-user class='text-brand-text-dark-bg h-8'/>
+                    <x-carbon-user class='text-brand-text-dark-bg h-6'/>
                     <p class='text-brand-text-dark-bg text-lg'>User</p>
                 </div>
             </div>
