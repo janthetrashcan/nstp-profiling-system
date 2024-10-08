@@ -49,7 +49,7 @@
             <div id='profile-section' class='justify-self-end'>
                 <div id='header-rhs' class='flex flex-row justify-end items-center gap-x-3'>
                     <x-carbon-user class='text-brand-text-dark-bg h-6'/>
-                    <p class='text-brand-text-dark-bg text-lg'>User</p>
+                    <p class='text-brand-text-dark-bg text-lg'>Users</p>
                 </div>
             </div>
 
