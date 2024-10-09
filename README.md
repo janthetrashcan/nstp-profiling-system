@@ -1,5 +1,10 @@
 # Project Setup
 
+## Prerequesites
+- PHP
+- Composer
+- Node.js
+
 Run the following commands in a terminal
 
 `Install composer`
