@@ -21,7 +21,7 @@ php artisan vendor:publish --tag=blade-carbon-icons-config
 ```
 
 Then, create a `.env` file in the root directory (if composer has not made one).
-Copy paste the contents of `.env.example` to the newly created `.env` file.
+Copy the contents of `.env.example` to the newly created `.env` file.
 
 Afterwards, run the following commands
 
