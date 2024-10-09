@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Formator;
 use App\Models\Section;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -18,10 +19,19 @@ class DashboardController extends Controller
     }
 
     public function showStudentList(Request $request){
-        $students = Student::query()->orderBy('s_id', 'desc')->paginate(15);
+        $students = Student::query()->orderBy('s_StudentNo', 'asc')->paginate(10);
         // dd($students);
-
         return view('dashboard.studentlist', ['students' => $students]);
+    }
+
+    public function showStudentProfile(string $s_id){
+        // dd($student);
+        $student = Student::where('s_id', $s_id)->first();
+        if($student === null){
+            abort(404);
+        }
+
+        return view('dashboard.studentprofile', ['student' => $student]);
     }
 
     /**

@@ -20,7 +20,7 @@ class StudentFactory extends Factory
     {
         return [
             's_StudentNo' => fake()->numberBetween(100000,999999),
-            'program_id' => fake()->numberBetween(0,27),
+            'program_id' => fake()->numberBetween(1,27),
 
             's_Surname' => fake()->lastName(),
             's_FirstName' => fake()->firstName(),
