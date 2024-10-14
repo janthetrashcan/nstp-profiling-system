@@ -1,64 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NSTP Profiling System</title>
-    <script src="{{ asset('js/app.js') }}"></script>
-    @vite('resources/css/app.css')
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-gray-200">
 
+  <!-- Header -->
+  <header class="bg-yellow-500 p-8 text-xl flex justify-end">
+    <h1 class="text-white font-bold">Welcome, User!</h1>
+  </header>
 
+  <!-- Main Content -->
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="h-full w-64 bg-gray-800 text-white fixed top-13 left-0">
+      <div class="p-4">
+        <button class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
+          <span class="text-lg font-bold bg-yellow-500 text-gray-800 rounded-full p-3 mr-3">+</span>
+          <span class="text-lg font-semibold">Import Forms</span>
+        </button>
+      </div>
 
-<body class='min-h-screen'>
-    <header id='main-header' class='fixed w-full flex flex-row justify-between items-center h-auto px-4 py-5 bg-brand-primary z-30 shadow-md'>
-        <div id='header-lhs' class='flex flex-row items-center gap-x-5'>
-            <x-carbon-menu class='text-brand-text-dark-bg h-8'/>
-            <h1 class='text-xl font-semibold'>[ALPHA] NSTP PROFILING SYSTEM</h1>
-        </div>
-        <div id='header-rhs' class='flex flex-row justify-end items-center gap-x-3'>
+      <nav class="px-3 py-3">
+        <ul>
+          <li class="mb-3">
+            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+              <span class="text-white text-xs mr-2">►</span>
+              <span class="mr-2 text-yellow-500">👤</span>
+              <span>Student Profile</span>
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+              <span class="text-white text-xs mr-2">►</span>
+              <span class="mr-2 text-yellow-500">👤</span>
+              <span>Formator Profile</span>
+            </a>
+          </li>
+          <li class="mb-5">
+            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+              <span class="text-white text-xs mr-2">►</span>
+              <span class="mr-2 text-yellow-500">👥</span>
+              <span>Class Profile</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
 
-        </div>
-    </header>
+      <div class="px-5 py-2 mt-3">
+        <h2 class="text-sm text-gray-400 uppercase font-bold">Component List</h2>
+        <ul class="mt-4">
+          <li class="mb-3">
+            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+        
+              
+            </a>
+          </li>
+          <li class="mb-3">
+            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+        
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
 
-    <main id='main-cont' class='w-full h-full flex flex-row flex-grow-1 fixed z-10'>
-
-        <div id='side-panel' class='flex flex-col w-1/5 h-full pt-24 pb-12 px-6 mt-3 bg-slate-200 justify-between items-start z-20'>
-
-            <div id='functions-panel' class='flex flex-col w-full gap-y-6 justify-start items-start'>
-                <button class='bg-slate-100 flex flex-row flex-wrap w-fit h-fit pl-4 pr-6 py-4 justify-start items-center rounded-2xl gap-2 shadow-sm hover:shadow-lg transition-shadow duration-200 linear'>
-                    <x-carbon-add class='h-8 font-bold' />
-                    <h1 class='font-semibold text-lg text-left'>Import Data</h1>
-                </button>
-
-                <div id='navigation-panel' class='w-full flex flex-col gap-y-2 justify-start items-start'>
-                    <button class='w-full px-4 py-2 rounded-xl text-left hover:bg-slate-100 transition-colors duration-200 linear active'>
-                        Student List
-                    </button>
-
-                    <button class='w-full px-4 py-2 rounded-xl text-left hover:bg-slate-100 transition-colors duration-200 linear'>
-                        Formator List
-                    </button>
-
-                    <button class='w-full px-4 py-2 rounded-xl text-left hover:bg-slate-100 transition-colors duration-200 linear'>
-                        Section List
-                    </button>
-                </div>
-            </div>
-            <div id='profile-section' class='justify-self-end'>
-                <div id='header-rhs' class='flex flex-row justify-end items-center gap-x-3'>
-                    <x-carbon-user class='text-brand-text-dark-bg h-6'/>
-                    <p class='text-brand-text-dark-bg text-lg'>Users</p>
-                </div>
-            </div>
-
-
-        </div>
-
-        <div id='main-panel' class='w-4/5 h-full py-24 px-6 bg-slate-100 overflow-x-scroll overflow-y-scroll'>
-            {{ $slot }}
-        </div>
+    <!-- Main Section -->
+    <main class="ml-64 p-10 w-full">
+      {{ $slot }}
     </main>
+  </div>
+
 </body>
 </html>
