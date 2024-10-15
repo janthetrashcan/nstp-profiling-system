@@ -1,25 +1,31 @@
 # Project Setup
 This `README` file serves as a guide to set up the project on your own device.
 
-## Prerequesites
-- PHP
-- Composer
-- Node.js
+## Prerequisites
+- **PHP**
+	Follow [this](https://www.geeksforgeeks.org/how-to-install-php-in-windows-10/) tutorial from GeeksforGeeks
+
+- **Composer**
+	Download Composer-Setup.exe [here](https://getcomposer.org/doc/00-intro.md#installation-windows) under Installation - Windows
+	If you have XAMPP installed, under Settings Check in the installer, make sure to change the command line PHP to the address where you installed PHP, not XAMPP
+
+- **Node.js**
+	Download the installer (LTS) [here](https://nodejs.org/en)
 
 ## Setup
 Run the following commands in a terminal
 
-`Install composer`
+**Install composer**
 ```
 composer install
 ```
 
-`Install node`
+**Install node**
 ```
 npm install
 ```
 
-`Install blade icons for UI`
+**Install blade icons for UI**
 ```
 composer require codeat3/blade-carbon-icons
 ```
@@ -51,5 +57,3 @@ To run the node server, run the command in another terminal window
 ```
 npm run dev
 ```
-
-
