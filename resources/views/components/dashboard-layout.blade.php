@@ -55,17 +55,21 @@
         <ul class="mt-4">
           <li class="mb-3">
             <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
-        
-              
+
+
             </a>
           </li>
           <li class="mb-3">
             <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
-        
+
             </a>
           </li>
         </ul>
       </div>
+      <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class='p-4'>Logout</button>
+    </form>
     </aside>
 
     <!-- Main Section -->
