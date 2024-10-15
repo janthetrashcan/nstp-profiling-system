@@ -25,12 +25,6 @@ class DashboardController extends Controller
         return view('dashboard.studentlist', ['students' => $students]);
     }
 
-    public function showFormatorList(Request $request){
-        $formators = Formator::query()->orderBy('f_id', 'asc')->paginate(10);
-        // dd($students);
-        return view('dashboard.formatorlist', ['formators' => $formators]);
-    }
-
     public function showStudentProfile(string $s_id){
         // dd($student);
         $student = Student::where('s_id', $s_id)->first();
