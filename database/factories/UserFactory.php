@@ -24,12 +24,12 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'u_Privilege' => 1,
-            'u_Surname' => 'test',
-            'u_FirstName' => 'test',
-            'u_MiddleName' => 'test',
-            'u_Email' => Str::lower(Str::random(10)).'@example.com',
-            'u_Password' => bcrypt('password123!')
+            'privilege' => 1,
+            'surname' => 'test',
+            'firstName' => 'test',
+            'middleName' => 'test',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin')
         ];
     }
 
