@@ -11,7 +11,6 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'showIndex'])->name('dashboard.index');
 Route::get('/dashboard/students', [DashboardController::class, 'showStudentList'])->name('dashboard.studentlist');
 Route::get('/dashboard/students/{s_id}', [DashboardController::class, 'showStudentProfile'])->name('dashboard.showstudent');
-Route::get('/dashboard/formators', [DashboardController::class, 'showFormatorList'])->name('dashboard.formatorlist');
 
 
 // Route::resource('student', DashboardController::class);
