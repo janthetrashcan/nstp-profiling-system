@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Student;
 use App\Models\Formator;
 use App\Models\Section;
@@ -22,6 +23,12 @@ class DashboardController extends Controller
         $students = Student::query()->orderBy('s_StudentNo', 'asc')->paginate(10);
         // dd($students);
         return view('dashboard.studentlist', ['students' => $students]);
+    }
+
+    public function showFormatorList(Request $request){
+        $formators = Formator::query()->orderBy('f_id', 'asc')->paginate(10);
+        // dd($students);
+        return view('dashboard.formatorlist', ['formators' => $formators]);
     }
 
     public function showStudentProfile(string $s_id){
