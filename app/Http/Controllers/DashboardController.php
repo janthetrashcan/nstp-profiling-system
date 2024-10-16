@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Student;
 use App\Models\Formator;
+use App\Models\Program;
 use App\Models\Section;
 use App\Models\User;
 
@@ -45,6 +46,11 @@ class DashboardController extends Controller
         // dd($student);
         $sections = Section::query()->orderBy('sec_id', 'asc')->paginate(10);
         return view('dashboard.sectionlist', ['sections' => $sections]); 
+}
+    public function showProgramList(Request $request){
+    // dd($student);
+    $programs = Program::query()->orderBy('prog_id', 'asc')->paginate(10);
+    return view('dashboard.programlist', ['programs' => $programs]); 
 }
 
     /**

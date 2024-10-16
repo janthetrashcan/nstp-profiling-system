@@ -12,6 +12,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard/students/{s_id}', [DashboardController::class, 'showStudentProfile'])->name('dashboard.showstudent');
     Route::get('/dashboard/formators', [DashboardController::class, 'showFormatorList'])->name('dashboard.formatorlist');
     Route::get('/dashboard/sections', [DashboardController::class, 'showSectionList'])->name('dashboard.sectionlist');
+    Route::get('/dashboard/programs', [DashboardController::class, 'showProgramList'])->name('dashboard.programlist');
 });
 
 Route::middleware('auth')->group(function () {
