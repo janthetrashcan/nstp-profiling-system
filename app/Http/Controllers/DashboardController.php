@@ -41,6 +41,12 @@ class DashboardController extends Controller
         return view('dashboard.studentprofile', ['student' => $student]);
     }
 
+    public function showSectionList(Request $request){
+        // dd($student);
+        $sections = Section::query()->orderBy('sec_id', 'asc')->paginate(10);
+        return view('dashboard.sectionlist', ['sections' => $sections]); 
+}
+
     /**
      * Show the form for creating a new resource.
      */

@@ -11,6 +11,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard/students', [DashboardController::class, 'showStudentList'])->name('dashboard.studentlist');
     Route::get('/dashboard/students/{s_id}', [DashboardController::class, 'showStudentProfile'])->name('dashboard.showstudent');
     Route::get('/dashboard/formators', [DashboardController::class, 'showFormatorList'])->name('dashboard.formatorlist');
+    Route::get('/dashboard/sections', [DashboardController::class, 'showSectionList'])->name('dashboard.sectionlist');
 });
 
 Route::middleware('auth')->group(function () {
