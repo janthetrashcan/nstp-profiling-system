@@ -35,6 +35,6 @@ class DatabaseSeeder extends Seeder
         Formator::factory(10)->create();
         error_log('Formators added');
         $this->call(SectionSeeder::class);
-        Student::factory(50)->create();
+        //Student::factory(50)->create();
     }
 }
