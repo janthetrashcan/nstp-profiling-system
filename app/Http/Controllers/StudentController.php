@@ -12,15 +12,15 @@ class StudentController extends Controller
      */
     public function index()
     {
-        //
+        return 'index';
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function addStudent()
     {
-        //
+        return view('dashboard.studentadd');
     }
 
     /**
@@ -36,7 +36,7 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        return 'show';
     }
 
     /**
@@ -44,7 +44,7 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        return 'edit';
     }
 
     /**
