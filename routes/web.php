@@ -11,9 +11,9 @@ Route::redirect('/','/dashboard/students')->name('dashboard');
 Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard/students', [DashboardController::class, 'showStudentList'])->name('dashboard.studentlist');
     Route::get('/dashboard/students/add', [StudentController::class, 'addStudent'])->name('dashboard.addstudent');
+    Route::post('/dashboard/students', [StudentController::class, 'store'])->name('student.store' );
     Route::get('/dashboard/students/view/{s_id}', [DashboardController::class, 'showStudentProfile'])->name('dashboard.showstudent');
     Route::get('/dashboard/formators', [DashboardController::class, 'showFormatorList'])->name('dashboard.formatorlist');
-    Route::post('/dashboard/students', [StudentController::class, 'store'])->name('student.store' );
 });
 
 Route::middleware('auth')->group(function () {

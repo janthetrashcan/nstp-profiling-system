@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-use App\Models\Program; 
-use App\Models\Section; 
+use App\Models\Program;
+use App\Models\Section;
 
 class StudentController extends Controller
 {
@@ -22,11 +22,11 @@ class StudentController extends Controller
      */
     public function addStudent()
     {
-        
-          
+
+
           $programs = Program::all();
           $sections = Section::all();
-          
+
           return view('dashboard.studentadd', compact('programs', 'sections'));
     }
 
@@ -35,34 +35,43 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-    $validatedData = $request->validate([
-        's_StudentNo' => 'required|string|max:255',
-        's_Surname' => 'required|string|max:255',
-        's_FirstName' => 'required|string|max:255',
-        's_MiddleName' => 'nullable|string|max:255',
-        's_Sex' => 'required|string|in:male,female',
-        's_Birthdate' => 'required|date',
-        's_ContactNo' => 'required|string|max:15', 
-        's_EmailAddress' => 'required|email|max:255',
-        'program_id' => 'required|exists:programs,program_id',
-        'sec_id' => 'required|exists:sections,sec_id',
-        's_c_HouseNo' => 'required|string|max:255',
-        's_c_Street' => 'required|string|max:255',
-        's_c_Barangay' => 'required|string|max:255',
-        's_c_City' => 'required|string|max:255',
-        's_c_Province' => 'required|string|max:255',
-        's_p_HouseNo' => 'required|string|max:255',
-        's_p_Street' => 'required|string|max:255',
-        's_p_Barangay' => 'required|string|max:255',
-        's_p_City' => 'required|string|max:255',
-        's_p_Province' => 'required|string|max:255',
-        's_ContactPersonName' => 'required|string|max:255',
-        's_ContactPersonNo' => 'required|string|max:15', 
-    ]);
+        try {
+            $data = $request->validate([
+                's_StudentNo' => 'required|string|size:6',
+                's_Surname' => 'required|string|max:255',
+                's_FirstName' => 'required|string|max:255',
+                's_MiddleName' => 'nullable|string|max:255',
+                's_Sex' => 'required|string|in:male,female',
+                's_Birthdate' => 'required|date',
+                's_ContactNo' => 'required|string|max:15',
+                's_EmailAddress' => 'required|email|max:255',
+                'program_id' => 'required|exists:programs,program_id',
+                'sec_id' => 'required|integer|exists:sections,sec_id',
+                's_c_HouseNo' => 'required|string|max:255',
+                's_c_Street' => 'required|string|max:255',
+                's_c_Barangay' => 'required|string|max:255',
+                's_c_City' => 'required|string|max:255',
+                's_c_Province' => 'required|string|max:255',
+                's_p_HouseNo' => 'required|string|max:255',
+                's_p_Street' => 'required|string|max:255',
+                's_p_Barangay' => 'required|string|max:255',
+                's_p_City' => 'required|string|max:255',
+                's_p_Province' => 'required|string|max:255',
+                's_ContactPersonName' => 'required|string|max:255',
+                's_ContactPersonNo' => 'required|string|max:15',
+            ]);
 
-    Student::create($validatedData);
-    return redirect()->route('dashboard.studentlist')->with('success', 'Student added successfully.');
-}
+            // dd($data);
+
+            $student = Student::create($data);
+            return to_route('dashboard.showstudent', $student);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            dd($e->errors());
+        }
+
+        // return redirect()->route('dashboard.studentlist')->with('success', 'Student added successfully.');
+    }
 
 
 

@@ -1,6 +1,7 @@
 <x-dashboard-layout>
+
     <form action="{{ route('student.store') }}" method="POST">
-        @csrf
+    @csrf
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
             <a href='{{ route('dashboard.studentlist') }}' class='bg-slate-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
@@ -100,7 +101,7 @@
                     <option value="{{ $program->program_id }}">{{ $program->program_Code }}</option>
                 @endforeach
             </select>
-            
+
             @error('program_id')
                 <div class="text-red-500 text-sm">{{ $message }}</div>
             @enderror
@@ -108,11 +109,11 @@
 
         <!-- Section -->
         <div class="mb-4">
-            <label for="section_id" class="block text-sm font-medium text-gray-700">Section</label>
-            <select id="section_id" name="section_id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
+            <label for="sec_id" class="block text-sm font-medium text-gray-700">Section</label>
+            <select id="sec_id" name="sec_id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
                 <option value="">Select Section</option>
                 @foreach($sections as $section)
-                    <option value="{{ $section->sec_id }}">{{ $section->sec_Section }}</option>
+                    <option value="{{ $section->sec_id }}">{{ $section->sec_id }}</option>
                 @endforeach
             </select>
             @error('section_id')
@@ -128,7 +129,7 @@
                 <div class="text-red-500 text-sm">{{ $message }}</div>
             @enderror
         </div>
-        
+
         <div class="mb-4">
             <label for="s_c_Street" class="block text-sm font-medium text-gray-700">City Street</label>
             <input type="text" id="s_c_Street" name="s_c_Street" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
@@ -169,7 +170,7 @@
                 <div class="text-red-500 text-sm">{{ $message }}</div>
             @enderror
         </div>
-        
+
         <div class="mb-4">
             <label for="s_p_Street" class="block text-sm font-medium text-gray-700">Provincial Street</label>
             <input type="text" id="s_p_Street" name="s_p_Street" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />

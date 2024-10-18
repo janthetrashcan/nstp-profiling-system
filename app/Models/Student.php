@@ -20,7 +20,7 @@ class Student extends Model
         's_ContactNo',
         's_EmailAddress',
         'program_id',
-        'section_id',
+        'sec_id',
         's_c_HouseNo',
         's_c_Street',
         's_c_Barangay',
