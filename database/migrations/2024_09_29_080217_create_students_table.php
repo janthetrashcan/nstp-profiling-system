@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id('s_id');
-            $table->integer('s_StudentNo')->length(6); //->unique();
+            $table->string('s_StudentNo')->length(6); //->unique();
             $table->foreignId('program_id')->references('program_id')->on('programs')->onDelete('set null');
 
             // Name
