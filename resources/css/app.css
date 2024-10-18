@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 #login-bg{
-    background: linear-gradient(rgba(42, 58, 74, 0.85), rgba(42, 58, 74, 0.85)), url('resources/img/image.png');
+    background: linear-gradient(rgba(42, 58, 74, 0.85), rgba(42, 58, 74, 0.85)), url('../img/image.png');
     background-size: cover;
     background-position: center;
     height: 100vh;
