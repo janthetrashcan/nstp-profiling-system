@@ -9,7 +9,7 @@
 <body class="bg-gray-200">
 
   <!-- Header -->
-  <header class="bg-yellow-500 p-8 text-xl flex justify-end">
+  <header class="bg-yellow-500 p-5 text-xl flex justify-end">
     <h1 class="text-white font-bold">Welcome, User!</h1>
   </header>
 
@@ -51,7 +51,6 @@
       </nav>
 
       <div class="px-5 py-2 mt-3">
-        <h2 class="text-sm text-gray-400 uppercase font-bold">Component List</h2>
         <ul class="mt-4">
           <li class="mb-3">
             <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">

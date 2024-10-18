@@ -14,6 +14,8 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/dashboard/students', [StudentController::class, 'store'])->name('student.store' );
     Route::get('/dashboard/students/view/{s_id}', [DashboardController::class, 'showStudentProfile'])->name('dashboard.showstudent');
     Route::get('/dashboard/formators', [DashboardController::class, 'showFormatorList'])->name('dashboard.formatorlist');
+    Route::get('/dashboard/sections', [DashboardController::class, 'showSectionList'])->name('dashboard.sectionlist');
+    Route::get('/dashboard/programs', [DashboardController::class, 'showProgramList'])->name('dashboard.programlist');
 });
 
 Route::middleware('auth')->group(function () {
