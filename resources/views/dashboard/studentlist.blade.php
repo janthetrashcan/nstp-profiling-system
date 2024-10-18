@@ -1,11 +1,11 @@
 <x-dashboard-layout>
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
-            <button class='bg-slate-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
+            <a href="{{ route('dashboard.addstudent') }}" class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-add class='h-8' />
-                <a href="{{ route('dashboard.addstudent') }}">Add</a>
-            </button>
-            <button class='bg-slate-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
+                <h2 class='font-semibold'>Add</h2>
+            </a>
+            <button class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-trash-can class='h-6' />
                 <h1 class='font-semibold'>Delete</h1>
             </button>
@@ -16,7 +16,7 @@
         </div>
 
         <div id='functions-rhs' class='flex flex-row gap-x-3'>
-            <input type='text' placeholder='Search' maxlength='30' class='bg-slate-200 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2' />
+            <input type='text' placeholder='Search' maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2' />
         </div>
 
     </div>
@@ -60,7 +60,7 @@
     </div>
 
     @foreach($students as $student)
-    <a href='{{ route('dashboard.showstudent', ['s_id' => $student->s_id]) }}' class='cursor-default flex flex-row justify-between overflow-x-hidden h-auto px-4 py-3 rounded-lg hover:bg-slate-200 transition-colors duration-200 linear'>
+    <a href='{{ route('dashboard.showstudent', ['s_id' => $student->s_id]) }}' class='cursor-default flex flex-row justify-between overflow-x-hidden h-auto px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 linear'>
         <input type='checkbox' class='w-4'>
 
         <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
