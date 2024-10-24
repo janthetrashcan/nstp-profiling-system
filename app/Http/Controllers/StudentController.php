@@ -83,35 +83,59 @@ class StudentController extends Controller
         return 'show';
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
+    public function editStudent(string $s_id)
     {
-        return view('dashboard.studentedit', compact('student'));
+        $programs = Program::all();
+        $sections = Section::all();
+        
+        $student = Student::where('s_id', $s_id)->first();
+        if($student === null){
+            abort(404);
+        }
+        return view('dashboard.studentedit', compact('student','programs','sections'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Student $student)
-    {
-        $request->validate([
-            's_StudentNo' => 'required|string|max:255',
+    public function updateStudent(Request $request, string $s_id)
+{
+   
+    $student = Student::where('s_id', $s_id)->first();
+    if ($student === null) {
+        abort(404);
+    }
+
+    try {
+        $data = $request->validate([
+            's_StudentNo' => 'required|string|size:6',
             's_Surname' => 'required|string|max:255',
             's_FirstName' => 'required|string|max:255',
             's_MiddleName' => 'nullable|string|max:255',
-            'program_id' => 'required|exists:programs,id',
-            'sec_id' => 'required|exists:sections,id',
+            's_Sex' => 'required|string|in:male,female',
+            's_Birthdate' => 'required|date',
+            's_ContactNo' => 'required|string|max:15',
+            's_EmailAddress' => 'required|email|max:255',
+            'program_id' => 'required|exists:programs,program_id',
+            'sec_id' => 'required|integer|exists:sections,sec_id',
+            's_c_HouseNo' => 'required|string|max:255',
+            's_c_Street' => 'required|string|max:255',
+            's_c_Barangay' => 'required|string|max:255',
+            's_c_City' => 'required|string|max:255',
+            's_c_Province' => 'required|string|max:255',
+            's_p_HouseNo' => 'required|string|max:255',
+            's_p_Street' => 'required|string|max:255',
+            's_p_Barangay' => 'required|string|max:255',
+            's_p_City' => 'required|string|max:255',
+            's_p_Province' => 'required|string|max:255',
+            's_ContactPersonName' => 'required|string|max:255',
+            's_ContactPersonNo' => 'required|string|max:15',
         ]);
-
-        $student->update($request->all());
+        $student->update($data);
+        $updatedStudent = Student::where('s_id', $s_id)->first();
         return redirect()->route('dashboard.studentlist')->with('success', 'Student updated successfully.');
+    } catch (\Illuminate\Validation\ValidationException $e) {
+        dd($e->errors());
     }
+}
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Student $student)
     {
         $student->delete();
