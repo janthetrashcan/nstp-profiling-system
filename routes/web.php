@@ -18,6 +18,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard/programs', [DashboardController::class, 'showProgramList'])->name('dashboard.programlist');
     Route::get('/dashboard/students/edit/{s_id}', [StudentController::class, 'editStudent'])->name('dashboard.studentedit');
     Route::put('/dashboard/students/update/{s_id}', [StudentController::class, 'updateStudent'])->name('student.update');
+    Route::delete('/dashboard/students/delete', [StudentController::class, 'destroy'])->name('student.destroy');
+    Route::delete('/dashboard/students/delete/{s_id?}', [StudentController::class, 'destroy'])->name('student.destroy');
 });
 
 Route::middleware('auth')->group(function () {

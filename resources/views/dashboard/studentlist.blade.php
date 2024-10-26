@@ -5,10 +5,14 @@
                 <x-carbon-add class='h-8' />
                 <h2 class='font-semibold'>Add</h2>
             </a>
-            <button class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
-                <x-carbon-trash-can class='h-6' />
-                <h1 class='font-semibold'>Delete</h1>
-            </button>
+            <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+                    <x-carbon-trash-can class='h-6' />
+                    <h1 class='font-semibold'>Delete</h1>
+                </button>
+            </form>
             <button class='bg-slate-200 hover:bg-slate-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Filter</h1>
@@ -50,40 +54,54 @@
         </p>
     </div>
 
+   
     <!-- Student Data Rows -->
     @foreach($students as $student)
-    <a href='{{ route('dashboard.showstudent', ['s_id' => $student->s_id]) }}' class='cursor-default flex flex-row justify-between overflow-x-hidden h-auto px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 linear'>
-        <input type='checkbox' class='w-4'>
+    <div class='cursor-default flex flex-row justify-between items-center overflow-x-hidden h-auto px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 linear'>
+        
+        <!-- Delete Checkbox -->
+        <div class="flex items-center w-12">
+            <input type='checkbox' name='student_ids[]' value='{{ $student->s_id }}' form="deleteForm" class='w-4 h-4'>
+        </div>
 
-        <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-            {{ $student->s_StudentNo }}
-        </p>
+      
+        <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="flex flex-row justify-between items-center w-full gap-4">
+            
+            <!-- Student ID -->
+            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
+                {{ $student->s_StudentNo }}
+            </p>
 
-        <!-- STUDENT NAME -->
-        <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-            {{ Str::upper($student->s_Surname) }}
-        </p>
-        <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-            {{ Str::upper($student->s_FirstName) }}
-        </p>
-        <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-            {{ Str::upper($student->s_MiddleName) }}
-        </p>
+            <!-- STUDENT NAME -->
+            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
+                {{ Str::upper($student->s_Surname) }}
+            </p>
+            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
+                {{ Str::upper($student->s_FirstName) }}
+            </p>
+            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
+                {{ Str::upper($student->s_MiddleName) }}
+            </p>
 
-        <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-            {{ Str::upper($student->program->program_Code) }}
-        </p>
-        <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-            {{ Str::upper($student->section->sec_Component) }}
-        </p>
-        <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-            {{ Str::upper($student->section->sec_Section) }}
-        </p>
-    </a>
+            <!-- Program -->
+            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
+                {{ Str::upper($student->program->program_Code) }}
+            </p>
+
+            <!-- Component -->
+            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
+                {{ Str::upper($student->section->sec_Component) }}
+            </p>
+
+            <!-- Section -->
+            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
+                {{ Str::upper($student->section->sec_Section) }}
+            </p>
+
+        </a>
+    </div>
     @endforeach
 
-    <!-- Pagination -->
-    <div id='page-buttons' class='flex flex-row justify-end gap-6'>
-        {{ $students->links() }}
-    </div>
+
+    
 </x-dashboard-layout>
