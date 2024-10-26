@@ -10,6 +10,8 @@ use App\Models\Section;
 class Student extends Model
 {
     use HasFactory;
+
+    protected $primaryKey = 's_id';
     protected $fillable = [
         's_StudentNo',
         's_Surname',
