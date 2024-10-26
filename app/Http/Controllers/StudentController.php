@@ -136,9 +136,15 @@ class StudentController extends Controller
     }
 }
 
-    public function destroy(Student $student)
-    {
-        $student->delete();
-        return redirect()->route('dashboard.studentlist')->with('success', 'Student deleted successfully.');
+public function destroy(Request $request)
+{
+    $studentIds = $request->input('student_ids');
+    
+    if ($studentIds) {
+        Student::whereIn('s_id', $studentIds)->delete();
+        return redirect()->route('dashboard.studentlist')->with('success', 'Selected students deleted successfully.');
     }
+    
+    return redirect()->route('dashboard.studentlist')->with('error', 'No students selected for deletion.');
+}
 }
