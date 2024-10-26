@@ -87,7 +87,7 @@ class StudentController extends Controller
     {
         $programs = Program::all();
         $sections = Section::all();
-        
+
         $student = Student::where('s_id', $s_id)->first();
         if($student === null){
             abort(404);
@@ -97,7 +97,7 @@ class StudentController extends Controller
 
     public function updateStudent(Request $request, string $s_id)
 {
-   
+
     $student = Student::where('s_id', $s_id)->first();
     if ($student === null) {
         abort(404);
@@ -129,7 +129,7 @@ class StudentController extends Controller
             's_ContactPersonNo' => 'required|string|max:15',
         ]);
         $student->update($data);
-        $updatedStudent = Student::where('s_id', $s_id)->first();
+
         return redirect()->route('dashboard.studentlist')->with('success', 'Student updated successfully.');
     } catch (\Illuminate\Validation\ValidationException $e) {
         dd($e->errors());
