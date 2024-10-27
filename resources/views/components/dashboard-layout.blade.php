@@ -6,9 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
   @vite('resources/css/app.css')
+  @vite('resources/js/Pages/dashboard-script.js')
 </head>
 
 <body class="bg-gray-200">
+    <div class="hidden">
+        <x-window-alert message="message"/>
+    </div>
 
   <!-- Header -->
   <header class="bg-yellow-500 p-8 text-xl fixed top-0 left-0 right-0 z-20">
@@ -65,10 +69,9 @@
 
       <form method="POST" action="{{ route('logout') }}" class="flex justify-center">
     @csrf
-    <button 
-        type="submit" 
-        class="p-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200"
-    >
+    <button
+        type="submit"
+        class="p-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200">
         Logout
     </button>
 </form>

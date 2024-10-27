@@ -1,14 +1,15 @@
 <x-dashboard-layout>
+
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
-            <a href="{{ route('dashboard.addstudent') }}" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
-                <x-carbon-add class='h-8' />
-                <h2 class='font-semibold'>Add</h2>
+            <a href="{{ route('dashboard.studentlist') }}" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
+                <x-carbon-chevron-left class='h-8' />
+                <h2 class='font-semibold'>Return</h2>
             </a>
             <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200  flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+                <button type="submit" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
                     <x-carbon-trash-can class='h-6' />
                     <h1 class='font-semibold'>Delete</h1>
                 </button>
@@ -20,12 +21,13 @@
         </div>
 
         <form action={{ route('dashboard.searchstudent') }} method='GET' id='functions-rhs' class='flex flex-row gap-x-3'>
-            <input type='text' name='search' placeholder='Enter Name or Student No.' maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2' />
-            <input type='submit' value='Search' class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl' />
+            <input type='text' name='search' placeholder='Search' maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2' value={{$search}} />
+            <input type='submit' value='Search' class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl'/>
         </form>
     </div>
 
     <!-- Table Header -->
+    @if (count($results) > 0)
     <div class='cursor-default flex flex-row justify-between w-full h-auto p-4 rounded-lg'>
         <span class='w-4'></span>
 
@@ -57,7 +59,9 @@
 
 
     <!-- Student Data Rows -->
-    @foreach($students as $student)
+
+
+    @foreach($results as $student)
     <div class='cursor-default flex flex-row justify-between items-center overflow-x-hidden h-auto px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 linear'>
 
         <!-- Delete Checkbox -->
@@ -103,6 +107,10 @@
     </div>
     @endforeach
 
-
+    @else
+        <div class="flex justify-center mt-8">
+            <p>No results found</p>
+        </div>
+    @endif
 
 </x-dashboard-layout>
