@@ -1,7 +1,7 @@
 <x-dashboard-layout>
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
-            <a href='{{ route('dashboard.studentlist') }}' class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
+            <a href='{{ route('dashboard.showstudent', $student->s_id) }}' class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-arrow-left class='h-6' />
                 <h1 class='font-semibold'>Return</h1>
             </a>
@@ -111,13 +111,13 @@
                         @endforeach
                     </select>
                 </div>
-    
-               
+
+
                 <div class='flex flex-row gap-3'>
                     <p class='font-semibold w-1/3'>Section</p>
                     <select name='sec_id' class='font-normal w-2/3 bg-white rounded' required>
                         @foreach($sections as $section)
-                            <option value="{{ $section->sec_id }}" {{ $student->sec_id == $section->sec_id ? 'selected' : '' }}>{{ $section->sec_id }}</option>
+                            <option value="{{ $section->sec_id }}" {{ $student->sec_id == $section->sec_id ? 'selected' : '' }}>{{ $section->sec_Section }}</option>
                         @endforeach
                     </select>
                 </div>

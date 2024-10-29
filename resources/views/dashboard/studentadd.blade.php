@@ -113,7 +113,7 @@
             <select id="sec_id" name="sec_id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
                 <option value="">Select Section</option>
                 @foreach($sections as $section)
-                    <option value="{{ $section->sec_id }}">{{ $section->sec_id }}</option>
+                    <option value="{{ $section->sec_id }}">{{ $section->sec_Section }}</option>
                 @endforeach
             </select>
             @error('section_id')
