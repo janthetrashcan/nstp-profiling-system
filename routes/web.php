@@ -28,6 +28,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard/formators', [DashboardController::class, 'showFormatorList'])->name('dashboard.formatorlist');
     Route::get('dashboard/formators/add', [FormatorController::class, 'addFormator'])->name('dashboard.addformator');
     Route::get('dashboard/formators/view/{f_id}', [FormatorController::class, 'showFormatorProfile'])->name('dashboard.showformator');
+    Route::post('/dashboard/formators', [FormatorController::class, 'store'])->name('formator.store' );
+    Route::get('/dashboard/formators/edit/{f_id}', [FormatorController::class, 'editFormator'])->name('dashboard.formatoredit');
+    Route::put('/dashboard/formators/update/{f_id}', [FormatorController::class, 'updateFormator'])->name('formator.update');
+    Route::delete('/dashboard/formators/delete', [FormatorController::class, 'destroy'])->name('formator.destroy');
+    Route::delete('/dashboard/formators/delete/{f_id?}', [FormatorController::class, 'destroy'])->name('formator.destroy');
 });
 
 Route::middleware('auth')->group(function () {
