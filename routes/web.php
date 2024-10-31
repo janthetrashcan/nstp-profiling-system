@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\FormatorController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/','/dashboard/students')->name('dashboard');
@@ -25,7 +26,8 @@ Route::middleware(['auth'])->group(function(){
 // Formator group
 Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard/formators', [DashboardController::class, 'showFormatorList'])->name('dashboard.formatorlist');
-
+    Route::get('dashboard/formators/add', [FormatorController::class, 'addFormator'])->name('dashboard.addformator');
+    Route::get('dashboard/formators/view/{f_id}', [FormatorController::class, 'showFormatorProfile'])->name('dashboard.showformator');
 });
 
 Route::middleware('auth')->group(function () {
