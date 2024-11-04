@@ -13,7 +13,7 @@
                     <h1 class='font-semibold'>Delete</h1>
                 </button>
             </form>
-            <button class='hover:bg-gray-100 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
+            <button class='bg-gray-200 hover:bg-gray-200 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Filter</h1>
             </button>
@@ -25,84 +25,45 @@
         </form>
     </div>
 
-    <!-- Table Header -->
-    <div class='cursor-default flex flex-row justify-between w-full h-auto p-4 rounded-lg'>
-        <span class='w-4'></span>
+    <!-- Table Structure -->
+    <table class="min-w-full bg-white rounded-lg">
+        <!-- Table Header -->
+        <thead class="bg-gray-200">
+            <tr>
+                <th class="flex justify-right w-4 p-4 text-left">Select</th>
+                <th class="text-left p-4 w-1/12 font-semibold">Student ID</th>
+                <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
+                <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
+                <th class="text-left p-4 w-2/12 font-semibold">Middle Name</th>
+                <th class="text-left p-4 w-1/12 font-semibold">Program</th>
+                <th class="text-left p-4 w-1/12 font-semibold">Component</th>
+                <th class="text-left p-4 w-1/12 font-semibold">Section</th>
+            </tr>
+        </thead>
 
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
-            Student ID
-        </p>
+        <!-- Table Body -->
+        <tbody>
+            @foreach($students as $student)
+            <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
+                <!-- Delete Checkbox -->
+                <td class="p-4 text-center">
+                    <input type='checkbox' name='student_ids[]' value='{{ $student->s_id }}' form="deleteForm" class='w-4 h-4'>
+                </td>
 
-        <!-- STUDENT NAME -->
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
-            Family Name
-        </p>
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
-            First Name
-        </p>
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
-            Middle Name
-        </p>
+                <td class="p-4">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg overflow-x-hidden outline-r-2">
+                        {{ $student->s_StudentNo }}
+                    </a>
+                </td>
 
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
-            Program
-        </p>
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
-            Component
-        </p>
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
-            Section
-        </p>
-    </div>
-
-
-    <!-- Student Data Rows -->
-    @foreach($students as $student)
-    <div class='cursor-default flex flex-row justify-between items-center overflow-x-hidden h-auto px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 linear'>
-
-        <!-- Delete Checkbox -->
-        <div class="flex items-center w-12">
-            <input type='checkbox' name='student_ids[]' value='{{ $student->s_id }}' form="deleteForm" class='w-4 h-4'>
-        </div>
-
-
-        <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="flex flex-row justify-between items-center w-full gap-4">
-
-            <!-- Student ID -->
-            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-                {{ $student->s_StudentNo }}
-            </p>
-
-            <!-- STUDENT NAME -->
-            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->s_Surname) }}
-            </p>
-            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->s_FirstName) }}
-            </p>
-            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->s_MiddleName) }}
-            </p>
-
-            <!-- Program -->
-            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->program->program_Code) }}
-            </p>
-
-            <!-- Component -->
-            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->section->sec_Component) }}
-            </p>
-
-            <!-- Section -->
-            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->section->sec_Section) }}
-            </p>
-
-        </a>
-    </div>
-    @endforeach
-
-
-
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->s_Surname) }}</td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->s_FirstName) }}</td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->s_MiddleName) }}</td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->program->program_Code) }}</td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->section->sec_Component) }}</td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->section->sec_Section) }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </x-dashboard-layout>
