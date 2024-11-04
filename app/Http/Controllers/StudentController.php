@@ -159,4 +159,19 @@ public function destroy(Request $request, $s_id = null)
     return redirect()->route('dashboard.studentlist')->with('error', 'No students selected for deletion.');
 }
 
+
+public function searchStudent(Request $request){
+    $search = $request->input('search');
+
+    if(is_numeric($search)){
+        $results = Student::where('s_StudentNo', 'like', "%$search%")->get();
+    }
+    else{
+        $results = Student::where('s_Surname', 'like', "%$search%")->orWhere('s_FirstName', 'like', "%$search%")->orWhere('s_MiddleName', 'like', "%$search%")->get();
+    }
+
+    return view('dashboard.studentsearch', ['results' => $results, 'search' => $search]);
 }
+
+}
+

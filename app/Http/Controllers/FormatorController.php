@@ -7,59 +7,37 @@ use Illuminate\Http\Request;
 
 class FormatorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function addFormator(){
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function showFormatorProfile(string $f_id){
+        $formator = Formator::where('f_id', $f_id)->first();
+        if($formator === null){
+            abort(404);
+        }
+        // dd($formator);
+
+        return view('dashboard.formatorprofile', ['formator' => $formator]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Formator $formator)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Formator $formator)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Formator $formator)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Formator $formator)
-    {
-        //
+    public function store(Request $request){
+        try{
+            $data = $request->validate([
+                'employee_id'=>'required|string',
+                'f_Surname'=>'required|string|max:255',
+                'f_FirstName'=>'required|string|max:255',
+                'f_MiddleName'=>'required|string|max:255',
+                'f_Sex',
+                'f_Birthdate',
+                'f_ContactNo',
+                'f_EmailAddress',
+                'f_TeachingYearStart',
+                'f_NSTPTeachingYearStart',
+                'f_TeachingUnitCount',
+                'f_Component',
+                'f_EmploymentStatus',
+                'f_ActiveTeaching'
+            ]);
+        }
     }
 }
