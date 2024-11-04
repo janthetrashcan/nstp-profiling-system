@@ -66,4 +66,7 @@
             @endforeach
         </tbody>
     </table>
+    <div class="mt-6 flex justify-end">
+        {{ $students->links() }}
+    </div>
 </x-dashboard-layout>
