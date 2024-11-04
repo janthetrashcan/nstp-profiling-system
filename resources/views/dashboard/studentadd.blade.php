@@ -211,9 +211,9 @@
 
                     
                 </div>
-                <!-- Submit Button -->
-                <div class="flex justify-center mt-">
-                        <button type="submit" class="w-1/6 bg-blue-600 text-white rounded-md px-4 py-2">Submit</button>
+                <!-- ADD STUDENT -->
+                <div class="flex justify-end mt-">
+                        <button type="submit" class="w-1/6 bg-indigo-600 text-white rounded-md px-4 py-2">ADD STUDENT</button>
                     </div>
             </form>
         </div>
