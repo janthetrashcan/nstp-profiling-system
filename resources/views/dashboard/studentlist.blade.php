@@ -1,19 +1,19 @@
 <x-dashboard-layout>
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
-            <a href="{{ route('dashboard.addstudent') }}" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
+            <a href="{{ route('dashboard.addstudent') }}" class='bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-add class='h-8' />
                 <h2 class='font-semibold'>Add</h2>
             </a>
             <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200  flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+                <button type="submit" type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
                     <x-carbon-trash-can class='h-6' />
                     <h1 class='font-semibold'>Delete</h1>
-                </button>
+                </>
             </form>
-            <button class='bg-gray-200 hover:bg-gray-200 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
+            <button class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Filter</h1>
             </button>
