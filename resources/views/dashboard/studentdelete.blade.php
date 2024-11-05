@@ -1,7 +1,8 @@
-<form action="{{ route('student.destroy', $student->s_id) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this student?');">
+<form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
     @csrf
     @method('DELETE')
-    <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded-lg hover:bg-red-700 transition-colors">
-        Delete
+    <button type="submit" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+        <x-carbon-trash-can class='h-6' />
+        <h1 class='font-semibold'>Delete</h1>
     </button>
 </form>
