@@ -137,15 +137,21 @@ class StudentController extends Controller
 
 public function destroy(Request $request, $s_id = null)
 {
-    if ($request->input('student_ids')) {
-        // Multiple delete
+    if ($request->input('student_ids') && !$request->input('confirmed')) {
+        $studentIds = $request->input('student_ids');
+        $students = Student::whereIn('s_id', $studentIds)->get();
+        return view('dashboard.studentdelete', compact('students', 'studentIds'));
+    }
+
+    //for multiple students
+    if ($request->input('student_ids') && $request->input('confirmed')) {
         $studentIds = $request->input('student_ids');
         Student::whereIn('s_id', $studentIds)->delete();
         return redirect()->route('dashboard.studentlist')->with('success', 'Selected students deleted successfully.');
     }
 
+    //for student profile 
     if ($s_id) {
-        // Single delete
         $student = Student::find($s_id);
         if ($student) {
             $student->delete();
@@ -157,7 +163,6 @@ public function destroy(Request $request, $s_id = null)
 
     return redirect()->route('dashboard.studentlist')->with('error', 'No students selected for deletion.');
 }
-
 
 public function searchStudent(Request $request){
     $search = $request->input('search');

@@ -1,11 +1,16 @@
 <x-dashboard-layout>
+    @if(session('error'))
+    <div class="bg-red-500 text-white p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+    @endif
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
             <a href="{{ route('dashboard.addstudent') }}" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-add class='h-8' />
                 <h2 class='font-semibold'>Add</h2>
             </a>
-            <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
+            <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm" >
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200  flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">

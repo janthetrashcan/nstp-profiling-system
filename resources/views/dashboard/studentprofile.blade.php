@@ -11,7 +11,7 @@
                     <h1 class='font-semibold'>Edit</h1>
                 </a>
             </button>
-            <form action="{{ route('student.destroy', $student->s_id) }}" method="POST" id="deleteSingleForm" onsubmit="return confirmDelete();">
+            <form action="{{ route('student.destroy', $student->s_id) }}" method="POST" id="deleteSingleForm" onclick="return confirm('Are you sure?')">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
