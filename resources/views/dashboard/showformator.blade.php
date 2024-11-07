@@ -6,19 +6,19 @@
                 <h1 class='font-semibold'>Return</h1>
             </a>
             <button class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
-                {{-- <a href="{{ route('dashboard.formatoredit', $formator->f_id) }}" class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
+                <a href="{{ route('dashboard.formatoredit', $formator->f_id) }}" class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
                     <x-carbon-edit class='h-6' />
                     <h1 class='font-semibold'>Edit</h1>
-                </a> --}}
+                </a>
             </button>
-            {{-- <form action="{{ route('formator.destroy', $formator->f_id) }}" method="POST" id="deleteSingleForm">
+            <form action="{{ route('formator.destroy', $formator->f_id) }}" method="POST" id="deleteSingleForm">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
                     <x-carbon-trash-can class='h-6' />
                     <h1 class='font-semibold'>Delete</h1>
                 </button>
-            </form> --}}
+            </form>
         </div>
 
         <div id='functions-rhs' class='flex flex-row gap-x-3'>
