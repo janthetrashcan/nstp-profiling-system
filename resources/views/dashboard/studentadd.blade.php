@@ -129,64 +129,61 @@
                             <h3 class="font-semibold">City Address</h3>
                             <div>
                                 <label for="s_c_HouseNo" class="block text-sm font-medium text-gray-700">House No</label>
-                                <input type="text" id="s_c_HouseNo" name="s_c_HouseNo" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
-                                @error('s_c_HouseNo')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="s_c_HouseNo" name="s_c_HouseNo" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                             </div>
                             <div>
                                 <label for="s_c_Street" class="block text-sm font-medium text-gray-700">Street</label>
-                                <input type="text" id="s_c_Street" name="s_c_Street" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
-                                @error('s_c_Street')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="s_c_Street" name="s_c_Street" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                             </div>
                             <div>
                                 <label for="s_c_Barangay" class="block text-sm font-medium text-gray-700">Barangay</label>
-                                <input type="text" id="s_c_Barangay" name="s_c_Barangay" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
-                                @error('s_c_Barangay')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="s_c_Barangay" name="s_c_Barangay" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
+                            </div>
+                            <div >
+                                <label for="s_c_City" class="block text-sm font-medium text-gray-700">City</label>
+                                <input type="text" id="s_c_City" name="s_c_City" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                             </div>
                             <div>
-                                <label for="s_c_City" class="block text-sm font-medium text-gray-700">City</label>
-                                <input type="text" id="s_c_City" name="s_c_City" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
-                                @error('s_c_City')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
+                                <label for="s_c_Province" class="block text-sm font-medium text-gray-700">Province</label>
+                                <input type="text" id="s_c_Province" name="s_c_Province" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                             </div>
+    
+                            <!-- Same as Provincial Address Checkbox -->
+                            <div class="mt-4">
+                                <input type="checkbox" id="sameAsProvincial" name="sameAsProvincial" {{ old('sameAsProvincial') ? 'checked' : '' }}>
+                                <label for="sameAsProvincial" class="text-sm font-medium text-gray-700">Same as Provincial Address</label>
+                            </div>
+                            
+                            <!-- Disable Edit Checkbox -->
+                            <div class="mt-4">
+                                <input type="checkbox" id="disableEdit" name="disableEdit">
+                                <label for="disableEdit" class="text-sm font-medium text-gray-700">Disable Edit</label>
+                            </div>
+    
                         </div>
-
+    
                         <!-- Provincial Address -->
                         <div class="mb-4">
                             <h3 class="font-semibold">Provincial Address</h3>
                             <div>
                                 <label for="s_p_HouseNo" class="block text-sm font-medium text-gray-700">House No</label>
-                                <input type="text" id="s_p_HouseNo" name="s_p_HouseNo" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
-                                @error('s_p_HouseNo')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="s_p_HouseNo" name="s_p_HouseNo" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                             </div>
                             <div>
                                 <label for="s_p_Street" class="block text-sm font-medium text-gray-700">Street</label>
-                                <input type="text" id="s_p_Street" name="s_p_Street" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
-                                @error('s_p_Street')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="s_p_Street" name="s_p_Street" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                             </div>
                             <div>
                                 <label for="s_p_Barangay" class="block text-sm font-medium text-gray-700">Barangay</label>
-                                <input type="text" id="s_p_Barangay" name="s_p_Barangay" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
-                                @error('s_p_Barangay')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="s_p_Barangay" name="s_p_Barangay" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                             </div>
                             <div>
                                 <label for="s_p_Province" class="block text-sm font-medium text-gray-700">Province</label>
-                                <input type="text" id="s_p_Province" name="s_p_Province" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2" />
-                                @error('s_p_Province')
-                                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                                @enderror
+                                <input type="text" id="s_p_Province" name="s_p_Province" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
+                            </div>
+                            <div>
+                                <label for="s_p_City" class="block text-sm font-medium text-gray-700">City</label>
+                                <input type="text" id="s_p_City" name="s_p_City" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                             </div>
                         </div>
                     </div>
@@ -203,7 +200,7 @@
                     <!-- Contact Person Number -->
                     <div class="mb-4 col-span-3">
                         <label for="s_ContactPersonNumber" class="block text-sm font-medium text-gray-700">Contact Person Number</label>
-                        <input type="text" id="s_ContactPersonNumber" name="s_ContactPersonNumber" required class="mt-1 block w-1/2 border-gray-300 rounded-md shadow-sm px-3 py-2" />
+                        <input type="text" id="s_ContactPersonNo" name="s_ContactPersonNo" value="{{ old('s_ContactPersonNo') }}" required class="mt-1 block w-1/2 border-gray-300 rounded-md shadow-sm px-3 py-2" />
                         @error('s_ContactPersonNumber')
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror
@@ -213,8 +210,67 @@
                 </div>
                 <!-- ADD STUDENT -->
                 <div class="flex justify-end mt-">
-                        <button type="submit" class="w-1/6 bg-green-600 text-white hover:bg-green-700 rounded-md px-4 py-2">ADD NEW STUDENT</button>
-                    </div>
-            </form>
-        </div>
+                    <button type="submit" class="w-1/6 bg-green-600 text-white hover:bg-green-700 rounded-md px-4 py-2">ADD NEW STUDENT</button>
+                </div>
+        </form>
+    </div>
+        <script>
+            const sameAsProvincial = document.getElementById('sameAsProvincial');
+            const disableEdit = document.getElementById('disableEdit');
+        
+            const cityFields = {
+            houseNo: document.getElementById('s_c_HouseNo'),
+            street: document.getElementById('s_c_Street'),
+            barangay: document.getElementById('s_c_Barangay'),
+            city: document.getElementById('s_c_City'),
+            province: document.getElementById('s_c_Province')
+        };
+
+        const provincialFields = {
+            houseNo: document.getElementById('s_p_HouseNo'),
+            street: document.getElementById('s_p_Street'),
+            barangay: document.getElementById('s_p_Barangay'),
+            province: document.getElementById('s_p_Province'),
+            city: document.getElementById('s_p_City')
+        };
+        
+            function copyProvincialToCity() {
+                cityFields.houseNo.value = provincialFields.houseNo.value;
+                cityFields.street.value = provincialFields.street.value;
+                cityFields.barangay.value = provincialFields.barangay.value;
+                cityFields.city.value = provincialFields.city.value;
+                cityFields.province.value = provincialFields.province.value;
+
+                // Trigger input events to ensure that changes are recognized
+                Object.values(cityFields).forEach(field => {
+                    field.dispatchEvent(new Event('input', { bubbles: true }));
+                });
+            }
+        
+            // Function to handle disabling/enabling city address fields based on the checkboxes
+            function handleDisableEdit() {
+                const isDisabled = disableEdit.checked || sameAsProvincial.checked;
+                Object.values(cityFields).forEach(field => field.disabled = isDisabled);
+            }
+        
+            // Event listener for "Same as Provincial Address" checkbox
+            sameAsProvincial.addEventListener('change', function() {
+                if (sameAsProvincial.checked) {
+                    copyProvincialToCity();
+                }
+                handleDisableEdit();  // Update fields based on the checkbox
+            });
+        
+            // Event listener for "Disable Edit" checkbox
+            disableEdit.addEventListener('change', function() {
+                handleDisableEdit();  // Update fields based on the checkbox
+            });
+        
+            // Ensure the copy function runs on form submission if needed
+            document.querySelector('form').addEventListener('submit', function() {
+                if (sameAsProvincial.checked) {
+                    copyProvincialToCity();
+                }
+            });
+        </script>
     </x-dashboard-layout>
