@@ -10,13 +10,13 @@
                 <x-carbon-add class='h-8' />
                 <h2 class='font-semibold'>Add</h2>
             </a>
-            <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm" >
+            <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
                     <x-carbon-trash-can class='h-6' />
                     <h1 class='font-semibold'>Delete</h1>
-                </>
+                </button>
             </form>
             <button class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-filter class='h-6' />
@@ -35,7 +35,8 @@
         <!-- Table Header -->
         <thead class="bg-gray-200">
             <tr>
-                <th class="flex justify-right w-4 p-4 text-left">Select</th>
+                <!-- Select Column: Set a narrow width -->
+                <th class="p-4 text-left w-[5%]">Select</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Student ID</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
@@ -50,8 +51,8 @@
         <tbody>
             @foreach($students as $student)
             <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
-                <!-- Delete Checkbox -->
-                <td class="p-4 text-center">
+                <!-- Delete Checkbox with reduced width for the "Select" column -->
+                <td class="p-4 text-center w-[5%]">
                     <input type='checkbox' name='student_ids[]' value='{{ $student->s_id }}' form="deleteForm" class='w-4 h-4'>
                 </td>
 

@@ -4,13 +4,13 @@
         <!-- Left Actions: Add, Delete, Filter -->
         <div id="functions-lhs" class="flex flex-row gap-3">
             <!-- Add Button -->
-            <a href="{{ route('dashboard.addstudent') }}" class="bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex items-center h-12 px-4 py-2 rounded-xl gap-2">
+            <a href="{{ route('dashboard.addformator') }}" class="bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex items-center h-12 px-4 py-2 rounded-xl gap-2">
                 <x-carbon-add class="h-8" />
                 <h2 class="font-semibold">Add</h2>
             </a>
 
             <!-- Delete Button -->
-            <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
+            <form action="{{ route('formator.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-colors duration-200 flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow-md">

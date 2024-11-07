@@ -8,92 +8,100 @@
         </div>
     </div>
 
-    <!-- Formator Update Form -->
-    <form action="{{ route('formator.update', $formator->f_id) }}" method="POST" class='flex flex-col gap-y-3'>
-        @csrf
-        @method('PUT')
+    <!-- Edit Formator Information Section -->
+    <div class="flex justify-center mt-5">
+        <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6">
+            <h1 class="text-2xl font-bold text-left mb-5">Edit Formator Information</h1> 
 
-        <div id='formator-profile' class='flex flex-col gap-y-3'>
-        <p><strong>Viewing</strong> {{ $formator->f_FormatorNo }}</p>
+            <form action="{{ route('formator.update', $formator->f_id) }}" method="POST" class="space-y-6">
+                @csrf
+                @method('PUT')
 
-
-            <div id='formator-info' class='flex flex-col gap-y-2 p-6 w-96 rounded-xl bg-gray-100'>
-                <h1 class='text-2xl font-bold mb-4'>Edit Formator Information</h1>
-
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Formator No</p>
-                    <input type='text' name='employee_id' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->employee_id }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Family Name</p>
-                    <input type='text' name='f_Surname' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_Surname }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>First Name</p>
-                    <input type='text' name='f_FirstName' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_FirstName }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Middle Name</p>
-                    <input type='text' name='f_MiddleName' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_MiddleName }}' />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Sex</p>
-                    <select name='f_Sex' class='font-normal w-2/3 bg-white rounded' required>
-                        <option value='male' {{ $formator->f_Sex == 'male' ? 'selected' : '' }}>Male</option>
-                        <option value='female' {{ $formator->f_Sex == 'female' ? 'selected' : '' }}>Female</option>
-                    </select>
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Birthdate</p>
-                    <input type='date' name='f_Birthdate' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_Birthdate }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Contact No</p>
-                    <input type='text' name='f_ContactNo' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_ContactNo }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Email Address</p>
-                    <input type='email' name='f_EmailAddress' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_EmailAddress }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Teaching Year Start</p>
-                    <input type='text' name='f_TeachingYearStart' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_TeachingYearStart }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>NSTP Teaching Year Start</p>
-                    <input type='text' name='f_NSTPTeachingYearStart' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_NSTPTeachingYearStart }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Teaching Unit Count</p>
-                    <input type='text' name='f_TeachingUnitCount' class='font-normal w-2/3 bg-white rounded' value='{{ $formator->f_TeachingUnitCount }}' required />
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Component</p>
-                    <select name='f_Component' class='font-normal w-2/3 bg-white rounded' required>
-                        <option value='cwts' {{ $formator->f_Component == 'CWTS' ? 'selected' : '' }}>CWTS</option>
-                        <option value='rotc' {{ $formator->f_Component == 'ROTC' ? 'selected' : '' }}>ROTC</option>
-                        <option value='lts' {{ $formator->f_Component == 'LTS' ? 'selected' : '' }}>LTS</option>
-                    </select>
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Employment Status</p>
-                    <select name='f_EmploymentStatus' class='font-normal w-2/3 bg-white rounded' required>
-                        <option value='hired' {{ $formator->f_EmploymentStatus == 'hired' ? 'selected' : '' }}>Hired</option>
-                        <option value='not hired' {{ $formator->f_EmploymentStatus == 'not hired' ? 'selected' : '' }}>Not Hired</option>
-                    </select>
-                </div>
-                <div class='flex flex-row gap-3'>
-                    <p class='font-semibold w-1/3'>Active Teaching</p>
-                    <select name='f_ActiveTeaching' class='font-normal w-2/3 bg-white rounded' required>
-                        <option value='active' {{ $formator->f_ActiveTeaching == 'ACTIVE' ? 'selected' : '' }}>ACTIVE</option>
-                        <option value='inactive' {{ $formator->f_ActiveTeaching == 'INACTIVE' ? 'selected' : '' }}>INACTIVE</option>
-                    </select>
+                <!-- Personal Information Section -->
+                <div class="border-b pb-4 mb-4">
+                    <div class="grid grid-cols-3 gap-4"> <!-- Changed to 3 columns -->
+                        <div>
+                            <label for="f_Number" class="block text-sm font-medium text-gray-700">Formator No</label>
+                            <input type="text" name="f_Number" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_Number }}" required />
+                        </div>
+                        <div>
+                            <label for="f_Surname" class="block text-sm font-medium text-gray-700">Family Name</label>
+                            <input type="text" name="f_Surname" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_Surname }}" required />
+                        </div>
+                        <div>
+                            <label for="f_FirstName" class="block text-sm font-medium text-gray-700">First Name</label>
+                            <input type="text" name="f_FirstName" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_FirstName }}" required />
+                        </div>
+                        <div>
+                            <label for="f_MiddleName" class="block text-sm font-medium text-gray-700">Middle Name</label>
+                            <input type="text" name="f_MiddleName" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_MiddleName }}" />
+                        </div>
+                        <div>
+                            <label for="f_Sex" class="block text-sm font-medium text-gray-700">Sex</label>
+                            <select name="f_Sex" class="mt-1 p-2 border rounded w-full" required>
+                                <option value="Male" {{ $formator->f_Sex == 'Male' ? 'selected' : '' }}>Male</option>
+                                <option value="Female" {{ $formator->f_Sex == 'Female' ? 'selected' : '' }}>Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="f_Birthdate" class="block text-sm font-medium text-gray-700">Birthdate</label>
+                            <input type="date" name="f_Birthdate" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_Birthdate }}" required />
+                        </div>
+                    </div>
                 </div>
 
-                <div class='flex flex-row justify-end'>
-                    <button type="submit" class='bg-blue-500 text-white px-4 py-2 rounded-xl'>Save</button>
+                <!-- Contact Information Section -->
+                <div class="border-b pb-4 mb-4">
+                    <div class="grid grid-cols-3 gap-4"> <!-- Changed to 3 columns -->
+                        <div>
+                            <label for="f_ContactNo" class="block text-sm font-medium text-gray-700">Contact No</label>
+                            <input type="text" name="f_ContactNo" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_ContactNo }}" required />
+                        </div>
+                        <div>
+                            <label for="f_EmailAddress" class="block text-sm font-medium text-gray-700">Email Address</label>
+                            <input type="email" name="f_EmailAddress" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_EmailAddress }}" required />
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <!-- Teaching Information Section -->
+                <div>
+                    <div class="grid grid-cols-3 gap-4"> <!-- Changed to 3 columns -->
+                        <div>
+                            <label for="f_TeachingYearStart" class="block text-sm font-medium text-gray-700">Teaching Year Start</label>
+                            <input type="text" name="f_TeachingYearStart" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_TeachingYearStart }}" required />
+                        </div>
+                        <div>
+                            <label for="f_TeachingUnitCount" class="block text-sm font-medium text-gray-700">Teaching Unit Count</label>
+                            <input type="text" name="f_TeachingUnitCount" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_TeachingUnitCount }}" required />
+                        </div>
+                        <div>
+                            <label for="f_NSTPTeachingYearStart" class="block text-sm font-medium text-gray-700">NSTP Teaching Year Start</label>
+                            <input type="text" name="f_NSTPTeachingYearStart" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_NSTPTeachingYearStart }}" required />
+                        </div>
+                        <div>
+                            <label for="f_Component" class="block text-sm font-medium text-gray-700">Component</label>
+                            <select name="f_Component" class="mt-1 p-2 border rounded w-full" required>
+                                <option value="cwts" {{ $formator->f_Component == 'CWTS' ? 'selected' : '' }}>CWTS</option>
+                                <option value="rotc" {{ $formator->f_Component == 'ROTC' ? 'selected' : '' }}>ROTC</option>
+                                <option value="lts" {{ $formator->f_Component == 'LTS' ? 'selected' : '' }}>LTS</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="f_EmploymentStatus" class="block text-sm font-medium text-gray-700">Employment Status</label>
+                            <select name="f_EmploymentStatus" class="mt-1 p-2 border rounded w-full" required>
+                                <option value="active" {{ $formator->f_EmploymentStatus == 'active' ? 'selected' : '' }}>Active Teaching</option>
+                                <option value="not hired" {{ $formator->f_EmploymentStatus == 'not hired' ? 'selected' : '' }}>Not Hired</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Button -->
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-blue-500 text-white px-6 py-2 rounded-lg font-bold">Save</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </x-dashboard-layout>
