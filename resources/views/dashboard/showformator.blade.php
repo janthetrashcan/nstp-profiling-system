@@ -7,14 +7,14 @@
                 <x-carbon-arrow-left class="h-6" />
                 <span class="font-semibold">Return</span>
             </a>
-            <a href="{{ route('dashboard.formatoredit', $formator->f_id) }}" class="bg-gray-100 flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow">
+            <a href="{{ route('dashboard.formatoredit', $formator->f_id) }}" class="bg-blue-500 hover:bg-blue-600 text-white flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow">
                 <x-carbon-edit class="h-6" />
                 <span class="font-semibold">Edit</span>
             </a>
             <form action="{{ route('formator.destroy', $formator->f_id) }}" method="POST" id="deleteSingleForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-gray-100 flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow">
                     <x-carbon-trash-can class="h-6" />
                     <span class="font-semibold">Delete</span>
                 </button>

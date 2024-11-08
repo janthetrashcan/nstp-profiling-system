@@ -11,13 +11,7 @@
                 <x-carbon-edit class="h-6" />
                 <h1 class="font-semibold">Edit</h1>
             </a>
-            <button class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
-                <a href="{{ route('dashboard.studentedit', $student->s_id) }}" class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
-                    <x-carbon-edit class='h-6' />
-                    <h1 class='font-semibold'>Edit</h1>
-                </a>
-            </button>
-            <form action="{{ route('student.destroy', $student->s_id) }}" method="POST" id="deleteSingleForm" onclick="return confirm('Are you sure?')">
+            <form action="{{ route('student.destroy', $student->s_id) }}" method="POST" id="deleteSingleForm">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
@@ -35,7 +29,7 @@
 
     <!-- Student Profile Header -->
     <div class="flex justify-center mb-6">
-        <h2 class="text-xl font-semibold text-gray-600">Viewing Student: {{ $student->s_StudentNo }}</h2>
+        <h2 class="text-xl font-semibold text-gray-600">Viewing Student ID: {{ $student->s_StudentNo }}</h2>
     </div>
 
     <!-- Student Information Section -->
@@ -43,33 +37,88 @@
         <!-- Personal Information -->
         <div id="student-info" class="flex flex-col gap-y-4 p-6 w-full md:w-96 rounded-xl bg-white shadow-lg">
             <h1 class="text-2xl font-bold text-gray-700 mb-4">Student Information</h1>
+
+            <!-- Family Name -->
             <div class="flex flex-row gap-3">
                 <p class="font-semibold w-1/3 text-gray-600">Family Name</p>
                 <p class="font-normal w-2/3 text-gray-800">{{ $student->s_Surname }}</p>
             </div>
+
+            <!-- First Name -->
             <div class="flex flex-row gap-3">
                 <p class="font-semibold w-1/3 text-gray-600">First Name</p>
                 <p class="font-normal w-2/3 text-gray-800">{{ $student->s_FirstName }}</p>
             </div>
+
+            <!-- Middle Name -->
             <div class="flex flex-row gap-3">
                 <p class="font-semibold w-1/3 text-gray-600">Middle Name</p>
                 <p class="font-normal w-2/3 text-gray-800">{{ $student->s_MiddleName }}</p>
             </div>
+
+            <!-- Sex -->
+            <div class="flex flex-row gap-3">
+                <p class="font-semibold w-1/3 text-gray-600">Sex</p>
+                <p class="font-normal w-2/3 text-gray-800">{{ ucfirst($student->s_Sex) }}</p>
+            </div>
+
+            <!-- Birthdate -->
+            <div class="flex flex-row gap-3">
+                <p class="font-semibold w-1/3 text-gray-600">Birthdate</p>
+                <p class="font-normal w-2/3 text-gray-800">{{ $student->s_Birthdate }}</p>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="flex flex-row gap-3">
+                <p class="font-semibold w-1/3 text-gray-600">Contact Number</p>
+                <p class="font-normal w-2/3 text-gray-800">{{ $student->s_ContactNo }}</p>
+            </div>
+
+            <!-- Email Address -->
+            <div class="flex flex-row gap-3">
+                <p class="font-semibold w-1/3 text-gray-600">Email Address</p>
+                <p class="font-normal w-2/3 text-gray-800">{{ $student->s_EmailAddress }}</p>
+            </div>
         </div>
 
-        <!-- Program and Section Information -->
-        <div id="student-info" class="flex flex-col gap-y-4 p-6 w-full md:w-96 rounded-xl bg-white shadow-lg">
-            <div class="flex flex-row gap-3">
-                <p class="font-semibold w-1/3 text-gray-600">Program Code</p>
-                <p class="font-normal w-2/3 text-gray-800">{{ $student->program->program_Code }}</p>
+        <!-- Program and Address Information -->
+        <div class="flex flex-col gap-6">
+            <!-- Program Information -->
+            <div id="student-info" class="flex flex-col gap-y-4 p-6 w-full md:w-96 rounded-xl bg-white shadow-lg">
+                <h1 class="text-2xl font-bold text-gray-700 mb-4">Program Information</h1>
+
+                <!-- Program Code -->
+                <div class="flex flex-row gap-3">
+                    <p class="font-semibold w-1/3 text-gray-600">Program Code</p>
+                    <p class="font-normal w-2/3 text-gray-800">{{ $student->program->program_Code }}</p>
+                </div>
+
+                <!-- Program Name -->
+                <div class="flex flex-row gap-3">
+                    <p class="font-semibold w-1/3 text-gray-600">Program Name</p>
+                    <p class="font-normal w-2/3 text-gray-800">{{ $student->program->program_Title }}</p>
+                </div>
+
+                <!-- Section -->
+                <div class="flex flex-row gap-3">
+                    <p class="font-semibold w-1/3 text-gray-600">Section</p>
+                    <p class="font-normal w-2/3 text-gray-800">{{ $student->section->sec_Section }}</p>
+                </div>
             </div>
-            <div class="flex flex-row gap-3">
-                <p class="font-semibold w-1/3 text-gray-600">Program Name</p>
-                <p class="font-normal w-2/3 text-gray-800">{{ $student->program->program_Title }}</p>
-            </div>
-            <div class="flex flex-row gap-3">
-                <p class="font-semibold w-1/3 text-gray-600">Section</p>
-                <p class="font-normal w-2/3 text-gray-800">{{ $student->section->sec_Section }}</p>
+
+            <!-- Address Information -->
+            <div class="flex flex-col gap-6">
+                <!-- City Address -->
+                <div class="p-6 w-full rounded-xl bg-white shadow-lg">
+                    <h1 class="text-xl font-semibold text-gray-700 mb-4">City Address</h1>
+                    <p class="text-gray-800">{{ $student->s_c_HouseNo }}, {{ $student->s_c_Street }}, {{ $student->s_c_Barangay }}, {{ $student->s_c_City }}, {{ $student->s_c_Province }}</p>
+                </div>
+
+                <!-- Provincial Address -->
+                <div class="p-6 w-full rounded-xl bg-white shadow-lg">
+                    <h1 class="text-xl font-semibold text-gray-700 mb-4">Provincial Address</h1>
+                    <p class="text-gray-800">{{ $student->s_p_HouseNo }}, {{ $student->s_p_Street }}, {{ $student->s_p_Barangay }}, {{ $student->s_p_City }}, {{ $student->s_p_Province }}</p>
+                </div>
             </div>
         </div>
     </div>
