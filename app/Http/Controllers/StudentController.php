@@ -6,6 +6,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Program;
 use App\Models\Section;
+use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
@@ -33,9 +34,13 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         try {
-            $data = $request->validate([
+            Log::info('Store method called');
+
+            // Prepare the validation rules
+            $rules = [
                 's_StudentNo' => 'required|string|size:6',
                 's_Surname' => 'required|string|max:255',
                 's_FirstName' => 'required|string|max:255',
@@ -46,32 +51,61 @@ class StudentController extends Controller
                 's_EmailAddress' => 'required|email|max:255',
                 'program_id' => 'required|exists:programs,program_id',
                 'sec_id' => 'required|integer|exists:sections,sec_id',
-                's_c_HouseNo' => 'required|string|max:255',
-                's_c_Street' => 'required|string|max:255',
-                's_c_Barangay' => 'required|string|max:255',
-                's_c_City' => 'required|string|max:255',
-                's_c_Province' => 'required|string|max:255',
                 's_p_HouseNo' => 'required|string|max:255',
                 's_p_Street' => 'required|string|max:255',
                 's_p_Barangay' => 'required|string|max:255',
                 's_p_City' => 'required|string|max:255',
                 's_p_Province' => 'required|string|max:255',
+
+                // 's_c_HouseNo' => 'required|string|max:255',
+                // 's_c_Street' => 'required|string|max:255',
+                // 's_c_Barangay' => 'required|string|max:255',
+                // 's_c_City' => 'required|string|max:255',
+                // 's_c_Province' => 'required|string|max:255',
+
                 's_ContactPersonName' => 'required|string|max:255',
                 's_ContactPersonNo' => 'required|string|max:15',
-            ]);
+            ];
+
+            // If 'sameAsProvincial' is not checked, add city address validation rules
+            if (!$request->has('sameAsProvincial')) {
+                $rules = array_merge($rules, [
+                    's_c_HouseNo' => 'required|string|max:255',
+                    's_c_Street' => 'required|string|max:255',
+                    's_c_Barangay' => 'required|string|max:255',
+                    's_c_City' => 'required|string|max:255',
+                    's_c_Province' => 'required|string|max:255'
+                ]);
+            }
+
+            $data = $request->validate($rules);
+
+
+            if($request->has('sameAsProvincial')){
+                $data = array_merge($data, [
+                    's_c_HouseNo' => $data['s_p_HouseNo'],
+                    's_c_Street' => $data['s_p_Street'],
+                    's_c_Barangay' => $data['s_p_Barangay'],
+                    's_c_City' => $data['s_p_City'],
+                    's_c_Province' => $data['s_p_Province']
+                ]);
+            }
 
             // dd($data);
-
+            Log::info('Validation passed');
             $student = Student::create($data);
-            return to_route('dashboard.showstudent', $student);
+            Log::info('Student created with ID: ' . $student->s_id);
+
+            return redirect()->route('dashboard.studentlist')->with('success', 'Student added successfully.');
 
         } catch (\Illuminate\Validation\ValidationException $e) {
-            dd($e->errors());
+            Log::error('Validation failed: ' . json_encode($e->errors()));
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            Log::error('Error in StudentController@store: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while adding the student. Please try again.');
         }
-
-        // return redirect()->route('dashboard.studentlist')->with('success', 'Student added successfully.');
     }
-
 
 
     /**
@@ -150,7 +184,7 @@ public function destroy(Request $request, $s_id = null)
         return redirect()->route('dashboard.studentlist')->with('success', 'Selected students deleted successfully.');
     }
 
-    //for student profile 
+    //for student profile
     if ($s_id) {
         $student = Student::find($s_id);
         if ($student) {

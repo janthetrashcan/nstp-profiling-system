@@ -34,14 +34,14 @@
       <nav class="px-3 py-3">
         <ul>
           <li class="mb-3">
-            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+            <a href="{{ route('dashboard.studentlist') }}" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
               <span class="text-white text-xs mr-2">►</span>
               <span class="mr-2 text-yellow-500">👤</span>
               <span>Student Profile</span>
             </a>
           </li>
           <li class="mb-3">
-            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+            <a href="{{ route('dashboard.formatorlist') }}" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
               <span class="text-white text-xs mr-2">►</span>
               <span class="mr-2 text-yellow-500">👤</span>
               <span>Formator Profile</span>
