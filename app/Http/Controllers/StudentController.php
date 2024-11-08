@@ -38,7 +38,7 @@ class StudentController extends Controller
     {
         try {
             Log::info('Store method called');
-            
+
             // Prepare the validation rules
             $rules = [
                 's_StudentNo' => 'required|string|size:6',
@@ -56,36 +56,48 @@ class StudentController extends Controller
                 's_p_Barangay' => 'required|string|max:255',
                 's_p_City' => 'required|string|max:255',
                 's_p_Province' => 'required|string|max:255',
+
+                // 's_c_HouseNo' => 'required|string|max:255',
+                // 's_c_Street' => 'required|string|max:255',
+                // 's_c_Barangay' => 'required|string|max:255',
+                // 's_c_City' => 'required|string|max:255',
+                // 's_c_Province' => 'required|string|max:255',
+
                 's_ContactPersonName' => 'required|string|max:255',
                 's_ContactPersonNo' => 'required|string|max:15',
             ];
-    
+
             // If 'sameAsProvincial' is not checked, add city address validation rules
             if (!$request->has('sameAsProvincial')) {
-                $rules['s_c_HouseNo'] = 'required|string|max:255';
-                $rules['s_c_Street'] = 'required|string|max:255';
-                $rules['s_c_Barangay'] = 'required|string|max:255';
-                $rules['s_c_City'] = 'required|string|max:255';
-                $rules['s_c_Province'] = 'required|string|max:255';
+                $rules = array_merge($rules, [
+                    's_c_HouseNo' => 'required|string|max:255',
+                    's_c_Street' => 'required|string|max:255',
+                    's_c_Barangay' => 'required|string|max:255',
+                    's_c_City' => 'required|string|max:255',
+                    's_c_Province' => 'required|string|max:255'
+                ]);
             }
-    
+
             $data = $request->validate($rules);
-    
-            Log::info('Validation passed');
-    
-            if ($request->has('sameAsProvincial')) {
-                $data['s_c_HouseNo'] = $request->s_p_HouseNo;
-                $data['s_c_Street'] = $request->s_p_Street;
-                $data['s_c_Barangay'] = $request->s_p_Barangay;
-                $data['s_c_City'] = $request->s_p_City;
-                $data['s_c_Province'] = $request->s_p_Province;
+
+
+            if($request->has('sameAsProvincial')){
+                $data = array_merge($data, [
+                    's_c_HouseNo' => $data['s_p_HouseNo'],
+                    's_c_Street' => $data['s_p_Street'],
+                    's_c_Barangay' => $data['s_p_Barangay'],
+                    's_c_City' => $data['s_p_City'],
+                    's_c_Province' => $data['s_p_Province']
+                ]);
             }
-    
+
+            // dd($data);
+            Log::info('Validation passed');
             $student = Student::create($data);
             Log::info('Student created with ID: ' . $student->s_id);
-    
+
             return redirect()->route('dashboard.studentlist')->with('success', 'Student added successfully.');
-    
+
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation failed: ' . json_encode($e->errors()));
             return redirect()->back()->withErrors($e->errors())->withInput();
@@ -172,7 +184,7 @@ public function destroy(Request $request, $s_id = null)
         return redirect()->route('dashboard.studentlist')->with('success', 'Selected students deleted successfully.');
     }
 
-    //for student profile 
+    //for student profile
     if ($s_id) {
         $student = Student::find($s_id);
         if ($student) {
