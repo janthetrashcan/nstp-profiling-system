@@ -21,6 +21,8 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/dashboard/students/update/{s_id}', [StudentController::class, 'updateStudent'])->name('student.update');
     Route::delete('/dashboard/students/delete', [StudentController::class, 'destroy'])->name('student.destroy');
     Route::delete('/dashboard/students/delete/{s_id?}', [StudentController::class, 'destroy'])->name('student.destroy');
+    Route::get('/dashboard/students', [StudentController::class, 'index'])->name('dashboard.studentlist');
+    Route::get('/dashboard/students/filter', [StudentController::class, 'index'])->name('dashboard.filterstudents');
 });
 
 // Formator group
