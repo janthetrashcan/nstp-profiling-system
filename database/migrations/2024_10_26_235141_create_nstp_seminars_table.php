@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('nstp_seminars', function (Blueprint $table) {
             $table->id('smnr_id');
             $table->string('smnr_Title');
-            $table->date('smnr_Date');
             $table->timestamps();
         });
     }
