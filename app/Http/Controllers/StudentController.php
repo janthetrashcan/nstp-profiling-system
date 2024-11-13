@@ -6,6 +6,9 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Program;
 use App\Models\Section;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ImportStudent;
+use App\Exports\ExportStudent;
 use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
@@ -209,6 +212,18 @@ public function searchStudent(Request $request){
     }
 
     return view('dashboard.studentsearch', ['results' => $results, 'search' => $search]);
+}
+
+public function importView(Request $request){
+    return view('dashboard.studentimport');
+}
+
+public function importStudents(Request $request){
+
+
+
+    //Excel::import(new ImportStudent, $request->file('file')->store('files'));
+    //return redirect()->back();
 }
 
 }

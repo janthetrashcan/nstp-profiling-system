@@ -41,4 +41,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware('auth')->group(function(){
+    Route::get('/file-import',[StudentController::class, 'importView'])->name('student.importview');
+    Route::post('/import-students',[StudentController::class, 'importStudents'])->name('student.import');
+    Route::get('/export-students',[StudentController::class, 'exportUsers'])->name('student.export');
+    Route::get('/export-formators',[FormatorController::class, 'exportFormators'])->name('formator.export');
+});
+
 require __DIR__.'/auth.php';
