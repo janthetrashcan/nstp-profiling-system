@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/dashboard/formators/update/{f_id}', [FormatorController::class, 'updateFormator'])->name('formator.update');
     Route::delete('/dashboard/formators/delete', [FormatorController::class, 'destroy'])->name('formator.destroy');
     Route::delete('/dashboard/formators/delete/{f_id?}', [FormatorController::class, 'destroy'])->name('formator.destroy');
+    Route::get('/dashboard/formatorlist', [FormatorController::class, 'index'])->name('dashboard.formatorlist');
 });
 
 Route::middleware('auth')->group(function () {

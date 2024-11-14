@@ -20,7 +20,7 @@
             </form>
 
             <!-- Filter Button -->
-            <button class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center h-12 px-2 py-2 rounded-xl gap-2">
+            <button id="filterButton" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center h-12 px-2 py-2 rounded-xl gap-2">
                 <x-carbon-filter class="h-6" />
                 <h1 class="font-semibold">Filter</h1>
             </button>
@@ -30,6 +30,49 @@
         <form action="{{ route('dashboard.searchstudent') }}" method="GET" id="functions-rhs" class="flex flex-row gap-3">
             <input type="text" name="search" placeholder="Enter Name or Student No." maxlength="30" class="bg-gray-100 flex w-60 h-12 px-4 py-2 rounded-xl" />
             <input type="submit" value="Search" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl" />
+        </form>
+    </div>
+
+    <!-- Filter Dropdown -->
+    <div id="filterDropdown" class="hidden mb-4 p-4 bg-white rounded-xl shadow-md">
+        <form action="{{ route('dashboard.formatorlist') }}" method="GET" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div>
+                <label for="component" class="block mb-2">Component</label>
+                <select name="component" id="component" class="w-full p-2 border rounded">
+                    <option value="">All</option>
+                    <option value="cwts">CWTS</option>
+                    <option value="rotc">ROTC</option>
+                    <option value="lts">LTS</option>
+                </select>
+            </div>
+            <div>
+                <label for="active_teaching" class="block mb-2">Active Teaching</label>
+                <select name="active_teaching" id="active_teaching" class="w-full p-2 border rounded">
+                    <option value="">All</option>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div>
+                <label for="employment_status" class="block mb-2">Employment Status</label>
+                <select name="employment_status" id="employment_status" class="w-full p-2 border rounded">
+                    <option value="">All</option>
+                    <option value="hired">Hired</option>
+                    <option value="not hired">Not Hired</option>
+                </select>
+            </div>
+            <div>
+                <label for="teaching_year_start" class="block mb-2">Teaching Year Start</label>
+                <input type="number" name="teaching_year_start" id="teaching_year_start" class="w-full p-2 border rounded" placeholder="YYYY">
+            </div>
+            <div>
+                <label for="nstp_teaching_year" class="block mb-2">NSTP Teaching Year</label>
+                <input type="number" name="nstp_teaching_year" id="nstp_teaching_year" class="w-full p-2 border rounded" placeholder="YYYY">
+            </div>
+            <div class="col-span-2 md:col-span-3 lg:col-span-5">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Apply Filters</button>
+                <a href="{{ route('dashboard.formatorlist') }}" class="ml-2 text-blue-500 hover:underline">Clear Filters</a>
+            </div>
         </form>
     </div>
 
@@ -77,4 +120,14 @@
     <div class="mt-6 flex justify-end">
         {{ $formators->links() }}
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButton = document.getElementById('filterButton');
+            const filterDropdown = document.getElementById('filterDropdown');
+
+            filterButton.addEventListener('click', function() {
+                filterDropdown.classList.toggle('hidden');
+            });
+        });
+    </script>
 </x-dashboard-layout>
