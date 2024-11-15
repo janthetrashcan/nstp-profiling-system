@@ -96,22 +96,27 @@
         <!-- Table Body -->
         <tbody>
             @foreach($formators as $formator)
-            <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
-                <!-- Delete Checkbox -->
-                <td class="p-4 text-center">
-                    <input type="checkbox" name="student_ids[]" value="{{ $formator->f_id }}" form="deleteForm" class="w-4 h-4">
-                </td>
+                <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
+                        <!-- Delete Checkbox -->
+                        <td class="p-4 text-center">
+                            <input type="checkbox" name="student_ids[]" value="{{ $formator->f_id }}" form="deleteForm" class="w-4 h-4">
+                        </td>
 
-                <!-- Formator Details -->
-                <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_Surname) }}</td>
-                <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_FirstName) }}</td>
-                <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_MiddleName) }}</td>
-                <td class="p-4 text-lg text-center">{{ $formator->f_Age }}</td>
-                <td class="p-4 text-lg text-left">{{ $formator->f_TeachingYearStart }}</td>
-                <td class="p-4 text-lg text-left">{{ $formator->f_NSTPTeachingYearStart }}</td>
-                <td class="p-4 text-lg text-center">{{ $formator->f_TeachingUnitCount }}</td>
-                <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_Component) }}</td>
-            </tr>
+                        <!-- Formator Details -->
+                        <td class="p-4 text-lg text-left">
+                            <a class="p-0 m-0" href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                            {{ Str::upper($formator->f_Surname) }}</td>
+                            </a>
+                        <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_FirstName) }}</td>
+                        <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_MiddleName) }}</td>
+                        <td class="p-4 text-lg text-center">{{ $formator->f_Age }}</td>
+                        <td class="p-4 text-lg text-left">{{ $formator->f_TeachingYearStart }}</td>
+                        <td class="p-4 text-lg text-left">{{ $formator->f_NSTPTeachingYearStart }}</td>
+                        <td class="p-4 text-lg text-center">{{ $formator->f_TeachingUnitCount }}</td>
+                        <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_Component) }}</td>
+
+                </tr>
+
             @endforeach
         </tbody>
     </table>
