@@ -25,7 +25,7 @@
     <!-- Sidebar -->
     <aside class="h-screen w-64 bg-gray-800 text-white fixed top-20 left-0 z-10">
       <div class="p-4">
-        <button class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
+        <button class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300 mt-6">
           <span class="text-lg font-bold bg-yellow-500 text-gray-800 rounded-full p-3 mr-3">+</span>
           <span class="text-lg font-semibold">Import Forms</span>
         </button>
@@ -47,13 +47,6 @@
               <span>Formator Profile</span>
             </a>
           </li>
-          <li class="mb-5">
-            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
-              <span class="text-white text-xs mr-2">►</span>
-              <span class="mr-2 text-yellow-500">👥</span>
-              <span>Class Profile</span>
-            </a>
-          </li>
         </ul>
       </nav>
 
@@ -71,7 +64,7 @@
     @csrf
     <button
         type="submit"
-        class="p-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200">
+        class="p-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 mt-72">
         Logout
     </button>
 </form>
