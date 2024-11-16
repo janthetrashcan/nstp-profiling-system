@@ -62,12 +62,36 @@
                     </a>
                 </td>
 
-                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->s_Surname) }}</td>
-                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->s_FirstName) }}</td>
-                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->s_MiddleName) }}</td>
-                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->program->program_Code) }}</td>
-                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->section->sec_Component) }}</td>
-                <td class="p-4 text-lg overflow-x-hidden outline-r-2">{{ Str::upper($student->section->sec_Section) }}</td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        {{ Str::upper($student->s_Surname) }}
+                    </a>
+                </td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        {{ Str::upper($student->s_FirstName) }}
+                    </a>
+                </td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        {{ Str::upper($student->s_MiddleName) }}
+                    </a>
+                </td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        {{ Str::upper($student->program->program_Code) }}
+                    </a>
+                </td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        {{ Str::upper($student->section->sec_Component) }}
+                    </a>
+                </td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        {{ Str::upper($student->section->sec_Section) }}
+                    </a>
+                </td>
             </tr>
             @endforeach
         </tbody>
