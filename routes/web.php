@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\FormatorController;
+use App\Http\Controllers\StudentImportController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/','/dashboard/students')->name('dashboard');
@@ -23,6 +24,9 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/dashboard/students/delete/{s_id?}', [StudentController::class, 'destroy'])->name('student.destroy');
     Route::get('/dashboard/students', [StudentController::class, 'index'])->name('dashboard.studentlist');
     Route::get('/dashboard/students/filter', [StudentController::class, 'index'])->name('dashboard.filterstudents');
+
+    Route::get('/dashboard/students/import',[StudentController::class, 'importStudentsPage'])->name('dashboard.importstudents');
+    Route::post('/dashboard/students/import/processing', [StudentImportController::class, 'import'])->name('students.import');
 });
 
 // Formator group
