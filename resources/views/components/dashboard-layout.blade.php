@@ -71,10 +71,10 @@
     <!-- Sidebar -->
     <aside class="sidebar">
       <div class="p-4">
-        <button class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300 mt-4">
+        <a href="{{ route('dashboard.importstudents') }}" class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300 mt-6">
           <span class="text-lg font-bold bg-yellow-500 text-gray-800 rounded-full p-3 mr-3">+</span>
           <span class="text-lg font-semibold">Import Forms</span>
-        </button>
+        </a>
       </div>
 
       <nav class="px-3 py-3">

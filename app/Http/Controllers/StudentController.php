@@ -157,7 +157,7 @@ class StudentController extends Controller
     }
 
     public function updateStudent(Request $request, string $s_id)
-{
+    {
 
     $student = Student::where('s_id', $s_id)->first();
     if ($student === null) {
@@ -170,6 +170,7 @@ class StudentController extends Controller
             's_Surname' => 'required|string|max:255',
             's_FirstName' => 'required|string|max:255',
             's_MiddleName' => 'nullable|string|max:255',
+            's_Suffix' => 'nullable|string|max:255|/^(I{1,3}|II{1,3}|III{1,3}|IV|V?I{0,3}|VI{0,3}|VII{0,3}|VIII|IX|X)$|Jr\.$/',
             's_Sex' => 'required|string|in:male,female',
             's_Birthdate' => 'required|date',
             's_ContactNo' => 'required|string|max:15',
@@ -238,6 +239,11 @@ public function searchStudent(Request $request){
 
     return view('dashboard.studentsearch', ['results' => $results, 'search' => $search]);
 }
+
+public function importStudentsPage(Request $request){
+    return view('dashboard.studentimport');
+}
+
 
 }
 
