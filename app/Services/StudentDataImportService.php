@@ -25,15 +25,15 @@ class StudentDataImportService
             dd($e);
         }
 
-        dd($registrarImport, $googleFormsImport);
-
 
         // convert imports to collections
         $registrarData = collect($registrarImport->getData());
         $googleFormsData = collect($googleFormsImport->getData());
 
+        // dd($registrarData, $googleFormsData);
 
         // process each record from registrar data
+        try{
         $registrarData->each(function ($registrarRecord) use ($googleFormsData){
             // match s_StudentNo of registrardata with googleformsdata
             $googleFormsRecord = $googleFormsData->firstWhere('s_StudentNo', $registrarRecord['s_StudentNo']);
@@ -46,6 +46,10 @@ class StudentDataImportService
                 );
             }
         });
+        }
+        catch(Exception $e){
+            dd($e);
+        }
 
     }
 }

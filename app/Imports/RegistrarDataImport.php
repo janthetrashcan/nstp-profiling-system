@@ -38,8 +38,7 @@ class RegistrarDataImport implements ToModel, WithHeadingRow
                 's_ContactNo' => $row['contact_no'],
 
                 'program_id' => $program->program_id,
-
-                'sec_id' => $section->id,
+                'sec_id' => $section->sec_id,
             ];
 
             $this->data = array_map(function($value){
