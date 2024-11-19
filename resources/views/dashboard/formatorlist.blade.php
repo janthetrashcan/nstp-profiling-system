@@ -85,7 +85,7 @@
                 <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Middle Name</th>
-                <th class="text-left p-4 w-1/12 font-semibold">Age</th>
+                
                 <th class="text-left p-4 w-2/12 font-semibold">Teaching Year Start</th>
                 <th class="text-left p-4 w-2/12 font-semibold">NSTP Teaching Year Start</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Units Count</th>
@@ -99,24 +99,47 @@
                 <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
                         <!-- Delete Checkbox -->
                         <td class="p-4 text-center">
-                            <input type="checkbox" name="student_ids[]" value="{{ $formator->f_id }}" form="deleteForm" class="w-4 h-4">
+                            <input type="checkbox" name="formator_ids[]" value="{{ $formator->f_id }}" form="deleteForm" class="w-4 h-4">
                         </td>
 
                         <!-- Formator Details -->
                         <td class="p-4 text-lg text-left">
-                            <a class="p-0 m-0" href="{{ route('dashboard.showformator', $formator->f_id) }}">
-                            {{ Str::upper($formator->f_Surname) }}</td>
+                            <a href="{{ route('dashboard.showformator', $formator->f_id) }}" class="p-0 m-0">
+                                {{ Str::upper($formator->f_Surname) }}
                             </a>
-                        <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_FirstName) }}</td>
-                        <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_MiddleName) }}</td>
-                        <td class="p-4 text-lg text-center">{{ $formator->f_Age }}</td>
-                        <td class="p-4 text-lg text-left">{{ $formator->f_TeachingYearStart }}</td>
-                        <td class="p-4 text-lg text-left">{{ $formator->f_NSTPTeachingYearStart }}</td>
-                        <td class="p-4 text-lg text-center">{{ $formator->f_TeachingUnitCount }}</td>
-                        <td class="p-4 text-lg text-left">{{ Str::upper($formator->f_Component) }}</td>
-
+                        </td>
+                        <td class="p-4 text-lg text-left">
+                            <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                                {{ Str::upper($formator->f_FirstName) }}
+                            </a>
+                        </td>
+                        <td class="p-4 text-lg text-left">
+                            <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                                {{ Str::upper($formator->f_MiddleName) }}
+                            </a>
+                        </td>
+        
+                        <td class="p-4 text-lg text-left">
+                            <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                                {{ $formator->f_TeachingYearStart }}
+                            </a>
+                        </td>
+                        <td class="p-4 text-lg text-left">
+                            <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                                {{ $formator->f_NSTPTeachingYearStart }}
+                            </a>
+                        </td>
+                        <td class="p-4 text-lg text-center">
+                            <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                                {{ $formator->f_TeachingUnitCount }}
+                            </a>
+                        </td>
+                        <td class="p-4 text-lg text-left">
+                            <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                                {{ Str::upper($formator->f_Component) }}
+                            </a>
+                        </td>
                 </tr>
-
             @endforeach
         </tbody>
     </table>
