@@ -9,7 +9,31 @@ use Illuminate\Http\Request;
 
 class FormatorController extends Controller {
     
-    
+     public function index(Request $request)
+    {
+        $query = Formator::query();
+
+        // Apply filters
+        if ($request->filled('component')) {
+            $query->where('f_Component', $request->component);
+        }
+        if ($request->filled('active_teaching')) {
+            $query->where('f_ActiveTeaching', $request->active_teaching);
+        }
+        if ($request->filled('employment_status')) {
+            $query->where('f_EmploymentStatus', $request->employment_status);
+        }
+        if ($request->filled('teaching_year_start')) {
+            $query->where('f_TeachingYearStart', $request->teaching_year_start);
+        }
+        if ($request->filled('nstp_teaching_year')) {
+            $query->where('f_NSTPTeachingYearStart', $request->nstp_teaching_year);
+        }
+
+        $formators = $query->paginate(15);  // Adjust the number as needed
+
+        return view('dashboard.formatorlist', compact('formators'));
+    }
     public function addformator() {
         $sections = Section::all();
         return view('dashboard.addformator', ['sections' => $sections]);

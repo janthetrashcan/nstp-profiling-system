@@ -93,7 +93,6 @@
               <span>Formator Profile</span>
             </a>
           </li>
-          
         </ul>
       </nav>
 

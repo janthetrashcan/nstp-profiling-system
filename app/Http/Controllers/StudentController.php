@@ -13,9 +13,37 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return 'index';
+        //for dropdown chuchu
+        $programs = Program::all();
+        $components = Section::distinct()->pluck('sec_Component');
+        $sections = Section::all();
+
+        $query = Student::query();
+
+        if ($request->filled('program')) {
+            $query->where('program_id', $request->input('program'));
+        }
+
+        if ($request->filled('component')) {
+            $query->whereHas('section', function ($q) use ($request) {
+                $q->where('sec_Component', $request->input('component'));
+            });
+        }
+
+        if ($request->filled('section')) {
+            $query->where('sec_id', $request->input('section'));
+        }
+
+        $students = $query->paginate(15);
+
+        // checker lang if na set na ba ng tama
+        Log::info('Programs count: ' . $programs->count());
+        Log::info('Components count: ' . $components->count());
+        Log::info('Sections count: ' . $sections->count());
+
+        return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections'));
     }
 
     /**
