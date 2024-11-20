@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportStudents;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\Program;
@@ -85,12 +87,6 @@ class StudentController extends Controller
                 's_p_City' => 'required|string|max:255',
                 's_p_Province' => 'required|string|max:255',
 
-                // 's_c_HouseNo' => 'required|string|max:255',
-                // 's_c_Street' => 'required|string|max:255',
-                // 's_c_Barangay' => 'required|string|max:255',
-                // 's_c_City' => 'required|string|max:255',
-                // 's_c_Province' => 'required|string|max:255',
-
                 's_ContactPersonName' => 'required|string|max:255',
                 's_ContactPersonNo' => 'required|string|max:15',
             ];
@@ -108,7 +104,6 @@ class StudentController extends Controller
 
             $data = $request->validate($rules);
 
-
             if($request->has('sameAsProvincial')){
                 $data = array_merge($data, [
                     's_c_HouseNo' => $data['s_p_HouseNo'],
@@ -119,7 +114,9 @@ class StudentController extends Controller
                 ]);
             }
 
-            // dd($data);
+            $data['s_c_CompleteAddress'] = $data['s_c_HouseNo'].', '.$data['s_c_Street'].', '.$data['s_c_Barangay'].', '.$data['s_c_City'].', '.$data['s_c_Province'];
+            $data['s_p_CompleteAddress'] = $data['s_p_HouseNo'].', '.$data['s_p_Street'].', '.$data['s_p_Barangay'].', '.$data['s_p_City'].', '.$data['s_p_Province'];
+
             Log::info('Validation passed');
             $student = Student::create($data);
             Log::info('Student created with ID: ' . $student->s_id);
@@ -244,6 +241,8 @@ public function importStudentsPage(Request $request){
     return view('dashboard.studentimport');
 }
 
-
+public function exportUsers(Request $request){
+    return Excel::download(new ExportStudents, 'students.xlsx');
+}
 }
 
