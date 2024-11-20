@@ -33,6 +33,7 @@ return new class extends Migration
             $table->string('s_c_Barangay');
             $table->string('s_c_City');
             $table->string('s_c_Province');
+            $table->string('s_c_CompleteAddress');
 
             // Provincial Address
             $table->string('s_p_HouseNo');
@@ -40,6 +41,7 @@ return new class extends Migration
             $table->string('s_p_Barangay');
             $table->string('s_p_City');
             $table->string('s_p_Province');
+            $table->string('s_p_CompleteAddress');
 
             // Contact Person
             $table->string('s_ContactPersonName');
