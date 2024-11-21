@@ -17,14 +17,8 @@ class StudentDataImportService
         $registrarImport = new RegistrarDataImport();
         $googleFormsImport = new GoogleFormsImport();
 
-        try{
-            Excel::import($registrarImport, $registrarFile);
-            Excel::import($googleFormsImport, $googleFormsFile);
-        }
-        catch(Exception $e){
-            dd($e);
-        }
-
+        Excel::import($registrarImport, $registrarFile);
+        Excel::import($googleFormsImport, $googleFormsFile);
 
         // convert imports to collections
         $registrarData = collect($registrarImport->getData());

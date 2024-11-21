@@ -25,9 +25,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard/students', [StudentController::class, 'index'])->name('dashboard.studentlist');
     Route::get('/dashboard/students/filter', [StudentController::class, 'index'])->name('dashboard.filterstudents');
 
+
     Route::get('/dashboard/students/import',[StudentController::class, 'importStudentsPage'])->name('dashboard.importstudents');
     Route::post('/dashboard/students/import/processing', [StudentImportController::class, 'import'])->name('students.import');
-    Route::get('/dashboard/students/export',[StudentController::class, 'exportUsers'])->name('dashboard.exportstudents');
+    Route::get('/dashboard/students/export',[StudentController::class, 'exportStudentsPage'])->name('dashboard.exportstudentspage');
+    Route::get('/dashboard/students/export/processing',[StudentController::class, 'exportStudents'])->name('dashboard.exportstudents');
 });
 
 // Formator group

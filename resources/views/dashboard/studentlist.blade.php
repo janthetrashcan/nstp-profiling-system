@@ -23,7 +23,7 @@
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Filter</h1>
             </button>
-            <a href='{{ route('dashboard.exportstudents') }}' id="exportStudents" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
+            <a href='{{ route('dashboard.exportstudentspage') }}' id="exportStudents" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Export</h1>
             </a>
