@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Program;
 use App\Models\Section;
+use App\Models\Component;
 
 class Student extends Model
 {
@@ -43,6 +44,10 @@ class Student extends Model
 
     public function section(){
         return $this->belongsTo(Section::class, 'sec_id');
+    }
+
+    public function component(){
+        return $this->belongsTo(Component::class, 'component_id');
     }
 }
 

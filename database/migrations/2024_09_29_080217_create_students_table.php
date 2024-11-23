@@ -15,11 +15,15 @@ return new class extends Migration
             $table->id('s_id');
             $table->string('s_StudentNo')->length(6); //->unique();
             $table->foreignId('program_id')->references('program_id')->on('programs')->onDelete('set null');
+            $table->foreignId('sec_id')->references('sec_id')->on('sections')->onDelete('set null');
+            $table->foreignId('component_id')->nullable()->references('component_id')->on('components')->onDelete('set null');
+            $table->string('s_FinalGrade')->nullable();
+            $table->string('s_SchoolYear')->nullable();
 
             // Name
             $table->string('s_Surname');
             $table->string('s_FirstName');
-            $table->string('s_MiddleName');
+            $table->string('s_MiddleName')->nullable();
             $table->string('s_Suffix')->nullable();
 
             $table->enum('s_Sex',['male','female']);
@@ -28,16 +32,16 @@ return new class extends Migration
             $table->string('s_EmailAddress');
 
             // City Address
-            $table->string('s_c_HouseNo');
-            $table->string('s_c_Street');
+            $table->string('s_c_HouseNo')->nullable();
+            $table->string('s_c_Street')->nullable();
             $table->string('s_c_Barangay');
             $table->string('s_c_City');
             $table->string('s_c_Province');
             $table->string('s_c_CompleteAddress');
 
             // Provincial Address
-            $table->string('s_p_HouseNo');
-            $table->string('s_p_Street');
+            $table->string('s_p_HouseNo')->nullable();
+            $table->string('s_p_Street')->nullable();
             $table->string('s_p_Barangay');
             $table->string('s_p_City');
             $table->string('s_p_Province');
@@ -46,8 +50,6 @@ return new class extends Migration
             // Contact Person
             $table->string('s_ContactPersonName');
             $table->string('s_ContactPersonNo');
-
-            $table->foreignId('sec_id')->references('sec_id')->on('sections')->onDelete('set null');
 
             $table->timestamps();
         });
