@@ -1,5 +1,5 @@
 @if(isset($programs) && $programs->isNotEmpty() && isset($components) && $components->isNotEmpty() && isset($sections) && $sections->isNotEmpty())
-    <div id="filterForm" class="mb-4 {{ request('program') || request('component') || request('section') || request('status') || request('grade') ? '' : 'hidden' }}">
+    <div id="filterForm" class="mb-4 {{ request('program') || request('component_id') || request('section') || request('status') || request('grade') ? '' : 'hidden' }}">
         <form action="{{ route('dashboard.filterstudents') }}" method="GET" class="flex flex-wrap items-center space-x-2 space-y-2">
             <select name="program" id="program-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
                 <option value="">Select Program</option>
@@ -10,11 +10,11 @@
                 @endforeach
             </select>
 
-            <select name="component" id="component-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+            <select name="component_id" id="component-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
                 <option value="">Select Component</option>
                 @foreach($components as $component)
-                    <option value="{{ $component }}" {{ request('component') == $component ? 'selected' : '' }}>
-                        {{ $component }}
+                    <option value="{{ $component->component_id }}" {{ request('component_id') == $component->component_id ? 'selected' : '' }}>
+                        {{ strtoupper($component->component_Name) }}
                     </option>
                 @endforeach
             </select>
@@ -45,7 +45,7 @@
 
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 p-3 rounded-xl">Apply Filter</button>
             
-            @if(request('program') || request('component') || request('section') || request('status') || request('grade'))
+            @if(request('program') || request('component_id') || request('section') || request('status') || request('grade'))
                 <a href="{{ route('dashboard.studentlist') }}" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl">Clear Filter</a>
             @endif
         </form>

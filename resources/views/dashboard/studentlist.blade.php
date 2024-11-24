@@ -48,7 +48,6 @@
                 <th class="text-left p-4 w-1/12 font-semibold">Program</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Component</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Section</th>
-                <th class="text-left p-4 w-1/12 font-semibold">Status</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Grade</th>
             </tr>
         </thead>
@@ -91,15 +90,6 @@
                 <td class="p-4 text-lg overflow-x-hidden outline-r-2">
                     <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
                         {{ Str::upper($student->section->sec_Section) }}
-                    </a>
-                </td>
-                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
-                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
-                        @if($student->s_FinalGrade == 'F')
-                            {{ 'Failed' }}
-                        @else
-                            {{ 'Passed' }}
-                        @endif
                     </a>
                 </td>
                 <td class="p-4 text-lg overflow-x-hidden outline-r-2">

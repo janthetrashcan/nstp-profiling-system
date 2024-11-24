@@ -20,7 +20,7 @@ class StudentController extends Controller
     {
         // Existing code for dropdown options
         $programs = Program::all();
-        $components = Component::all();
+        $components = Component::select('component_id', 'component_Name')->get();
         $sections = Section::all();
 
         $query = Student::query();
@@ -30,10 +30,8 @@ class StudentController extends Controller
             $query->where('program_id', $request->input('program'));
         }
 
-        if ($request->filled('component')) {
-            $query->whereHas('section', function ($q) use ($request) {
-                $q->where('sec_Component', $request->input('component'));
-            });
+        if ($request->filled('component_id')) {
+            $query->where('component_id', $request->component_id);
         }
 
         if ($request->filled('section')) {

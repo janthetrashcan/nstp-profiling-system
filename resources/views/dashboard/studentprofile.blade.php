@@ -79,6 +79,16 @@
                 <p class="font-semibold w-1/3 text-gray-600">Email Address</p>
                 <p class="font-normal w-2/3 text-gray-800">{{ $student->s_EmailAddress }}</p>
             </div>
+            <!-- Section -->
+            <div class="flex flex-row gap-3">
+                <p class="font-semibold w-1/3 text-gray-600">Section</p>
+                <p class="font-normal w-2/3 text-gray-800">{{ $student->section->sec_Section }}</p>
+            </div>
+            <!-- Grade -->
+            <div class="flex flex-row gap-3">
+                <p class="font-semibold w-1/3 text-gray-600">Final Grade</p>
+                <p class="font-normal w-2/3 text-gray-800">{{ $student->s_FinalGrade }}</p>
+            </div>
         </div>
 
         <!-- Program and Address Information -->
@@ -97,12 +107,6 @@
                 <div class="flex flex-row gap-3">
                     <p class="font-semibold w-1/3 text-gray-600">Program Name</p>
                     <p class="font-normal w-2/3 text-gray-800">{{ $student->program->program_Title }}</p>
-                </div>
-
-                <!-- Section -->
-                <div class="flex flex-row gap-3">
-                    <p class="font-semibold w-1/3 text-gray-600">Section</p>
-                    <p class="font-normal w-2/3 text-gray-800">{{ $student->section->sec_Section }}</p>
                 </div>
             </div>
 
