@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Component;
 class Formator extends Model
 {
     protected $primaryKey = 'f_id';
@@ -25,7 +25,9 @@ class Formator extends Model
         'f_ActiveTeaching'
     ];
 
-
+    public function component(){
+        return $this->belongsTo(Component::class, 'component_id');
+    }
 
     use HasFactory;
 }

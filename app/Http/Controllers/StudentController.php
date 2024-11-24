@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\Program;
 use App\Models\Section;
+use App\Models\Component;
 use Illuminate\Support\Facades\Log;
 
 
@@ -18,35 +19,44 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        //for dropdown chuchu
+        // Existing code for dropdown options
         $programs = Program::all();
-        $components = Section::distinct()->pluck('sec_Component');
+        $components = Component::select('component_id', 'component_Name')->get();
         $sections = Section::all();
 
         $query = Student::query();
 
+        // Existing filters
         if ($request->filled('program')) {
-            $query->where('program_id', $request->input('program'));
+        $query->where('program_id', $request->input('program'));
         }
 
-        if ($request->filled('component')) {
-            $query->whereHas('section', function ($q) use ($request) {
-                $q->where('sec_Component', $request->input('component'));
-            });
+        if ($request->filled('component_id')) {
+            $query->where('component_id', $request->input('component_id'));
         }
 
         if ($request->filled('section')) {
             $query->where('sec_id', $request->input('section'));
         }
+        // New filters for passed, failed, and grades
+        if ($request->filled('status')) {
+            if ($request->input('status') === 'passed') {
+                $query->whereIn('s_FinalGrade', [1, 1.5, 2, 2.5, 3, 3.5, 4]);
+            } elseif ($request->input('status') === 'failed') {
+                $query->where('s_FinalGrade', 'F');
+            }
+        }
+
+        if ($request->filled('grade')) {
+            $query->where('s_FinalGrade', $request->input('grade'));
+        }
 
         $students = $query->paginate(15);
 
-        // checker lang if na set na ba ng tama
-        Log::info('Programs count: ' . $programs->count());
-        Log::info('Components count: ' . $components->count());
-        Log::info('Sections count: ' . $sections->count());
+        // Prepare grades for dropdown
+        $grades = [1, 1.5, 2, 2.5, 3, 3.5, 4];
 
-        return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections'));
+        return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections', 'grades'));
     }
 
     /**
@@ -54,12 +64,12 @@ class StudentController extends Controller
      */
     public function addStudent()
     {
-
-
           $programs = Program::all();
           $sections = Section::all();
+          $components = Component::all();
+          $grades = ['F', '1', '1.5', '2', '2.5', '3', '3.5', '4'];
 
-          return view('dashboard.studentadd', compact('programs', 'sections'));
+          return view('dashboard.studentadd', compact('programs', 'sections', 'components', 'grades'));
     }
 
     /**
@@ -82,17 +92,13 @@ class StudentController extends Controller
                 's_EmailAddress' => 'required|email|max:255',
                 'program_id' => 'required|exists:programs,program_id',
                 'sec_id' => 'required|integer|exists:sections,sec_id',
-                's_p_HouseNo' => 'required|string|max:255',
-                's_p_Street' => 'required|string|max:255',
+                'component_id' => 'required|integer|exists:components,component_id',
+                's_p_HouseNo' => 'nullable|string|max:255',
+                's_p_Street' => 'nullable|string|max:255',
                 's_p_Barangay' => 'required|string|max:255',
                 's_p_City' => 'required|string|max:255',
                 's_p_Province' => 'required|string|max:255',
-
-                // 's_c_HouseNo' => 'required|string|max:255',
-                // 's_c_Street' => 'required|string|max:255',
-                // 's_c_Barangay' => 'required|string|max:255',
-                // 's_c_City' => 'required|string|max:255',
-                // 's_c_Province' => 'required|string|max:255',
+                's_FinalGrade' => 'nullable|string|in:F,1,1.5,2,2.5,3,3.5,4',
 
                 's_ContactPersonName' => 'required|string|max:255',
                 's_ContactPersonNo' => 'required|string|max:15',
@@ -101,8 +107,8 @@ class StudentController extends Controller
             // If 'sameAsProvincial' is not checked, add city address validation rules
             if (!$request->has('sameAsProvincial')) {
                 $rules = array_merge($rules, [
-                    's_c_HouseNo' => 'required|string|max:255',
-                    's_c_Street' => 'required|string|max:255',
+                    's_c_HouseNo' => 'nullable|string|max:255',
+                    's_c_Street' => 'nullable|string|max:255',
                     's_c_Barangay' => 'required|string|max:255',
                     's_c_City' => 'required|string|max:255',
                     's_c_Province' => 'required|string|max:255'
@@ -111,7 +117,7 @@ class StudentController extends Controller
 
             $data = $request->validate($rules);
 
-
+            Student::create($data);
             if($request->has('sameAsProvincial')){
                 $data = array_merge($data, [
                     's_c_HouseNo' => $data['s_p_HouseNo'],
@@ -122,9 +128,15 @@ class StudentController extends Controller
                 ]);
             }
 
-            // dd($data);
+            // Merge composite attributes of City Address and Provincial Address
+            $data = array_merge($data, [
+                's_c_CompleteAddress' => $data['s_c_HouseNo'].', '.$data['s_c_Street'].', '.$data['s_c_Barangay'].', '.$data['s_c_City'].', '.$data['s_c_Province'],
+                's_p_CompleteAddress' => $data['s_p_HouseNo'].', '.$data['s_p_Street'].', '.$data['s_p_Barangay'].', '.$data['s_p_City'].', '.$data['s_p_Province'],
+            ]);
+
             Log::info('Validation passed');
             $student = Student::create($data);
+
             Log::info('Student created with ID: ' . $student->s_id);
 
             return redirect()->route('dashboard.studentlist')->with('success', 'Student added successfully.');
@@ -132,6 +144,7 @@ class StudentController extends Controller
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation failed: ' . json_encode($e->errors()));
             return redirect()->back()->withErrors($e->errors())->withInput();
+
         } catch (\Exception $e) {
             Log::error('Error in StudentController@store: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while adding the student. Please try again.');
@@ -151,16 +164,18 @@ class StudentController extends Controller
     {
         $programs = Program::all();
         $sections = Section::all();
+        $components = Component::all();
+        $grades = ['F', '1', '1.5', '2', '2.5', '3', '3.5', '4'];
 
         $student = Student::where('s_id', $s_id)->first();
         if($student === null){
             abort(404);
         }
-        return view('dashboard.studentedit', compact('student','programs','sections'));
+        return view('dashboard.studentedit', compact('student','programs', 'sections', 'components', 'grades'));
     }
 
     public function updateStudent(Request $request, string $s_id)
-{
+    {
 
     $student = Student::where('s_id', $s_id)->first();
     if ($student === null) {
@@ -173,12 +188,14 @@ class StudentController extends Controller
             's_Surname' => 'required|string|max:255',
             's_FirstName' => 'required|string|max:255',
             's_MiddleName' => 'nullable|string|max:255',
+            's_Suffix' => 'nullable|string|max:255|/^(I{1,3}|II{1,3}|III{1,3}|IV|V?I{0,3}|VI{0,3}|VII{0,3}|VIII|IX|X)$|Jr\.$/',
             's_Sex' => 'required|string|in:male,female',
             's_Birthdate' => 'required|date',
             's_ContactNo' => 'required|string|max:15',
             's_EmailAddress' => 'required|email|max:255',
             'program_id' => 'required|exists:programs,program_id',
             'sec_id' => 'required|integer|exists:sections,sec_id',
+            'component_id' => 'required|integer|exists:components,component_id',
             's_c_HouseNo' => 'required|string|max:255',
             's_c_Street' => 'required|string|max:255',
             's_c_Barangay' => 'required|string|max:255',
@@ -191,12 +208,21 @@ class StudentController extends Controller
             's_p_Province' => 'required|string|max:255',
             's_ContactPersonName' => 'required|string|max:255',
             's_ContactPersonNo' => 'required|string|max:15',
+            's_FinalGrade' => 'nullable|string|in:F,1,1.5,2,2.5,3,3.5,4',
         ]);
+
+        // Merge composite attributes of City Address and Provincial Address
+        $data = array_merge($data, [
+            's_c_CompleteAddress' => $data['s_c_HouseNo'].', '.$data['s_c_Street'].', '.$data['s_c_Barangay'].', '.$data['s_c_City'].', '.$data['s_c_Province'],
+            's_p_CompleteAddress' => $data['s_p_HouseNo'].', '.$data['s_p_Street'].', '.$data['s_p_Barangay'].', '.$data['s_p_City'].', '.$data['s_p_Province'],
+        ]);
+
         $student->update($data);
 
-        return redirect()->route('dashboard.studentlist')->with('success', 'Student updated successfully.');
+        return redirect()->route('dashboard.showstudent', $student)->with('success', 'Student updated successfully.');
     } catch (\Illuminate\Validation\ValidationException $e) {
-        dd($e->errors());
+        dd($e);
+        return redirect()->route('dashboard.studentlist')->with('error', 'Error in updating student');
     }
 }
 
@@ -249,9 +275,9 @@ public function importStudentsPage(Request $request){
 public function exportStudentsPage(Request $request){
     $sections = Section::all();
     $programs = Program::all();
-    $components = Section::distinct()->pluck('sec_Component');
+    $components = Component::all();
 
-    return view('dashboard.studentexport', ['sections' => $sections, 'programs' => $programs, 'components' => $components]);
+    return view('dashboard.studentexport', compact('sections','programs', 'components'));
 }
 
 public function exportStudents(Request $request){
@@ -270,7 +296,7 @@ public function exportStudents(Request $request){
     }
     if($componentID !== 'all'){
         $query->whereHas('section', function($q) use ($componentID){
-            $q->where('sec_Component', $componentID);
+            $q->where('component_id', $componentID);
         });
     }
     if($programID !== 'all'){

@@ -14,4 +14,8 @@ class Section extends Model
     public function student(){
         return $this->hasMany(Student::class, 'sec_id');
     }
+    public function component()
+    {
+        return $this->belongsTo(Component::class, 'component_id');
+    }
 }

@@ -30,10 +30,15 @@ class DatabaseSeeder extends Seeder
             error_log('1 found');
         }
 
+        $this->call(ComponentSeeder::class);
+        error_log('Components seeded');
+
         $this->call(ProgramSeeder::class);
         error_log('Programs seeded');
+
         Formator::factory(2)->create();
         error_log('Formators added');
+
         $this->call(SectionSeeder::class);
         Student::factory(50)->create();
     }

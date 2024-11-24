@@ -4,6 +4,12 @@
         {{ session('error') }}
     </div>
     @endif
+    
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
 
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
@@ -35,8 +41,7 @@
         </form>
     </div>
 
-    @include('dashboard.studentfilter', ['programs' => $programs, 'components' => $components, 'sections' => $sections])
-
+    @include('dashboard.studentfilter', ['programs' => $programs, 'components' => $components, 'sections' => $sections, 'grades' => [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5]])
     <!-- Table Structure -->
     <table class="min-w-full bg-white rounded-lg">
         <thead class="bg-gray-200">
@@ -49,6 +54,7 @@
                 <th class="text-left p-4 w-1/12 font-semibold">Program</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Component</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Section</th>
+                <th class="text-left p-4 w-1/12 font-semibold">Grade</th>
             </tr>
         </thead>
         <tbody>
@@ -84,12 +90,17 @@
                 </td>
                 <td class="p-4 text-lg overflow-x-hidden outline-r-2">
                     <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
-                        {{ Str::upper($student->section->sec_Component) }}
+                        {{ Str::upper($student->component->component_Name) }}
                     </a>
                 </td>
                 <td class="p-4 text-lg overflow-x-hidden outline-r-2">
                     <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
                         {{ Str::upper($student->section->sec_Section) }}
+                    </a>
+                </td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        {{ $student->s_FinalGrade }}
                     </a>
                 </td>
             </tr>
