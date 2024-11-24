@@ -99,7 +99,7 @@
       <div class="px-5 py-2 mt-3">
         <ul class="mt-4">
           <li class="mb-3">
-            <a href="#" class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+            
               <!-- Empty list items -->
             </a>
           </li>

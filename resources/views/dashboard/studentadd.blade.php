@@ -22,7 +22,8 @@
             <div class="grid grid-cols-3 gap-4"> <!-- Grid for student info -->
                 <!-- Student ID -->
                 <div class="mb-4 col-span-3">
-                    <label for="s_StudentNo" class="block text-sm font-medium text-gray-700">Student ID</label>
+                    <label for="s_StudentNo" class="block text-sm font-medium text-gray-700">Student ID </label>
+                    <label for="s_StudentNo" class="block text-sm font-medium text-red-500">*6 numbers </label>
                     <input type="text" id="s_StudentNo" name="s_StudentNo" required class="mt-1 block w-1/3 border-gray-300 rounded-md shadow-sm px-3 py-2" />
                     @error('s_StudentNo')
                         <div class="text-red-500 text-sm">{{ $message }}</div>
