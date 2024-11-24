@@ -13,7 +13,7 @@
             <form action="{{ route('formator.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-colors duration-200 flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow-md">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
                     <x-carbon-trash-can class="h-6" />
                     <h1 class="font-semibold">Delete</h1>
                 </button>
