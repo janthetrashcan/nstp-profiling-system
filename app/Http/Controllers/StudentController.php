@@ -20,26 +20,26 @@ class StudentController extends Controller
     {
         // Existing code for dropdown options
         $programs = Program::all();
-        $components = Section::distinct()->pluck('sec_Component');
+        $components = Component::all();
         $sections = Section::all();
-    
+
         $query = Student::query();
-    
+
         // Existing filters
         if ($request->filled('program')) {
             $query->where('program_id', $request->input('program'));
         }
-    
+
         if ($request->filled('component')) {
             $query->whereHas('section', function ($q) use ($request) {
                 $q->where('sec_Component', $request->input('component'));
             });
         }
-    
+
         if ($request->filled('section')) {
             $query->where('sec_id', $request->input('section'));
         }
-    
+
         // New filters for passed, failed, and grades
         if ($request->filled('status')) {
             if ($request->input('status') === 'passed') {
@@ -48,16 +48,16 @@ class StudentController extends Controller
                 $query->where('s_FinalGrade', 'F');
             }
         }
-    
+
         if ($request->filled('grade')) {
             $query->where('s_FinalGrade', $request->input('grade'));
         }
-    
+
         $students = $query->paginate(15);
-    
+
         // Prepare grades for dropdown
         $grades = [1, 1.5, 2, 2.5, 3, 3.5, 4];
-    
+
         return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections', 'grades'));
     }
 
