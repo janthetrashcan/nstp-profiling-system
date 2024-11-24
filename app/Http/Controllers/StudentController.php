@@ -18,35 +18,47 @@ class StudentController extends Controller
      */
     public function index(Request $request)
     {
-        //for dropdown chuchu
+        // Existing code for dropdown options
         $programs = Program::all();
-        $components = Component::all();
+        $components = Section::distinct()->pluck('sec_Component');
         $sections = Section::all();
-
+    
         $query = Student::query();
-
+    
+        // Existing filters
         if ($request->filled('program')) {
             $query->where('program_id', $request->input('program'));
         }
-
+    
         if ($request->filled('component')) {
             $query->whereHas('section', function ($q) use ($request) {
-                $q->where('component_id', $request->input('component'));
+                $q->where('sec_Component', $request->input('component'));
             });
         }
-
+    
         if ($request->filled('section')) {
             $query->where('sec_id', $request->input('section'));
         }
-
+    
+        // New filters for passed, failed, and grades
+        if ($request->filled('status')) {
+            if ($request->input('status') === 'passed') {
+                $query->whereIn('s_FinalGrade', [1, 1.5, 2, 2.5, 3, 3.5, 4]);
+            } elseif ($request->input('status') === 'failed') {
+                $query->where('s_FinalGrade', 'F');
+            }
+        }
+    
+        if ($request->filled('grade')) {
+            $query->where('s_FinalGrade', $request->input('grade'));
+        }
+    
         $students = $query->paginate(15);
-
-        // checker lang if na set na ba ng tama
-        Log::info('Programs count: ' . $programs->count());
-        Log::info('Components count: ' . $components->count());
-        Log::info('Sections count: ' . $sections->count());
-
-        return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections'));
+    
+        // Prepare grades for dropdown
+        $grades = [1, 1.5, 2, 2.5, 3, 3.5, 4];
+    
+        return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections', 'grades'));
     }
 
     /**

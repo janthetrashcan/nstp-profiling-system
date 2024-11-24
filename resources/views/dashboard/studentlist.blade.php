@@ -35,8 +35,7 @@
         </form>
     </div>
 
-    @include('dashboard.studentfilter', ['programs' => $programs, 'components' => $components, 'sections' => $sections, 'components' => $components])
-
+    @include('dashboard.studentfilter', ['programs' => $programs, 'components' => $components, 'sections' => $sections, 'grades' => [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5]])
     <!-- Table Structure -->
     <table class="min-w-full bg-white rounded-lg">
         <thead class="bg-gray-200">
@@ -49,6 +48,8 @@
                 <th class="text-left p-4 w-1/12 font-semibold">Program</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Component</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Section</th>
+                <th class="text-left p-4 w-1/12 font-semibold">Status</th>
+                <th class="text-left p-4 w-1/12 font-semibold">Grade</th>
             </tr>
         </thead>
         <tbody>
@@ -90,6 +91,20 @@
                 <td class="p-4 text-lg overflow-x-hidden outline-r-2">
                     <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
                         {{ Str::upper($student->section->sec_Section) }}
+                    </a>
+                </td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        @if($student->s_FinalGrade == 'F')
+                            {{ 'Failed' }}
+                        @else
+                            {{ 'Passed' }}
+                        @endif
+                    </a>
+                </td>
+                <td class="p-4 text-lg overflow-x-hidden outline-r-2">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}">
+                        {{ $student->s_FinalGrade }}
                     </a>
                 </td>
             </tr>
