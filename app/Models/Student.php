@@ -25,6 +25,7 @@ class Student extends Model
         's_EmailAddress',
         'program_id',
         'sec_id',
+        'component_id',
         's_c_HouseNo',
         's_c_Street',
         's_c_Barangay',
@@ -35,8 +36,11 @@ class Student extends Model
         's_p_Barangay',
         's_p_City',
         's_p_Province',
+        's_c_CompleteAddress',
+        's_p_CompleteAddress',
         's_ContactPersonName',
         's_ContactPersonNo',
+        's_FinalGrade',
     ];
     public function program(){
         return $this->belongsTo(Program::class, 'program_id');

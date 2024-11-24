@@ -71,23 +71,48 @@
                 </div>
                 <!-- Program Code -->
                  <div>
-                 
+
                  </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Program Code</label>
-                    <input type="text" name="program_Code" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->program->program_Code }}" required>
-                </div>
-
-                <!-- Program Name -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700">Program Name</label>
-                    <input type="text" name="program_Title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->program->program_Title }}" required>
+                    <select name="program_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->program->program_Code }}" required>
+                        @foreach($programs as $program)
+                        <option value='{{ $program->program_id }}'>{{ $program->program_Code }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <!-- Section -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Section</label>
-                    <input type="text" name="sec_Section" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->section->sec_Section }}" required>
+                    <select name="sec_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->section->sec_Section }}" required>
+                        @foreach($sections as $section)
+                        <option value='{{ $section->sec_id }}'>{{ $section->sec_Section }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Component -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Section</label>
+                    <select name="component_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->section->sec_Section }}" required>
+                        @foreach($components as $component)
+                        <option value='{{ $component->component_id }}'>{{ $component->component_Name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
+                    <label for="s_FinalGrade" class="block text-sm font-medium text-gray-700">Section</label>
+                    <select id="s_FinalGrade" name="s_FinalGrade" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
+                        <option value="">Select Final Grade</option>
+                        @foreach($grades as $grade)
+                        <option value="{{ $grade }}">{{ $grade }}</option>
+                        @endforeach
+                    </select>
+                    @error('s_FinalGrade')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
 
@@ -127,7 +152,7 @@
                         <input type="text" name="s_c_Province" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_c_Province }}" required>
                     </div>
 
-                    
+
                     </div>
                     <!-- Provincial Address -->
                     <div>
@@ -162,7 +187,7 @@
                             <label class="block text-sm font-medium text-gray-700">Provincial Province</label>
                             <input type="text" name="s_p_Province" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_p_Province }}" required>
                         </div>
-                        
+
                 </div>
                 <!-- Emergency Contact Information -->
                  <div>

@@ -107,33 +107,47 @@
                     @enderror
                 </div>
 
-            <!-- Section -->
-            <div class="mb-4">
-                <label for="sec_id" class="block text-sm font-medium text-gray-700">Section</label>
-                <select id="sec_id" name="sec_id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
-                    <option value="">Select Section</option>
-                    @foreach($sections as $section)
-                        <option value="{{ $section->sec_id }}">{{ $section->sec_Section }}</option>
-                    @endforeach
-                </select>
-                @error('section_id')
-                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                @enderror
-            </div>
+                <!-- Section -->
+                <div class="mb-4">
+                    <label for="sec_id" class="block text-sm font-medium text-gray-700">Section</label>
+                    <select id="sec_id" name="sec_id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
+                        <option value="">Select Section</option>
+                        @foreach($sections as $section)
+                            <option value="{{ $section->sec_id }}">{{ $section->sec_Section }}</option>
+                        @endforeach
+                    </select>
+                    @error('section_id')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
 
-            <!-- Component -->
-            <div class="mb-4">
-                <label for="component_id" class="block text-sm font-medium text-gray-700">Section</label>
-                <select id="component_id" name="component_id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
-                    <option value="">Select Component</option>
-                    @foreach($components as $component)
-                        <option value="{{ $component->component_id }}">{{ $component->component_Name }}</option>
-                    @endforeach
-                </select>
-                @error('component_id')
-                    <div class="text-red-500 text-sm">{{ $message }}</div>
-                @enderror
-            </div>
+                <!-- Component -->
+                <div class="mb-4">
+                    <label for="component_id" class="block text-sm font-medium text-gray-700">Section</label>
+                    <select id="component_id" name="component_id" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
+                        <option value="">Select Component</option>
+                        @foreach($components as $component)
+                            <option value="{{ $component->component_id }}">{{ $component->component_Name }}</option>
+                        @endforeach
+                    </select>
+                    @error('component_id')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <!-- Component -->
+                <div class="mb-4">
+                    <label for="s_FinalGrade" class="block text-sm font-medium text-gray-700">Section</label>
+                    <select id="s_FinalGrade" name="s_FinalGrade" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
+                        <option value="">Select Final Grade</option>
+                        @foreach($grades as $grade)
+                        <option value="{{ $grade }}">{{ $grade }}</option>
+                        @endforeach
+                    </select>
+                    @error('s_FinalGrade')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
 
                 <!-- City and Provincial Address -->
                 <h2 class="col-span-3 text-lg font-semibold mb-4">Address</h2>
@@ -167,13 +181,6 @@
                             <input type="checkbox" id="sameAsProvincial" name="sameAsProvincial" {{ old('sameAsProvincial') ? 'checked' : '' }}>
                             <label for="sameAsProvincial" class="text-sm font-medium text-gray-700">Same as Provincial Address</label>
                         </div>
-
-                        <!-- Disable Edit Checkbox -->
-                        <div class="mt-4">
-                            <input type="checkbox" id="disableEdit" name="disableEdit">
-                            <label for="disableEdit" class="text-sm font-medium text-gray-700">Disable Edit</label>
-                        </div>
-
                     </div>
 
                     <!-- Provincial Address -->
