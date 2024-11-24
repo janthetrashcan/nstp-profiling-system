@@ -17,6 +17,7 @@ class Student extends Model
         's_Surname',
         's_FirstName',
         's_MiddleName',
+        's_Suffix',
         's_Sex',
         's_Birthdate',
         's_ContactNo',

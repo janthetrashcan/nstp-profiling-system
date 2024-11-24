@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
+use App\Exports\ExportStudents;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
+use App\Models\Student;
 use App\Models\Program;
 use App\Models\Section;
 use Illuminate\Support\Facades\Log;
+
 
 class StudentController extends Controller
 {
@@ -239,5 +242,64 @@ public function searchStudent(Request $request){
     return view('dashboard.studentsearch', ['results' => $results, 'search' => $search]);
 }
 
+public function importStudentsPage(Request $request){
+    return view('dashboard.studentimport');
+}
+
+public function exportStudentsPage(Request $request){
+    $sections = Section::all();
+    $programs = Program::all();
+    $components = Section::distinct()->pluck('sec_Component');
+
+    return view('dashboard.studentexport', ['sections' => $sections, 'programs' => $programs, 'components' => $components]);
+}
+
+public function exportStudents(Request $request){
+    $secID = $request->input('section-filter') ?? 'all';
+    $componentID = $request->input('component-filter') ?? 'all';
+    $programID = $request->input('program-filter') ?? 'all';
+
+
+    // fetch students
+    $query = Student::select('s_StudentNo','s_Surname','s_FirstName','s_MiddleName','program_id','s_Sex','s_Birthdate','s_c_CompleteAddress','s_p_CompleteAddress','s_ContactNo','s_EmailAddress','sec_id','s_ContactPersonName', 's_ContactPersonNo')
+    ->orderBy('s_Surname', 'asc')->orderBy('program_id', 'asc')->orderBy('sec_id', 'asc');
+
+    // filter students based on selected fields
+    if($secID !== 'all'){
+        $query->where('sec_id', $secID);
+    }
+    if($componentID !== 'all'){
+        $query->whereHas('section', function($q) use ($componentID){
+            $q->where('sec_Component', $componentID);
+        });
+    }
+    if($programID !== 'all'){
+        $query->where('program_id', $programID);
+    }
+
+    $filteredStudents = $query->with('program','section')->get()->map(function ($student){
+        return[
+            's_StudentNo' => $student->s_StudentNo,
+            's_Surname' => $student->s_Surname,
+            's_FirstName' => $student->s_FirstName,
+            's_MiddleName' => $student->s_MiddleName,
+            'program_id' => $student->program->program_Code,
+            's_Sex' => $student->s_Sex,
+            's_Birthdate' => $student->s_Birthdate,
+            's_c_CompleteAddress' => $student->s_c_CompleteAddress,
+            's_p_CompleteAddress' => $student->s_p_CompleteAddress,
+            's_ContactNo' => $student->s_ContactNo,
+            's_EmailAddress' => $student->s_EmailAddress,
+            'sec_id' => $student->section->sec_Section,
+            'component' => $student->section->sec_Component,
+            's_ContactPersonName' => $student->s_ContactPersonName,
+            's_ContactPersonNo' => $student->s_ContactPersonNo,
+        ];
+    });
+
+    dd($filteredStudents);
+
+    return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
+}
 }
 
