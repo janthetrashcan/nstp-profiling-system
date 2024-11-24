@@ -20,97 +20,80 @@
             </button>
         </div>
 
-        <form action={{ route('dashboard.searchstudent') }} method='GET' id='functions-rhs' class='flex flex-row gap-x-3'>
-            <input type='text' name='search' placeholder='Search' maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2' value={{$search}} />
-            <input type='submit' value='Search' class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl'/>
+        <form action="{{ route('dashboard.searchstudent') }}" method="GET" id="functions-rhs" class='flex flex-row gap-x-3'>
+            <input type='text' name='search' placeholder='Search' maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2' value="{{ $search }}" />
+            <input type='submit' value='Search' class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl' />
         </form>
     </div>
 
-    <!-- Table Header -->
-    @if (count($results) > 0)
-    <div class='cursor-default flex flex-row justify-between w-full h-auto p-4 rounded-lg'>
-        <span class='w-4'></span>
-
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
-            Student ID
-        </p>
-
-        <!-- STUDENT NAME -->
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
-            Family Name
-        </p>
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
-            First Name
-        </p>
-        <p class='text-lg w-2/12 font-semibold overflow-x-hidden outline-r-2'>
-            Middle Name
-        </p>
-
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
-            Program
-        </p>
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
-            Component
-        </p>
-        <p class='text-lg w-1/12 font-semibold overflow-x-hidden outline-r-2'>
-            Section
-        </p>
+    <!-- Table Structure -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border rounded-lg">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="p-4 text-left w-[5%]">Select</th>
+                    </th>
+                    <th class="p-4 text-left w-1/12 font-semibold">Student ID</th>
+                    <th class="p-4 text-left w-2/12 font-semibold">Family Name</th>
+                    <th class="p-4 text-left w-2/12 font-semibold">First Name</th>
+                    <th class="p-4 text-left w-2/12 font-semibold">Middle Name</th>
+                    <th class="p-4 text-left w-1/12 font-semibold">Program</th>
+                    <th class="p-4 text-left w-1/12 font-semibold">Component</th>
+                    <th class="p-4 text-left w-1/12 font-semibold">Section</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (!empty($results) && is_countable($results) && count($results) > 0)
+                    @foreach($results as $student)
+                        <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
+                            <td class="p-4 text-center">
+                                <input type="checkbox" name="student_ids[]" value="{{ $student->s_id }}" form="deleteForm" class="w-4 h-4" />
+                            </td>
+                            <td class="p-4">
+                                <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
+                                    {{ $student->s_StudentNo }}
+                                </a>
+                            </td>
+                            <td class="p-4">
+                                <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
+                                    {{ Str::upper($student->s_Surname) }}
+                                </a>
+                            </td>
+                            <td class="p-4">
+                                <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
+                                    {{ Str::upper($student->s_FirstName) }}
+                                </a>
+                            </td>
+                            <td class="p-4">
+                                <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
+                                    {{ Str::upper($student->s_MiddleName) }}
+                                </a>
+                            </td>
+                            <td class="p-4">
+                                <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
+                                    {{ Str::upper($student->program->program_Code) }}
+                                </a>
+                            </td>
+                            <td class="p-4">
+                                <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
+                                    {{ Str::upper($student->section->sec_Component) }}
+                                </a>
+                            </td>
+                            <td class="p-4">
+                                <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
+                                    {{ Str::upper($student->section->sec_Section) }}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @else
+                    <tr>
+                        <td colspan="8" class="p-4 text-center">No results found</td>
+                    </tr>
+                @endif
+            </tbody>
+        </table>
     </div>
-
-
-    <!-- Student Data Rows -->
-
-
-    @foreach($results as $student)
-    <div class='cursor-default flex flex-row justify-between items-center overflow-x-hidden h-auto px-4 py-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 linear'>
-
-        <!-- Delete Checkbox -->
-        <div class="flex items-center w-12">
-            <input type='checkbox' name='student_ids[]' value='{{ $student->s_id }}' form="deleteForm" class='w-4 h-4'>
-        </div>
-
-
-        <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="flex flex-row justify-between items-center w-full gap-4">
-
-            <!-- Student ID -->
-            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-                {{ $student->s_StudentNo }}
-            </p>
-
-            <!-- STUDENT NAME -->
-            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->s_Surname) }}
-            </p>
-            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->s_FirstName) }}
-            </p>
-            <p class='text-lg w-2/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->s_MiddleName) }}
-            </p>
-
-            <!-- Program -->
-            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->program->program_Code) }}
-            </p>
-
-            <!-- Component -->
-            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->section->sec_Component) }}
-            </p>
-
-            <!-- Section -->
-            <p class='text-lg w-1/12 overflow-x-hidden outline-r-2'>
-                {{ Str::upper($student->section->sec_Section) }}
-            </p>
-
-        </a>
-    </div>
-    @endforeach
-
-    @else
-        <div class="flex justify-center mt-8">
-            <p>No results found</p>
-        </div>
-    @endif
 
 </x-dashboard-layout>
+

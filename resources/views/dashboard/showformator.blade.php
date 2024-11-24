@@ -20,11 +20,6 @@
                 </button>
             </form>
         </div>
-        
-        <!-- Search Bar -->
-        <div id="functions-rhs" class="flex gap-x-3">
-            <input type="text" placeholder="Search" maxlength="30" class="bg-gray-100 w-60 h-12 px-4 py-2 rounded-xl shadow" />
-        </div>
     </div>
 
     <!-- Profile Layout -->

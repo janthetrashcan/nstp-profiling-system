@@ -20,11 +20,6 @@
                 </button>
             </form>
         </div>
-
-        <!-- Right Side: Search -->
-        <div id="functions-rhs" class="flex">
-            <input type="text" placeholder="Search" maxlength="30" class="bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 flex w-60 h-12 px-4 py-2 rounded-lg shadow-md" />
-        </div>
     </div>
 
     <!-- Student Profile Header -->
