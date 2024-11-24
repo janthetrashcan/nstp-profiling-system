@@ -83,7 +83,7 @@
     </div>
 
     <script>
-        // Add drag-and-drop functionality with Tailwind styling
+
         document.querySelectorAll('.drag-and-drop').forEach(area => {
             const input = area.querySelector('input');
             const preview = area.querySelector('.preview p');
