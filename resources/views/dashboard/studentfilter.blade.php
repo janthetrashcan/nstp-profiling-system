@@ -1,5 +1,5 @@
 @if(isset($programs) && $programs->isNotEmpty() && isset($components) && $components->isNotEmpty() && isset($sections) && $sections->isNotEmpty())
-    <div id="filterForm" class="mb-4 {{ request('program') || request('component_id') || request('section') || request('status') || request('grade') ? '' : 'hidden' }}">
+    <div id="filterForm" class="mb-4 {{ request('program') || request('component_id') || request('section') || request('status') || request('grade') ? '' : 'hidden' }}">   
         <form action="{{ route('dashboard.filterstudents') }}" method="GET" class="flex flex-wrap items-center space-x-2 space-y-2">
             <select name="program" id="program-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
                 <option value="">Select Program</option>

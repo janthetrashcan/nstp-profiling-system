@@ -11,4 +11,8 @@ class Component extends Model
     protected $primaryKey = 'component_id';
 
     use HasFactory;
+    public function sections()
+    {
+        return $this->hasMany(Section::class, 'component_id');
+    }
 }

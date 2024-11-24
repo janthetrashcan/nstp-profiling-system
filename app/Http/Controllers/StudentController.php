@@ -22,22 +22,21 @@ class StudentController extends Controller
         $programs = Program::all();
         $components = Component::select('component_id', 'component_Name')->get();
         $sections = Section::all();
-
+    
         $query = Student::query();
-
+    
         // Existing filters
         if ($request->filled('program')) {
-            $query->where('program_id', $request->input('program'));
+        $query->where('program_id', $request->input('program'));
         }
 
         if ($request->filled('component_id')) {
-            $query->where('component_id', $request->component_id);
+            $query->where('component_id', $request->input('component_id'));
         }
 
         if ($request->filled('section')) {
             $query->where('sec_id', $request->input('section'));
         }
-
         // New filters for passed, failed, and grades
         if ($request->filled('status')) {
             if ($request->input('status') === 'passed') {
@@ -116,7 +115,8 @@ class StudentController extends Controller
             }
 
             $data = $request->validate($rules);
-
+             
+            Student::create($data);
             if($request->has('sameAsProvincial')){
                 $data = array_merge($data, [
                     's_c_HouseNo' => $data['s_p_HouseNo'],
@@ -201,6 +201,11 @@ class StudentController extends Controller
             's_p_Province' => 'required|string|max:255',
             's_ContactPersonName' => 'required|string|max:255',
             's_ContactPersonNo' => 'required|string|max:15',
+        ]);
+        $data = $request->validate([
+          
+            'component_id' => 'required|exists:components,id',
+           
         ]);
         $student->update($data);
 
