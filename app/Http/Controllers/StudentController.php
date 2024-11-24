@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Exports\ExportStudents;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\Student;
 use Illuminate\Http\Request;
+use App\Models\Student;
 use App\Models\Program;
 use App\Models\Section;
 use Illuminate\Support\Facades\Log;
+
 
 class StudentController extends Controller
 {
@@ -87,6 +88,12 @@ class StudentController extends Controller
                 's_p_City' => 'required|string|max:255',
                 's_p_Province' => 'required|string|max:255',
 
+                // 's_c_HouseNo' => 'required|string|max:255',
+                // 's_c_Street' => 'required|string|max:255',
+                // 's_c_Barangay' => 'required|string|max:255',
+                // 's_c_City' => 'required|string|max:255',
+                // 's_c_Province' => 'required|string|max:255',
+
                 's_ContactPersonName' => 'required|string|max:255',
                 's_ContactPersonNo' => 'required|string|max:15',
             ];
@@ -104,6 +111,7 @@ class StudentController extends Controller
 
             $data = $request->validate($rules);
 
+
             if($request->has('sameAsProvincial')){
                 $data = array_merge($data, [
                     's_c_HouseNo' => $data['s_p_HouseNo'],
@@ -114,9 +122,7 @@ class StudentController extends Controller
                 ]);
             }
 
-            $data['s_c_CompleteAddress'] = $data['s_c_HouseNo'].', '.$data['s_c_Street'].', '.$data['s_c_Barangay'].', '.$data['s_c_City'].', '.$data['s_c_Province'];
-            $data['s_p_CompleteAddress'] = $data['s_p_HouseNo'].', '.$data['s_p_Street'].', '.$data['s_p_Barangay'].', '.$data['s_p_City'].', '.$data['s_p_Province'];
-
+            // dd($data);
             Log::info('Validation passed');
             $student = Student::create($data);
             Log::info('Student created with ID: ' . $student->s_id);
@@ -154,7 +160,7 @@ class StudentController extends Controller
     }
 
     public function updateStudent(Request $request, string $s_id)
-    {
+{
 
     $student = Student::where('s_id', $s_id)->first();
     if ($student === null) {
@@ -167,7 +173,6 @@ class StudentController extends Controller
             's_Surname' => 'required|string|max:255',
             's_FirstName' => 'required|string|max:255',
             's_MiddleName' => 'nullable|string|max:255',
-            's_Suffix' => 'nullable|string|max:255|/^(I{1,3}|II{1,3}|III{1,3}|IV|V?I{0,3}|VI{0,3}|VII{0,3}|VIII|IX|X)$|Jr\.$/',
             's_Sex' => 'required|string|in:male,female',
             's_Birthdate' => 'required|date',
             's_ContactNo' => 'required|string|max:15',
