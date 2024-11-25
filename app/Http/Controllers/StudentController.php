@@ -285,25 +285,29 @@ public function exportStudents(Request $request){
     $componentID = $request->input('component-filter') ?? 'all';
     $programID = $request->input('program-filter') ?? 'all';
 
-
     // fetch students
-    $query = Student::select('s_StudentNo','s_Surname','s_FirstName','s_MiddleName','program_id','s_Sex','s_Birthdate','s_c_CompleteAddress','s_p_CompleteAddress','s_ContactNo','s_EmailAddress','sec_id','s_ContactPersonName', 's_ContactPersonNo')
-    ->orderBy('s_Surname', 'asc')->orderBy('program_id', 'asc')->orderBy('sec_id', 'asc');
+    $query = Student::select('s_StudentNo','s_Surname','s_FirstName','s_MiddleName','program_id','s_Sex','s_Birthdate','s_c_CompleteAddress','s_p_CompleteAddress','s_ContactNo','s_EmailAddress','sec_id','component_id','s_FinalGrade','s_ContactPersonName', 's_ContactPersonNo')
+    ->orderBy('s_Surname', 'asc')
+    ->orderBy('component_id', 'asc')
+    ->orderBy('sec_id', 'asc')
+    ->orderBy('program_id', 'asc');
 
     // filter students based on selected fields
     if($secID !== 'all'){
         $query->where('sec_id', $secID);
     }
     if($componentID !== 'all'){
-        $query->whereHas('section', function($q) use ($componentID){
-            $q->where('component_id', $componentID);
-        });
+        $query->where('component_id', $componentID);
     }
     if($programID !== 'all'){
         $query->where('program_id', $programID);
     }
+    if(!$request->input('include-failed')){
+        $query->where('s_FinalGrade','<>','F');
+    }
 
-    $filteredStudents = $query->with('program','section')->get()->map(function ($student){
+    // set values
+    $filteredStudents = $query->with('program','section','component')->get()->map(function ($student){
         return[
             's_StudentNo' => $student->s_StudentNo,
             's_Surname' => $student->s_Surname,
@@ -317,13 +321,16 @@ public function exportStudents(Request $request){
             's_ContactNo' => $student->s_ContactNo,
             's_EmailAddress' => $student->s_EmailAddress,
             'sec_id' => $student->section->sec_Section,
-            'component' => $student->section->sec_Component,
+            'component_id' => $student->component->component_Name,
+            's_FinalGrade' => $student->s_FinalGrade,
             's_ContactPersonName' => $student->s_ContactPersonName,
             's_ContactPersonNo' => $student->s_ContactPersonNo,
         ];
     });
 
-    dd($filteredStudents);
+    if(empty($filteredStudents->toArray())){
+        return redirect()->back()->with('warning', 'No students found.');
+    }
 
     return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
 }
