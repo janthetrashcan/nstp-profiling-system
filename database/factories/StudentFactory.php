@@ -29,10 +29,12 @@ class StudentFactory extends Factory
         $s_p_Barangay = fake()->streetName();
         $s_p_City = fake()->streetName();
         $s_p_Province = fake()->streetName();
+        $s_FinalGrade = strval(fake()->numberBetween(1, 4));
 
         return [
             's_StudentNo' => fake()->numberBetween(100000,999999),
             'program_id' => fake()->numberBetween(1,27),
+            'component_id' => fake()->numberBetween(1, 3),
 
             's_Surname' => fake()->lastName(),
             's_FirstName' => fake()->firstName(),
@@ -61,7 +63,8 @@ class StudentFactory extends Factory
             's_ContactPersonName' => fake()->name(),
             's_ContactPersonNo' => strval(fake()->phoneNumber()),
 
-            'sec_id' => fake()->numberBetween(1, 10)
+            'sec_id' => \App\Models\Section::inRandomOrder()->first()->sec_id,
+            's_FinalGrade' => fake()->randomElement(['F', $s_FinalGrade, $s_FinalGrade, $s_FinalGrade]),
         ];
     }
 }
