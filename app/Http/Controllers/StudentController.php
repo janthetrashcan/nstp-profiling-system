@@ -117,7 +117,6 @@ class StudentController extends Controller
 
             $data = $request->validate($rules);
 
-            Student::create($data);
             if($request->has('sameAsProvincial')){
                 $data = array_merge($data, [
                     's_c_HouseNo' => $data['s_p_HouseNo'],
@@ -146,6 +145,7 @@ class StudentController extends Controller
             return redirect()->back()->withErrors($e->errors())->withInput();
 
         } catch (\Exception $e) {
+            dd($e);
             Log::error('Error in StudentController@store: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while adding the student. Please try again.');
         }
