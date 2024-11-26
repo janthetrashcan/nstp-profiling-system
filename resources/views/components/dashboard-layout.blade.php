@@ -17,14 +17,21 @@
 
   <!-- Header -->
 <header class="fixed top-0 left-0 right-0 z-20 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 p-4 shadow-md flex items-center justify-between">
-  <div class="flex items-center">
-    <img src="/admin-profile.png" alt="Profile" class="h-15 w-12 "> <!-- Add a Profile -->
-    <h1 class="text-white font-bold text-xl drop-shadow-md">Welcome, User!</h1>
-  </div>
+  <!-- Left Side -->
   <div class="flex items-center gap-4">
-    <img src="/left-logo.png" alt="Logo" class="h-15 w-12"> <!--LOGO-->
+    <img src="/left-logo.png" alt="Logo" class="h-15 w-12"> <!-- Left Logo -->
+    <h1 class="text-white font-bold text-3xl drop-shadow-md" style="font-family: 'Merriweather', serif;">SACSI</h1>
+
+  </div>
+  
+  <!-- Right Side -->
+  <div class="flex items-center gap-4">
+    <h1 class="text-white font-bold text-3x1 drop-shadow-md">Welcome, Admin!</h1> <!-- Welcome Message -->
+    <img src="/admin-profile.png" alt="Profile" class="h-15 w-12"> <!-- Admin Profile -->
   </div>
 </header>
+
+
 
 
   <!-- Main Layout -->
