@@ -38,6 +38,10 @@
                 <p class="text-gray-500 font-semibold mb-2">Personal Information</p>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
+                        <p class="text-gray-500 font-semibold">Formator ID</p>
+                        <p class="text-lg">{{ $formator->employee_id }}</p>
+                    </div>
+                    <div>
                         <p class="text-gray-500 font-semibold">Full Name</p>
                         <p class="text-lg">{{ $formator->f_FirstName }} {{ $formator->f_MiddleName }} {{ $formator->f_Surname }}</p>
                     </div>

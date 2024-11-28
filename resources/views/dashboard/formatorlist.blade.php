@@ -82,6 +82,7 @@
         <thead class="bg-gray-200">
             <tr>
                 <th class="p-4 text-center w-4">Select</th>
+                <th class="text-left p-4 w-2/12 font-semibold">Employee ID</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Middle Name</th>
@@ -101,7 +102,12 @@
                         <td class="p-4 text-center">
                             <input type="checkbox" name="formator_ids[]" value="{{ $formator->f_id }}" form="deleteForm" class="w-4 h-4">
                         </td>
-
+                        <!-- Formator ID (employee_id) -->
+                <td class="p-4 text-lg text-left">
+                    <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                        {{ $formator->employee_id }}  <!-- This is the employee ID you want -->
+                    </a>
+                </td>
                         <!-- Formator Details -->
                         <td class="p-4 text-lg text-left">
                             <a href="{{ route('dashboard.showformator', $formator->f_id) }}" class="p-0 m-0">

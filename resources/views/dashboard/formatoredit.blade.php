@@ -21,8 +21,8 @@
                 <div class="border-b pb-4 mb-4">
                     <div class="grid grid-cols-3 gap-4"> <!-- Changed to 3 columns -->
                         <div>
-                            <label for="f_Number" class="block text-sm font-medium text-gray-700">Formator No</label>
-                            <input type="text" name="f_Number" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_Number }}" required />
+                            <label for="f_Number" class="block text-sm font-medium text-gray-700">Formator ID</label>
+                            <input type="text" name="f_Number" class="mt-1 p-2 border rounded w-full" value="{{ $formator->employee_id }}" required />
                         </div>
                         <div>
                             <label for="f_Surname" class="block text-sm font-medium text-gray-700">Family Name</label>
