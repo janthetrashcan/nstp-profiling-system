@@ -97,23 +97,47 @@
                         <div>
                             <label for="f_TeachingYearStart" class="block text-sm font-medium text-gray-700">Teaching Year Start</label>
                             <input type="text" id="f_TeachingYearStart" name="f_TeachingYearStart" class="mt-1 p-2 border rounded w-full" />
+                            @error('f_TeachingYearStart')
+                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div>
                             <label for="f_NSTPTeachingYearStart" class="block text-sm font-medium text-gray-700">NSTP Teaching Year Start</label>
                             <input type="text" id="f_NSTPTeachingYearStart" name="f_NSTPTeachingYearStart" class="mt-1 p-2 border rounded w-full" />
+                            @error('f_NSTPTeachingYearStart')
+                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div>
                             <label for="f_TeachingUnitCount" class="block text-sm font-medium text-gray-700">Teaching Unit Count</label>
                             <input type="text" id="f_TeachingUnitCount" name="f_TeachingUnitCount" class="mt-1 p-2 border rounded w-full" />
+                            @error('f_TeachingUnitCount')
+                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div>
-                            <label for="f_Component" class="block text-sm font-medium text-gray-700">Component</label>
-                            <select id="f_Component" name="f_Component" required class="mt-1 p-2 border rounded w-full">
-                                <option value="">Component</option>
-                                <option value="cwts">CWTS</option>
-                                <option value="rotc">ROTC</option>
-                                <option value="lts">LTS</option>
+                            <label for="component_id" class="block text-sm font-medium text-gray-700">Component</label>
+                            <select id="component_id" name="component_id" required class="mt-1 p-2 border rounded w-full">
+                                <option value="">Select component</option>
+
+                                @foreach($components as $component)
+                                <option value="{{ $component->component_id }}">{{ $component->component_Name }}</option>
+                                @endforeach
                             </select>
+
+                            @error('component_id')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div>
+                            <label for="f_ActiveTeaching" class="block text-sm font-medium text-gray-700">Active Teaching</label>
+                            <select name="f_ActiveTeaching" class="mt-1 p-2 border rounded w-full" required>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                            @error('f_ActiveTeaching')
+                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div>
                             <label for="f_EmploymentStatus" class="block text-sm font-medium text-gray-700">Employment Status</label>
@@ -122,6 +146,9 @@
                                 <option value="hired">Hired</option>
                                 <option value="not hired">Not Hired</option>
                             </select>
+                            @error('f_EmploymentStatus')
+                                <div class="text-red-500 text-sm">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                 </div>

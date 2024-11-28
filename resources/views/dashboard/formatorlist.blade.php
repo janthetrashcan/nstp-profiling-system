@@ -1,4 +1,16 @@
 <x-dashboard-layout>
+    @if(session('error'))
+    <div class="bg-red-500 text-white p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <!-- Top Action Bar -->
     <div class="flex flex-row pr-4 mb-3 justify-between">
         <!-- Left Actions: Add, Delete, Filter -->
@@ -85,7 +97,7 @@
                 <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Middle Name</th>
-                
+
                 <th class="text-left p-4 w-2/12 font-semibold">Teaching Year Start</th>
                 <th class="text-left p-4 w-2/12 font-semibold">NSTP Teaching Year Start</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Units Count</th>
@@ -118,7 +130,7 @@
                                 {{ Str::upper($formator->f_MiddleName) }}
                             </a>
                         </td>
-        
+
                         <td class="p-4 text-lg text-left">
                             <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
                                 {{ $formator->f_TeachingYearStart }}
@@ -136,7 +148,7 @@
                         </td>
                         <td class="p-4 text-lg text-left">
                             <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
-                                {{ Str::upper($formator->f_Component) }}
+                                {{ Str::upper($formator->component->component_Name) }}
                             </a>
                         </td>
                 </tr>

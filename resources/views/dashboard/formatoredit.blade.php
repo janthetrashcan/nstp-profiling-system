@@ -11,7 +11,7 @@
     <!-- Edit Formator Information Section -->
     <div class="flex justify-center mt-5">
         <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6">
-            <h1 class="text-2xl font-bold text-left mb-5">Edit Formator Information</h1> 
+            <h1 class="text-2xl font-bold text-left mb-5">Edit Formator Information</h1>
 
             <form action="{{ route('formator.update', $formator->f_id) }}" method="POST" class="space-y-6">
                 @csrf
@@ -21,8 +21,8 @@
                 <div class="border-b pb-4 mb-4">
                     <div class="grid grid-cols-3 gap-4"> <!-- Changed to 3 columns -->
                         <div>
-                            <label for="f_Number" class="block text-sm font-medium text-gray-700">Formator No</label>
-                            <input type="text" name="f_Number" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_Number }}" required />
+                            <label for="employee_id" class="block text-sm font-medium text-gray-700">Formator No</label>
+                            <input type="text" name="employee_id" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_Number }}" required />
                         </div>
                         <div>
                             <label for="f_Surname" class="block text-sm font-medium text-gray-700">Family Name</label>
@@ -39,8 +39,8 @@
                         <div>
                             <label for="f_Sex" class="block text-sm font-medium text-gray-700">Sex</label>
                             <select name="f_Sex" class="mt-1 p-2 border rounded w-full" required>
-                                <option value="Male" {{ $formator->f_Sex == 'Male' ? 'selected' : '' }}>Male</option>
-                                <option value="Female" {{ $formator->f_Sex == 'Female' ? 'selected' : '' }}>Female</option>
+                                <option value="male" {{ $formator->f_Sex == 'male' ? 'selected' : '' }}>Male</option>
+                                <option value="female" {{ $formator->f_Sex == 'female' ? 'selected' : '' }}>Female</option>
                             </select>
                         </div>
                         <div>
@@ -80,17 +80,25 @@
                             <input type="text" name="f_NSTPTeachingYearStart" class="mt-1 p-2 border rounded w-full" value="{{ $formator->f_NSTPTeachingYearStart }}" required />
                         </div>
                         <div>
-                            <label for="f_Component" class="block text-sm font-medium text-gray-700">Component</label>
-                            <select name="f_Component" class="mt-1 p-2 border rounded w-full" required>
-                                <option value="cwts" {{ $formator->f_Component == 'CWTS' ? 'selected' : '' }}>CWTS</option>
-                                <option value="rotc" {{ $formator->f_Component == 'ROTC' ? 'selected' : '' }}>ROTC</option>
-                                <option value="lts" {{ $formator->f_Component == 'LTS' ? 'selected' : '' }}>LTS</option>
+                            <label for="component_id" class="block text-sm font-medium text-gray-700">Component</label>
+                            <select id="component_id" name="component_id" required class="mt-1 p-2 border rounded w-full" value="{{ $formator->component_id }}">
+                                <option value="">Select component</option>
+                                @foreach($components as $component)
+                                <option value="{{ $component->component_id }}">{{ $component->component_Name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div>
+                            <label for="f_ActiveTeaching" class="block text-sm font-medium text-gray-700">Active Teaching</label>
+                            <select name="f_ActiveTeaching" class="mt-1 p-2 border rounded w-full" required>
+                                <option value="active" {{ $formator->f_EmploymentStatus == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ $formator->f_EmploymentStatus == 'inactive' ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
                         <div>
                             <label for="f_EmploymentStatus" class="block text-sm font-medium text-gray-700">Employment Status</label>
                             <select name="f_EmploymentStatus" class="mt-1 p-2 border rounded w-full" required>
-                                <option value="active" {{ $formator->f_EmploymentStatus == 'active' ? 'selected' : '' }}>Active Teaching</option>
+                                <option value="hired" {{ $formator->f_EmploymentStatus == 'hired' ? 'selected' : '' }}>Hired</option>
                                 <option value="not hired" {{ $formator->f_EmploymentStatus == 'not hired' ? 'selected' : '' }}>Not Hired</option>
                             </select>
                         </div>
