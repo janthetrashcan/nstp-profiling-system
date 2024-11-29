@@ -13,6 +13,7 @@ class FormatorController extends Controller {
      public function index(Request $request)
     {
         $query = Formator::query();
+        $search = $request->input('formator_search') ?? "";
 
         // Apply filters
         if ($request->filled('component')) {
@@ -31,9 +32,18 @@ class FormatorController extends Controller {
             $query->where('f_NSTPTeachingYearStart', $request->nstp_teaching_year);
         }
 
+        if ($request->filled('formator_search')) {
+            $query->where('f_Surname', 'like', "%$search")
+            ->orWhere('f_FirstName', 'like', "%$search%")
+            ->orWhere('f_MiddleName', 'like', "%$search%");
+        }
+        else{
+            return view('dashboard.formatorlist', ['formators' => $query->paginate(15), 'search' => ""]);
+        }
+
         $formators = $query->paginate(15);  // Adjust the number as needed
 
-        return view('dashboard.formatorlist', compact('formators'));
+        return view('dashboard.formatorlist', compact('formators', 'search'));
     }
     public function addformator() {
         $sections = Section::all();

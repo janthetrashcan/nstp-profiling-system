@@ -76,7 +76,7 @@
                             </td>
                             <td class="p-4">
                                 <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
-                                    {{ Str::upper($student->section->sec_Component) }}
+                                    {{ Str::upper($student->component->component_Name) }}
                                 </a>
                             </td>
                             <td class="p-4">

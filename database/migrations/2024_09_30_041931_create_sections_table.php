@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('sec_Capacity')->nullable();
             $table->string('sec_BarangayAssigned')->nullable();
 
-            $table->foreignId('f_id')->references('f_id')->on('formators')->onDelete('set null');
-            $table->foreignId('component_id')->references('component_id')->on('components')->onDelete('set null');
+            $table->foreignId('f_id')->nullable()->references('f_id')->on('formators')->onDelete('set null');
+            $table->foreignId('component_id')->nullable()->references('component_id')->on('components')->onDelete('set null');
 
             $table->timestamps();
         });
