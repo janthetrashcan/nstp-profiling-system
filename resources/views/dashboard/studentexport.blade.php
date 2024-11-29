@@ -64,11 +64,15 @@
                     </div>
 
                     <!-- Export Button -->
-                    <div class="flex justify-center">
-                            <button type='submit' class="px-6 py-2 bg-yellow-500 text-white font-semibold rounded-lg hover:bg-yellow-600 transition duration-300">
-                                Export
-                            </button>
-                    </div>
+                    <div class="flex justify-center gap-4">
+                        <button type='submit' class="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300">
+                            Export
+                        </button>
+                        <a href="{{ route('dashboard.studentlist') }}" class="px-6 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition duration-300">
+                            Cancel
+                        </a>
+
+                        </div>
                 </div>
             </div>
         </div>

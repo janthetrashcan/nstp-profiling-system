@@ -4,7 +4,7 @@
         {{ session('error') }}
     </div>
     @endif
-    
+
     @if(session('success'))
     <div class="bg-green-500 text-white p-3 rounded mb-4">
         {{ session('success') }}
@@ -13,24 +13,24 @@
 
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
-            <a href="{{ route('dashboard.addstudent') }}" class='bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
+            <a href="{{ route('dashboard.addstudent') }}" class='bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2'>
                 <x-carbon-add class='h-8' />
                 <h2 class='font-semibold'>Add</h2>
             </a>
             <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2">
                     <x-carbon-trash-can class='h-6' />
                     <h1 class='font-semibold'>Delete</h1>
                 </button>
             </form>
-            <button id="filterToggle" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
+            <button id="filterToggle" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2'>
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Filter</h1>
             </button>
-            <a href='{{ route('dashboard.exportstudentspage') }}' id="exportStudents" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
-                <x-carbon-filter class='h-6' />
+            <a href='{{ route('dashboard.exportstudentspage') }}' id="exportStudents" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2'>
+                <x-carbon-export class='h-6' />
                 <h1 class='font-semibold'>Export</h1>
             </a>
         </div>
