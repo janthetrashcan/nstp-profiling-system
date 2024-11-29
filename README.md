@@ -9,19 +9,20 @@ This `README` file serves as a guide to set up the project on your own device.
 ## Setup
 Run the following commands in a terminal
 
-`Install composer`
+###Install composer
 ```
 composer install
 ```
 
-`Install node`
+###Install node
 ```
 npm install
 ```
 
-`Install blade icons for UI`
+###Import dependencies
 ```
 composer require codeat3/blade-carbon-icons
+composer require maatwebsite/excel
 ```
 ```
 php artisan vendor:publish --tag=blade-carbon-icons-config
@@ -42,6 +43,15 @@ php artisan migrate
 php artisan optimize
 ```
 
+To seed the database
+```
+php artisan db:seed DatabaseSeeder
+```
+or
+```
+php artisan migrate:fresh --seed
+```
+
 To run the PHP server, run the command in a terminal window
 ```
 php artisan serve
@@ -51,5 +61,3 @@ To run the node server, run the command in another terminal window
 ```
 npm run dev
 ```
-
-
