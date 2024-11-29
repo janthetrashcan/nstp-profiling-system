@@ -24,7 +24,7 @@
 
     <!-- Profile Layout -->
     <div id="formator-profile" class="flex gap-x-6 p-6 bg-white rounded-xl shadow-lg">
-    
+
         <div id="formator-photo" class="w-32 h-32 bg-gray-200 rounded-full overflow-hidden shadow-md mt-20"> <!-- Added mt-4 to move it down -->
             <img src="{{ $formator->profile_photo_url ?? 'path/to/default/photo.jpg' }}" alt="Profile Photo" class="w-full h-full object-cover rounded-full">
         </div>
@@ -32,7 +32,7 @@
         <!-- Formator Information Section -->
         <div class="flex flex-col w-full">
             <h1 class="text-3xl font-bold mb-6">Formator Information</h1>
-            
+
             <!-- Combined Personal Information Fields -->
             <div class="bg-gray-50 p-6 rounded-xl shadow-md mb-3">
                 <p class="text-gray-500 font-semibold mb-2">Personal Information</p>
@@ -81,7 +81,7 @@
                     </div>
                     <div>
                         <p class="text-gray-500 font-semibold">Component</p>
-                        <p class="text-lg">{{ $formator->f_Component }}</p>
+                        <p class="text-lg">{{ $formator->component->component_Name }}</p>
                     </div>
                     <div>
                         <p class="text-gray-500 font-semibold">Employment Status</p>

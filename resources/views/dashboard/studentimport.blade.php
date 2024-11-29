@@ -1,75 +1,89 @@
 <x-dashboard-layout>
-    <div class="flex flex-col gap-6 items-center mt-12">
-        <!-- Large Box without Folded Corner Design -->
-        <div class="relative w-[800px] h-[500px] bg-gray-100 rounded-lg shadow-lg border border-gray-300">
-            <!-- File Areas Wrapper -->
-            <div class="absolute inset-0 p-8 flex flex-row justify-center gap-12">
-                <!-- Registrar File Area -->
-                <div 
-                    class="flex flex-col items-center justify-center w-80 h-80 gap-y-4
-                           border-dashed border-2 border-gray-500 rounded-lg
-                           bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer drag-and-drop"
-                >
-                    <label 
-                        for="registrar_file" 
-                        class="text-gray-700 text-center font-medium select-none"
-                    >
-                        Drag and drop <b>Registrar</b> Excel file
-                    </label>
-                    <p class="text-sm text-gray-500">or click to upload</p>
-                    <button 
-                        type="button" 
-                        onclick="document.getElementById('registrar_file').click()" 
-                        class="px-4 py-2 bg-gray-500 text-white font-medium rounded-lg
-                               hover:bg-gray-600 transition duration-300"
-                    >
-                        Browse
-                    </button>
-                    <input
-                        type="file"
-                        id="registrar_file"
-                        name="registrar_file"
-                        accept=".xlsx,.xls"
-                        class="hidden"
-                    />
-                    <div class="preview text-sm text-gray-500">
-                        <p>No files currently selected for upload.</p>
-                    </div>
-                </div>
+    @if(session('error'))
+    <div class="bg-red-500 text-white p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+    @endif
 
-                <!-- Google Forms File Area -->
-                <div 
-                    class="flex flex-col items-center justify-center w-80 h-80 gap-y-4
-                           border-dashed border-2 border-gray-500 rounded-lg
-                           bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer drag-and-drop"
-                >
-                    <label 
-                        for="google_forms_file" 
-                        class="text-gray-700 text-center font-medium select-none"
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    <form action='{{ route('students.import') }}' method='POST' enctype='multipart/form-data'>
+        @csrf
+        <div class="flex flex-col gap-6 items-center mt-12">
+            <!-- Large Box without Folded Corner Design -->
+            <div class="relative w-[800px] h-[500px] bg-gray-100 rounded-lg shadow-lg border border-gray-300">
+                <!-- File Areas Wrapper -->
+                <div class="absolute inset-0 p-8 flex flex-row justify-center gap-12">
+                    <!-- Registrar File Area -->
+                    <div
+                        class="flex flex-col items-center justify-center w-80 h-80 gap-y-4
+                            border-dashed border-2 border-gray-500 rounded-lg
+                            bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer drag-and-drop"
+                        >
+                        <label
+                            for="registrar_file"
+                            class="text-gray-700 text-center font-medium select-none"
+                        >
+                            Drag and drop <b>Registrar</b> Excel file
+                        </label>
+                        <p class="text-sm text-gray-500">or click to upload</p>
+                        <button
+                            type="button"
+                            onclick="document.getElementById('registrar_file').click()"
+                            class="px-4 py-2 bg-gray-500 text-white font-medium rounded-lg
+                                hover:bg-gray-600 transition duration-300"
+                        >
+                            Browse
+                        </button>
+                        <input
+                            type="file"
+                            id="registrar_file"
+                            name="registrar_file"
+                            accept=".xlsx,.xls"
+                            class="hidden"
+                        />
+                        <div class="preview text-sm text-gray-500">
+                            <p>No files currently selected for upload.</p>
+                        </div>
+                    </div>
+
+                    <!-- Google Forms File Area -->
+                    <div
+                        class="flex flex-col items-center justify-center w-80 h-80 gap-y-4
+                            border-dashed border-2 border-gray-500 rounded-lg
+                            bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer drag-and-drop"
                     >
-                        Drag and drop <b>Google Forms</b> Excel file
-                    </label>
-                    <p class="text-sm text-gray-500">or click to upload</p>
-                    <button 
-                        type="button" 
-                        onclick="document.getElementById('google_forms_file').click()" 
-                        class="px-4 py-2 bg-gray-500 text-white font-medium rounded-lg
-                               hover:bg-gray-600 transition duration-300"
-                    >
-                        Browse
-                    </button>
-                    <input
-                        type="file"
-                        id="google_forms_file"
-                        name="google_forms_file"
-                        accept=".xlsx,.xls"
-                        class="hidden"
-                    />
-                    <div class="preview text-sm text-gray-500">
-                        <p>No files currently selected for upload.</p>
+                        <label
+                            for="google_forms_file"
+                            class="text-gray-700 text-center font-medium select-none"
+                        >
+                            Drag and drop <b>Google Forms</b> Excel file
+                        </label>
+                        <p class="text-sm text-gray-500">or click to upload</p>
+                        <button
+                            type="button"
+                            onclick="document.getElementById('google_forms_file').click()"
+                            class="px-4 py-2 bg-gray-500 text-white font-medium rounded-lg
+                                hover:bg-gray-600 transition duration-300"
+                        >
+                            Browse
+                        </button>
+                        <input
+                            type="file"
+                            id="google_forms_file"
+                            name="google_forms_file"
+                            accept=".xlsx,.xls"
+                            class="hidden"
+                        />
+                        <div class="preview text-sm text-gray-500">
+                            <p>No files currently selected for upload.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
             <!-- Submit Button inside the Box -->
             <button 
@@ -80,7 +94,7 @@
                 Import
             </button>
         </div>
-    </div>
+    </form>
 
     <script>
 

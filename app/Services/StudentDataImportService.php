@@ -24,25 +24,23 @@ class StudentDataImportService
         $registrarData = collect($registrarImport->getData());
         $googleFormsData = collect($googleFormsImport->getData());
 
-        // dd($registrarData, $googleFormsData);
-
         // process each record from registrar data
         try{
-        $registrarData->each(function ($registrarRecord) use ($googleFormsData){
-            // match s_StudentNo of registrardata with googleformsdata
-            $googleFormsRecord = $googleFormsData->firstWhere('s_StudentNo', $registrarRecord['s_StudentNo']);
+            $registrarData->each(function ($registrarRecord) use ($googleFormsData){
+                // match s_StudentNo of registrardata with googleformsdata
+                $googleFormsRecord = $googleFormsData->firstWhere('s_StudentNo', $registrarRecord['s_StudentNo']);
 
-            // merge registrardata and googleformsdata
-            if($googleFormsRecord){
-                Student::updateOrCreate(
-                    ['s_StudentNo' => $registrarRecord['s_StudentNo']],
-                    array_merge($registrarRecord, $googleFormsRecord)
-                );
-            }
-        });
+                // merge registrardata and googleformsdata
+                if($googleFormsRecord){
+                    Student::updateOrCreate(
+                        ['s_StudentNo' => $registrarRecord['s_StudentNo']],
+                        array_merge($registrarRecord, $googleFormsRecord)
+                    );
+                }
+            });
         }
         catch(Exception $e){
-            dd($e);
+            return redirect()->back()->with('error', 'Error in importing student: '.$e);
         }
 
     }

@@ -23,7 +23,7 @@
                 <!-- Student ID -->
                 <div class="mb-4 col-span-3">
                     <label for="s_StudentNo" class="block text-sm font-medium text-gray-700">Student ID </label>
-                    <label for="s_StudentNo" class="block text-sm font-medium text-red-500">*6 numbers </label>
+                    <label for="s_StudentNo" class="block text-sm font-medium text-red-500">*6 numbers</label>
                     <input type="text" id="s_StudentNo" name="s_StudentNo" required class="mt-1 block w-1/3 border-gray-300 rounded-md shadow-sm px-3 py-2" />
                     @error('s_StudentNo')
                         <div class="text-red-500 text-sm">{{ $message }}</div>
@@ -158,11 +158,11 @@
                         <h3 class="font-semibold">City Address</h3>
                         <div>
                             <label for="s_c_HouseNo" class="block text-sm font-medium text-gray-700">House No</label>
-                            <input type="text" id="s_c_HouseNo" name="s_c_HouseNo" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
+                            <input type="text" id="s_c_HouseNo" name="s_c_HouseNo" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                         </div>
                         <div>
                             <label for="s_c_Street" class="block text-sm font-medium text-gray-700">Street</label>
-                            <input type="text" id="s_c_Street" name="s_c_Street" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
+                            <input type="text" id="s_c_Street" name="s_c_Street" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                         </div>
                         <div>
                             <label for="s_c_Barangay" class="block text-sm font-medium text-gray-700">Barangay</label>
@@ -189,11 +189,11 @@
                         <h3 class="font-semibold">Provincial Address</h3>
                         <div>
                             <label for="s_p_HouseNo" class="block text-sm font-medium text-gray-700">House No</label>
-                            <input type="text" id="s_p_HouseNo" name="s_p_HouseNo" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
+                            <input type="text" id="s_p_HouseNo" name="s_p_HouseNo" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                         </div>
                         <div>
                             <label for="s_p_Street" class="block text-sm font-medium text-gray-700">Street</label>
-                            <input type="text" id="s_p_Street" name="s_p_Street" required class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
+                            <input type="text" id="s_p_Street" name="s_p_Street" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm px-3 py-2" />
                         </div>
                         <div>
                             <label for="s_p_Barangay" class="block text-sm font-medium text-gray-700">Barangay</label>
