@@ -19,7 +19,7 @@
   <header class="fixed top-0 left-0 right-0 z-20 h-20 bg-blue-900 flex items-center justify-between px-3 py-2 shadow-md">
     <div class="flex items-center gap-4">
       <button id="menuToggle" class="text-white text-2xl cursor-pointer">☰</button>
-      <img src="/left-logo.png" alt="Logo" class="h-15 w-12 border border-white">
+      <img src="/sacsi-outline.png" alt="Logo" class="h-15 w-12">
       <h1 class="text-white font-bold text-3xl drop-shadow-md font-serif">SACSI</h1>
     </div>
     <div class="flex items-center gap-4">
