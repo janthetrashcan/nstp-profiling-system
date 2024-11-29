@@ -25,7 +25,7 @@
             <form action="{{ route('formator.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-colors duration-200 flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow-md">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
                     <x-carbon-trash-can class="h-6" />
                     <h1 class="font-semibold">Delete</h1>
                 </button>
@@ -94,6 +94,7 @@
         <thead class="bg-gray-200">
             <tr>
                 <th class="p-4 text-center w-4">Select</th>
+                <th class="text-left p-4 w-2/12 font-semibold">Employee ID</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Middle Name</th>
@@ -113,7 +114,12 @@
                         <td class="p-4 text-center">
                             <input type="checkbox" name="formator_ids[]" value="{{ $formator->f_id }}" form="deleteForm" class="w-4 h-4">
                         </td>
-
+                        <!-- Formator ID (employee_id) -->
+                <td class="p-4 text-lg text-left">
+                    <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
+                        {{ $formator->employee_id }}  <!-- This is the employee ID you want -->
+                    </a>
+                </td>
                         <!-- Formator Details -->
                         <td class="p-4 text-lg text-left">
                             <a href="{{ route('dashboard.showformator', $formator->f_id) }}" class="p-0 m-0">

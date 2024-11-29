@@ -105,7 +105,7 @@ class FormatorController extends Controller {
             }
             try {
                 $data = $request->validate([
-                    'employee_id' => 'required|string',
+                    'employee_id' => 'required|string|max:8',
                     'f_Surname' => 'required|string|max:255',
                     'f_FirstName' => 'required|string|max:255',
                     'f_MiddleName' => 'required|string|max:255',

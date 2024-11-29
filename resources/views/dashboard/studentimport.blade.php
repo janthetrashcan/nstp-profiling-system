@@ -85,15 +85,14 @@
                     </div>
                 </div>
 
-                <!-- Submit Button inside the Box -->
-                <button
-                    type="submit"
-                    class="px-6 py-2 bg-yellow-500 text-white font-semibold rounded-lg
-                        hover:bg-yellow-600 transition duration-300 absolute bottom-8 left-1/2 transform -translate-x-1/2"
-                >
-                    Import
-                </button>
-            </div>
+            <!-- Submit Button inside the Box -->
+            <button 
+                type="submit" 
+                class="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg 
+                       hover:bg-yellow-600 transition duration-300 absolute bottom-8 left-1/2 transform -translate-x-1/2"
+            >
+                Import
+            </button>
         </div>
     </form>
 

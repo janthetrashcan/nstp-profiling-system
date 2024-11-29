@@ -14,7 +14,7 @@
             <form action="{{ route('formator.destroy', $formator->f_id) }}" method="POST" id="deleteSingleForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
                     <x-carbon-trash-can class="h-6" />
                     <span class="font-semibold">Delete</span>
                 </button>
@@ -37,6 +37,10 @@
             <div class="bg-gray-50 p-6 rounded-xl shadow-md mb-3">
                 <p class="text-gray-500 font-semibold mb-2">Personal Information</p>
                 <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-500 font-semibold">Formator ID</p>
+                        <p class="text-lg">{{ $formator->employee_id }}</p>
+                    </div>
                     <div>
                         <p class="text-gray-500 font-semibold">Full Name</p>
                         <p class="text-lg">{{ $formator->f_FirstName }} {{ $formator->f_MiddleName }} {{ $formator->f_Surname }}</p>
