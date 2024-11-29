@@ -1,7 +1,7 @@
 # Project Setup
 This `README` file serves as a guide to set up the project on your own device.
 
-## Prerequesites
+## Prerequisites
 - PHP
 - Composer
 - Node.js
