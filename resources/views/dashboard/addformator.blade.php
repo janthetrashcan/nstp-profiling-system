@@ -155,7 +155,7 @@
 
                 <!-- Save Button -->
                 <div class="flex justify-end mt-6">
-                    <button type="submit" class="bg-yellow-500 text-white px-6 py-2 rounded-lg font-bold">Save</button>
+                    <button type="submit" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold">Save</button>
                 </div>
             </form>
         </div>

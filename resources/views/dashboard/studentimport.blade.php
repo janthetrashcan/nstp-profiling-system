@@ -88,8 +88,8 @@
             <!-- Submit Button inside the Box -->
             <button
                 type="submit"
-                class="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg
-                       hover:bg-green-600 transition duration-300 absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                class="px-6 py-2 bg-blue-900 text-white font-semibold rounded-lg
+                       hover:bg-blue-800 transition duration-300 absolute bottom-8 left-1/2 transform -translate-x-1/2"
             >
                 Import
             </button>

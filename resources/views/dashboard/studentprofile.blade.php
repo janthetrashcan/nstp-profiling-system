@@ -87,10 +87,10 @@
         </div>
 
         <!-- Program and Address Information -->
-        <div class="flex flex-col gap-6">
-            <!-- Program Information -->
-            <div id="student-info" class="flex flex-col gap-y-4 p-6 w-full md:w-96 rounded-xl bg-white shadow-lg">
-                <h1 class="text-2xl font-bold text-gray-700 mb-4">Program Information</h1>
+        <div class="flex flex-col gap-6 w-full md:w-96">
+    <!-- Program Information -->
+    <div id="student-program-info" class="p-6 rounded-xl bg-white shadow-lg">
+        <h1 class="text-2xl font-bold text-gray-700 mb-4">Program Information</h1>
 
                 <!-- Program Code -->
                 <div class="flex flex-row gap-3">

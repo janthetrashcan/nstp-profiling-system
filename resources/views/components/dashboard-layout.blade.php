@@ -20,8 +20,8 @@
     <div class="flex items-center gap-4">
       <button id="menuToggle" class="text-white text-2xl cursor-pointer">☰</button>
       <img src="/sacsi-outline.png" alt="Logo" class="h-15 w-12">
-      <h1 class="text-white font-bold text-3xl drop-shadow-md font-serif">SACSI</h1>
-    </div>
+      <h1 class="text-white font-bold text-2x1 drop-shadow-md font-sans serif">NSTP Profiling System</h1>
+</div>
     <div class="flex items-center gap-4">
       <h1 class="text-white font-bold text-xl drop-shadow-md">Welcome, Admin!</h1>
       <img src="/admin-profile.png" alt="Profile" class="h-15 w-12">
@@ -60,10 +60,10 @@
           </li>
         </ul>
       </nav>
-      <form method="POST" action="{{ route('logout') }}" class="flex justify-center mt-72">
+      <form method="POST" action="{{ route('logout') }}" style= "margin-top: 24rem;" class="flex justify-center mt-72">
         @csrf
         <button type="submit"
-          class="p-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200">
+          class="w-4/5 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 ">
           Logout
         </button>
       </form>

@@ -65,7 +65,7 @@
 
                     <!-- Export Button -->
                     <div class="flex justify-center gap-4">
-                        <button type='submit' class="px-6 py-2 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600 transition duration-300">
+                        <button type='submit' class="px-6 py-2 bg-blue-900 text-white font-semibold rounded-lg hover:bg-blue-800 transition duration-300">
                             Export
                         </button>
                         <a href="{{ route('dashboard.studentlist') }}" class="px-6 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 transition duration-300">
