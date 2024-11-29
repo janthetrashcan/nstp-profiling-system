@@ -40,6 +40,7 @@
                     <th class="p-4 text-left w-1/12 font-semibold">Program</th>
                     <th class="p-4 text-left w-1/12 font-semibold">Component</th>
                     <th class="p-4 text-left w-1/12 font-semibold">Section</th>
+                    <th class="text-left p-4 w-1/12 font-semibold">Grade</th>
                 </tr>
             </thead>
             <tbody>
@@ -82,6 +83,10 @@
                             <td class="p-4">
                                 <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
                                     {{ Str::upper($student->section->sec_Section) }}
+                            </td>
+                            <td class="p-4">
+                    <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg">
+                        {{ $student->s_FinalGrade }}
                                 </a>
                             </td>
                         </tr>
