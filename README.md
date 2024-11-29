@@ -9,17 +9,17 @@ This `README` file serves as a guide to set up the project on your own device.
 ## Setup
 Run the following commands in a terminal
 
-###Install composer
+### Install composer
 ```
 composer install
 ```
 
-###Install node
+### Install node
 ```
 npm install
 ```
 
-###Import dependencies
+### Import dependencies
 ```
 composer require codeat3/blade-carbon-icons
 composer require maatwebsite/excel
