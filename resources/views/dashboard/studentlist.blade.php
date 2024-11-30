@@ -47,17 +47,105 @@
         <thead class="bg-gray-200">
             <tr>
                 <th class="p-4 text-left w-[5%]">Select</th>
-                <th class="text-left p-4 w-1/12 font-semibold">Student ID</th>
-                <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
-                <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
-                <th class="text-left p-4 w-2/12 font-semibold">Middle Name</th>
-                <th class="text-left p-4 w-1/12 font-semibold">Program</th>
-                <th class="text-left p-4 w-1/12 font-semibold">Component</th>
-                <th class="text-left p-4 w-1/12 font-semibold">Section</th>
-                <th class="text-left p-4 w-1/12 font-semibold">Grade</th>
+                <th class="text-left p-4 w-1/12 font-semibold">
+                    <a href="{{ route('dashboard.studentlist', ['sort' => 's_StudentNo', 'direction' => ($sortColumn === 's_StudentNo' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
+                        Student ID
+                        @if ($sortColumn === 's_StudentNo')
+                            @if ($sortDirection === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
+                <th class="text-left p-4 w-2/12 font-semibold">
+                    <a href="{{ route('dashboard.studentlist', ['sort' => 's_Surname', 'direction' => ($sortColumn === 's_Surname' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
+                        Family Name
+                        @if ($sortColumn === 's_Surname')
+                            @if ($sortDirection === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
+                <th class="text-left p-4 w-2/12 font-semibold">
+                    <a href="{{ route('dashboard.studentlist', ['sort' => 's_FirstName', 'direction' => ($sortColumn === 's_FirstName' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
+                        First Name
+                        @if ($sortColumn === 's_FirstName')
+                            @if ($sortDirection === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
+                <th class="text-left p-4 w-2/12 font-semibold">
+                    <a href="{{ route('dashboard.studentlist', ['sort' => 's_MiddleName', 'direction' => ($sortColumn === 's_MiddleName' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
+                        Middle Name
+                        @if ($sortColumn === 's_MiddleName')
+                            @if ($sortDirection === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
+                <th class="text-left p-4 w-1/12 font-semibold">
+                    <a href="{{ route('dashboard.studentlist', ['sort' => 's_Surname', 'direction' => ($sortColumn === 's_Surname' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
+                        Program
+                        @if ($sortColumn === 's_Surname')
+                            @if ($sortDirection === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
+                <th class="text-left p-4 w-1/12 font-semibold">
+                    <a href="{{ route('dashboard.studentlist', ['sort' => 's_Surname', 'direction' => ($sortColumn === 's_Surname' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
+                        Component
+                        @if ($sortColumn === 's_Surname')
+                            @if ($sortDirection === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
+                <th class="text-left p-4 w-1/12 font-semibold">
+                    <a href="{{ route('dashboard.studentlist', ['sort' => 'sec_id', 'direction' => ($sortColumn === 'sec_id' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
+                        Section
+                        @if ($sortColumn === 'sec_id')
+                            @if ($sortDirection === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
+                <th class="text-left p-4 w-1/12 font-semibold">
+                    <a href="{{ route('dashboard.studentlist', ['sort' => 's_FinalGrade', 'direction' => ($sortColumn === 's_FinalGrade' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
+                        Grade
+                        @if ($sortColumn === 's_FinalGrade')
+                            @if ($sortDirection === 'asc')
+                                ▲
+                            @else
+                                ▼
+                            @endif
+                        @endif
+                    </a>
+                </th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="studentTableBody">
             @foreach($students as $student)
             <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
                 <td class="p-4 text-center w-[5%]">
@@ -116,5 +204,73 @@
             var filterForm = document.getElementById('filterForm');
             filterForm.classList.toggle('hidden');
         });
+
+        // Sorting functionality
+        const tableHeaders = document.querySelectorAll('th[data-sort]');
+        let currentSort = { column: '', direction: 'asc' };
+
+        tableHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const column = header.dataset.sort;
+                const direction = currentSort.column === column && currentSort.direction === 'asc' ? 'desc' : 'asc';
+                
+                sortTable(column, direction);
+                
+                currentSort = { column, direction };
+                updateSortIndicators();
+            });
+        });
+
+        function sortTable(column, direction) {
+            const tbody = document.getElementById('studentTableBody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            const sortedRows = rows.sort((a, b) => {
+                const aValue = a.querySelector(`td:nth-child(${getColumnIndex(column)})`).textContent.trim();
+                const bValue = b.querySelector(`td:nth-child(${getColumnIndex(column)})`).textContent.trim();
+
+                if (column === 's_StudentNo') {
+                    return direction === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                } else if (column === 's_FinalGrade') {
+                    return direction === 'asc' ? compareGrades(aValue, bValue) : compareGrades(bValue, aValue);
+                } else {
+                    return direction === 'asc' ? aValue.localeCompare(bValue) : bValue.localeCompare(aValue);
+                }
+            });
+
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            sortedRows.forEach(row => tbody.appendChild(row));
+        }
+
+        function getColumnIndex(column) {
+            const columnMap = {
+                's_StudentNo': 2,
+                's_Surname': 3,
+                's_FirstName': 4,
+                's_MiddleName': 5,
+                'program_Code': 6,
+                'component_Name': 7,
+                'sec_Section': 8,
+                's_FinalGrade': 9
+            };
+            return columnMap[column];
+        }
+
+        function compareGrades(a, b) {
+            const gradeOrder = ['4', '3.5', '3', '2.5', '2', '1.5', '1', 'F'];
+            return gradeOrder.indexOf(a) - gradeOrder.indexOf(b);
+        }
+
+        function updateSortIndicators() {
+            tableHeaders.forEach(header => {
+                header.classList.remove('sort-asc', 'sort-desc');
+                if (header.dataset.sort === currentSort.column) {
+                    header.classList.add(`sort-${currentSort.direction}`);
+                }
+            });
+        }
     </script>
 </x-dashboard-layout>

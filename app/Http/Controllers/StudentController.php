@@ -18,46 +18,86 @@ class StudentController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        // Existing code for dropdown options
-        $programs = Program::all();
-        $components = Component::select('component_id', 'component_Name')->get();
-        $sections = Section::all();
+{
+    // Existing code for dropdown options
+    $programs = Program::all();
+    $components = Component::select('component_id', 'component_Name')->get();
+    $sections = Section::all();
 
-        $query = Student::query();
+    $query = Student::query();
 
-        // Existing filters
-        if ($request->filled('program')) {
+    // Existing filters
+    if ($request->filled('program')) {
         $query->where('program_id', $request->input('program'));
-        }
-
-        if ($request->filled('component_id')) {
-            $query->where('component_id', $request->input('component_id'));
-        }
-
-        if ($request->filled('section')) {
-            $query->where('sec_id', $request->input('section'));
-        }
-        // New filters for passed, failed, and grades
-        if ($request->filled('status')) {
-            if ($request->input('status') === 'passed') {
-                $query->whereIn('s_FinalGrade', [1, 1.5, 2, 2.5, 3, 3.5, 4]);
-            } elseif ($request->input('status') === 'failed') {
-                $query->where('s_FinalGrade', 'F');
-            }
-        }
-
-        if ($request->filled('grade')) {
-            $query->where('s_FinalGrade', $request->input('grade'));
-        }
-
-        $students = $query->paginate(15);
-
-        // Prepare grades for dropdown
-        $grades = [1, 1.5, 2, 2.5, 3, 3.5, 4];
-
-        return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections', 'grades'));
     }
+
+    if ($request->filled('component_id')) {
+        $query->where('component_id', $request->input('component_id'));
+    }
+
+    if ($request->filled('section')) {
+        $query->where('sec_id', $request->input('section'));
+    }
+
+    // New filters for passed, failed, and grades
+    if ($request->filled('status')) {
+        if ($request->input('status') === 'passed') {
+            $query->whereIn('s_FinalGrade', [1, 1.5, 2, 2.5, 3, 3.5, 4]);
+        } elseif ($request->input('status') === 'failed') {
+            $query->where('s_FinalGrade', 'F');
+        }
+    }
+
+    if ($request->filled('grade')) {
+        $query->where('s_FinalGrade', $request->input('grade'));
+    }
+
+    // Sorting
+    $sortColumn = $request->input('sort', 's_StudentNo');
+    $sortDirection = $request->input('direction', 'asc');
+
+    // Validate sort column to prevent SQL injection
+    $allowedColumns = ['s_StudentNo', 's_Surname', 's_FirstName', 's_MiddleName', 'program_id', 'component_id', 'sec_id', 's_FinalGrade'];
+    if (!in_array($sortColumn, $allowedColumns)) {
+        $sortColumn = 's_StudentNo';
+    }
+
+    // Special handling for program, component, and section sorting
+    if ($sortColumn === 'program_id') {
+        $query->join('programs', 'students.program_id', '=', 'programs.program_id')
+              ->orderBy('programs.program_Code', $sortDirection);
+    } elseif ($sortColumn === 'component_id') {
+        $query->join('components', 'students.component_id', '=', 'components.component_id')
+              ->orderBy('components.component_Name', $sortDirection);
+    } elseif ($sortColumn === 'sec_id') {
+        $query->join('sections', 'students.sec_id', '=', 'sections.sec_id')
+              ->orderBy('sections.sec_Section', $sortDirection);
+    } else {
+        $query->orderBy($sortColumn, $sortDirection);
+    }
+
+    // Custom sorting for grades
+    if ($sortColumn === 's_FinalGrade') {
+        $query->orderByRaw("CASE 
+            WHEN s_FinalGrade = 'F' THEN 9
+            WHEN s_FinalGrade = '4' THEN 8
+            WHEN s_FinalGrade = '3.5' THEN 7
+            WHEN s_FinalGrade = '3' THEN 6
+            WHEN s_FinalGrade = '2.5' THEN 5
+            WHEN s_FinalGrade = '2' THEN 4
+            WHEN s_FinalGrade = '1.5' THEN 3
+            WHEN s_FinalGrade = '1' THEN 2
+            ELSE 1
+        END " . $sortDirection);
+    }
+
+    $students = $query->paginate(15)->appends($request->query());
+
+    // Prepare grades for dropdown
+    $grades = [1, 1.5, 2, 2.5, 3, 3.5, 4];
+
+    return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections', 'grades', 'sortColumn', 'sortDirection'));
+}
 
     /**
      * Show the form for creating a new resource.
