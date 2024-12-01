@@ -1,7 +1,8 @@
 @if(isset($programs) && $programs->isNotEmpty() && isset($components) && $components->isNotEmpty() && isset($sections) && $sections->isNotEmpty())
-    <div id="filterForm" class="mb-4 {{ request('program') || request('component_id') || request('section') || request('status') || request('grade') ? '' : 'hidden' }}">   
-        <form action="{{ route('dashboard.filterstudents') }}" method="GET" class="flex flex-wrap items-center space-x-2 space-y-2">
-            <select name="program" id="program-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+    <div id="filterForm" class="mb-4 p-4 bg-white rounded-xl shadow-md {{ request('program') || request('component_id') || request('section') || request('status') || request('grade') ? '' : 'hidden' }}">
+        <form action="{{ route('dashboard.filterstudents') }}" method="GET" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+
+            <select name="program" id="program-select" class="w-full p-2 border rounded">
                 <option value="">Select Program</option>
                 @foreach($programs as $program)
                     <option value="{{ $program->program_id }}" {{ request('program') == $program->program_id ? 'selected' : '' }}>
@@ -10,7 +11,7 @@
                 @endforeach
             </select>
 
-            <select name="component_id" id="component-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+            <select name="component_id" id="component-select" class="w-full p-2 border rounded">
                 <option value="">Select Component</option>
                 @foreach($components as $component)
                     <option value="{{ $component->component_id }}" {{ request('component_id') == $component->component_id ? 'selected' : '' }}>
@@ -19,7 +20,7 @@
                 @endforeach
             </select>
 
-            <select name="section" id="section-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+            <select name="section" id="section-select" class="w-full p-2 border rounded">
                 <option value="">Select Section</option>
                 @foreach($sections as $section)
                     <option value="{{ $section->sec_id }}" {{ request('section') == $section->sec_id ? 'selected' : '' }}>
@@ -28,13 +29,13 @@
                 @endforeach
             </select>
 
-            <select name="status" id="status-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2">
+            <select name="status" id="status-select" class="w-full p-2 border rounded">
                 <option value="">Select Status</option>
                 <option value="passed" {{ request('status') == 'passed' ? 'selected' : '' }}>Passed</option>
                 <option value="failed" {{ request('status') == 'failed' ? 'selected' : '' }}>Failed</option>
             </select>
-    
-            <select name="grade" id="grade-select" class="bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2" {{ request('status') != 'passed' ? 'disabled' : '' }}>
+
+            <select name="grade" id="grade-select" class="w-full p-2 border rounded" {{ request('status') != 'passed' ? 'disabled' : '' }}>
                 <option value="">Select Grade</option>
                 @foreach([1, 1.5, 2, 2.5, 3, 3.5, 4] as $grade)
                     <option value="{{ $grade }}" {{ request('grade') == $grade ? 'selected' : '' }}>
@@ -43,11 +44,14 @@
                 @endforeach
             </select>
 
-            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 p-3 rounded-xl">Apply Filter</button>
-            
-            @if(request('program') || request('component_id') || request('section') || request('status') || request('grade'))
-                <a href="{{ route('dashboard.studentlist') }}" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl">Clear Filter</a>
-            @endif
+            <div class='col-span-2 md:col-span-3 lg:col-span-5'>
+                <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Apply Filter</button>
+                @if(request('program') || request('component_id') || request('section') || request('status') || request('grade'))
+                <a href="{{ route('dashboard.studentlist') }}" class="ml-2 text-blue-500 hover:underline">Clear Filter</a>
+                @endif
+
+
+            </div>
         </form>
     </div>
 
@@ -55,7 +59,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const statusSelect = document.getElementById('status-select');
             const gradeSelect = document.getElementById('grade-select');
-        
+
             function updateGradeSelect() {
                 if (statusSelect.value === 'passed') {
                     gradeSelect.disabled = false;
@@ -64,9 +68,9 @@
                     gradeSelect.value = '';
                 }
             }
-        
+
             statusSelect.addEventListener('change', updateGradeSelect);
-        
+
             // Initial update in case of page reload with existing selections
             updateGradeSelect();
         });

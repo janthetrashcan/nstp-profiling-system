@@ -36,8 +36,8 @@
         </div>
 
         <form action="{{ route('dashboard.searchstudent') }}" method='GET' id='functions-rhs' class='flex flex-row gap-x-3'>
-            <input type='text' name='search' placeholder='Enter Name or Student No.' maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-xl gap-2' />
-            <input type='submit' value='Search' class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl' />
+            <input type='text' name='search' placeholder='Enter Name or Student No.' maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-lg gap-2' />
+            <input type='submit' value='Search' class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-lg' />
         </form>
     </div>
 
@@ -213,9 +213,9 @@
             header.addEventListener('click', () => {
                 const column = header.dataset.sort;
                 const direction = currentSort.column === column && currentSort.direction === 'asc' ? 'desc' : 'asc';
-                
+
                 sortTable(column, direction);
-                
+
                 currentSort = { column, direction };
                 updateSortIndicators();
             });

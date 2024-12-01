@@ -45,7 +45,7 @@
 
         <!-- Right Actions: Search -->
         <form action="{{ route('dashboard.formatorlist') }}" method="GET" id="functions-rhs" class="flex flex-row gap-3">
-            <input type="text" id="formator_search" name="formator_search" placeholder="Enter Name" maxlength="30" class="bg-gray-100 flex w-60 h-12 px-4 py-2 rounded-xl" value="{{ $search }}"/>
+            <input type="text" id="formator_search" name="formator_search" placeholder="Enter Name" maxlength="30" class="bg-gray-100 flex w-60 h-12 px-4 py-2 rounded-lg" value="{{ $search }}"/>
             <input type="submit" value="Search" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-lg" />
         </form>
     </div>
