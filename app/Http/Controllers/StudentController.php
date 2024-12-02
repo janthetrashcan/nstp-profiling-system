@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportStudents;
-use App\Exports\ExportStudentsByComponent;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Student;
@@ -79,7 +78,7 @@ class StudentController extends Controller
 
     // Custom sorting for grades
     if ($sortColumn === 's_FinalGrade') {
-        $query->orderByRaw("CASE
+        $query->orderByRaw("CASE 
             WHEN s_FinalGrade = 'F' THEN 9
             WHEN s_FinalGrade = '4' THEN 8
             WHEN s_FinalGrade = '3.5' THEN 7
@@ -373,8 +372,7 @@ public function exportStudents(Request $request){
         return redirect()->back()->with('warning', 'No students found.');
     }
 
-    //return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
-    return (new ExportStudentsByComponent($filteredStudents))->download('students.xlsx');
+    return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
 }
 }
 
