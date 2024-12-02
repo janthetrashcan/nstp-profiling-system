@@ -138,7 +138,7 @@
 
                 <!-- Component -->
                 <div class="mb-4">
-                    <label for="s_FinalGrade" class="block text-sm font-medium text-gray-700">Section</label>
+                    <label for="s_FinalGrade" class="block text-sm font-medium text-gray-700">Final Grade</label>
                     <select id="s_FinalGrade" name="s_FinalGrade" required class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2">
                         <option value="">Select Final Grade</option>
                         @foreach($grades as $grade)
