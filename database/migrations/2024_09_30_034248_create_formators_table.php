@@ -28,7 +28,7 @@ return new class extends Migration
             // Teaching Info
             $table->integer('f_TeachingYearStart');
             $table->integer('f_NSTPTeachingYearStart');
-            $table->integer('f_TeachingUnitCount')->nullbale();
+            $table->float('f_TeachingUnitCount')->nullbale();
             $table->string('f_EmploymentStatus');
             $table->enum('f_ActiveTeaching',['active','inactive']);
 

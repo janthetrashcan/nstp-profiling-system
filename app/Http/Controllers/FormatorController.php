@@ -85,7 +85,7 @@ class FormatorController extends Controller {
                 'f_NSTPTeachingYearStart' => 'required|string|max:5',
                 'f_TeachingUnitCount' => 'required|string|max:10',
                 'component_id' => 'required|integer|exists:components,component_id',
-                'f_EmploymentStatus' => 'required|string|in:hired,not hired',
+                'f_EmploymentStatus' => 'required|string|in:part-time,full-time',
                 'f_ActiveTeaching' => 'required|string|in:active,inactive',
             ]);
         }
