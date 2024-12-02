@@ -1,21 +1,23 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use App\Models\Formator;
-use App\Models\Program;    
+use App\Models\Program;
 use App\Models\Section;
+use App\Models\Component;
 use Illuminate\Http\Request;
 
 class FormatorController extends Controller {
-    
+
      public function index(Request $request)
     {
         $query = Formator::query();
+        $search = $request->input('formator_search') ?? "";
 
         // Apply filters
         if ($request->filled('component')) {
-            $query->where('f_Component', $request->component);
+            $query->where('component_id', $request->component_id);
         }
         if ($request->filled('active_teaching')) {
             $query->where('f_ActiveTeaching', $request->active_teaching);
@@ -30,40 +32,51 @@ class FormatorController extends Controller {
             $query->where('f_NSTPTeachingYearStart', $request->nstp_teaching_year);
         }
 
+        if ($request->filled('formator_search')) {
+            $query->where('f_Surname', 'like', "%$search")
+            ->orWhere('f_FirstName', 'like', "%$search%")
+            ->orWhere('f_MiddleName', 'like', "%$search%");
+        }
+        else{
+            return view('dashboard.formatorlist', ['formators' => $query->paginate(15), 'search' => ""]);
+        }
+
         $formators = $query->paginate(15);  // Adjust the number as needed
 
-        return view('dashboard.formatorlist', compact('formators'));
+        return view('dashboard.formatorlist', compact('formators', 'search'));
     }
     public function addformator() {
         $sections = Section::all();
-        return view('dashboard.addformator', ['sections' => $sections]);
+        $components = Component::all();
+        return view('dashboard.addformator', compact('sections', 'components'));
     }
 
-    
+
     public function showFormatorProfile($id) {
-        $formator = Formator::findOrFail($id); 
+        $formator = Formator::findOrFail($id);
         return view('dashboard.showformator', compact('formator'));
     }
 
-    
+
     public function editformator(string $f_id) {
-        $programs = Program::all();    
+        $programs = Program::all();
         $sections = Section::all();
+        $components = Component::all();
 
         $formator = Formator::where('f_id', $f_id)->first();
         if ($formator === null) {
             abort(404);
         }
-        return view('dashboard.formatoredit', compact('formator', 'programs', 'sections'));
+        return view('dashboard.formatoredit', compact('formator', 'programs', 'sections', 'components'));
     }
-    
+
     public function store(Request $request) {
         try {
             $data = $request->validate([
                 'employee_id' => 'required|string',
                 'f_Surname' => 'required|string|max:255',
                 'f_FirstName' => 'required|string|max:255',
-                'f_MiddleName' => 'required|string|max:255',
+                'f_MiddleName' => 'nullable|string|max:255',
                 'f_Sex' => 'required|string|in:male,female',
                 'f_Birthdate' => 'required|date',
                 'f_ContactNo' => 'required|string|max:15',
@@ -71,24 +84,23 @@ class FormatorController extends Controller {
                 'f_TeachingYearStart' => 'required|string|max:5',
                 'f_NSTPTeachingYearStart' => 'required|string|max:5',
                 'f_TeachingUnitCount' => 'required|string|max:10',
-                'f_Component' => 'required|string|in:cwts,rotc,lts',
+                'component_id' => 'required|integer|exists:components,component_id',
                 'f_EmploymentStatus' => 'required|string|in:hired,not hired',
                 'f_ActiveTeaching' => 'required|string|in:active,inactive',
             ]);
-
-            
-            $formator = Formator::create($data);
-            
-            
-            return redirect()->route('dashboard.showformator', ['id' => $formator->id]);
-        
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            
+        }
+        catch (\Illuminate\Validation\ValidationException $e) {
             return redirect()->back()
-                ->withErrors($e->validator)   
-                ->withInput();                 
-        } catch (\Exception $e) {
-            
+                ->withErrors($e->validator)
+                ->withInput();
+        }
+
+        try{
+            $formator = Formator::create($data);
+            return redirect()->route('dashboard.showformator', ['f_id' => $formator->f_id]);
+        }
+        catch (\Exception $e) {
+            dd($e);
             return redirect()->back()
                 ->with('error', 'An unexpected error occurred. Please try again.')
                 ->withInput();
@@ -114,7 +126,7 @@ class FormatorController extends Controller {
                     'f_TeachingYearStart' => 'required|string|max:5',
                     'f_NSTPTeachingYearStart' => 'required|string|max:5',
                     'f_TeachingUnitCount' => 'required|string|max:10',
-                    'f_Component' => 'required|string|in:cwts,rotc,lts',
+                    'component_id' => 'required|integer',
                     'f_EmploymentStatus' => 'required|string|in:hired,not hired',
                     'f_ActiveTeaching' => 'required|string|in:active,inactive',
                 ]);
@@ -122,7 +134,7 @@ class FormatorController extends Controller {
 
                 return redirect()->route('dashboard.formatorlist')->with('success', 'Formator updated successfully.');
     } catch (\Illuminate\Validation\ValidationException $e) {
-        dd($e->errors());
+        return redirect()->route('dashboard.formatorlist')->with('error', 'Error in updating formator: '.$e);
     }
 }
 
@@ -134,7 +146,7 @@ public function destroy(Request $request, $f_id = null)
         Formator::whereIn('f_id', $formatorIds)->delete();
         return redirect()->route('dashboard.formatorlist')->with('success', 'Selected Formators deleted successfully.');
     }
-    
+
 
         if ($f_id) {
             // Single delete
@@ -146,10 +158,10 @@ public function destroy(Request $request, $f_id = null)
                 return redirect()->route('dashboard.formatorlist')->with('error', 'Formator not found.');
             }
         }
-    
+
         return redirect()->route('dashboard.formatorlist')->with('error', 'No Formator selected for deletion.');
     }
 
 
 }
-    
+

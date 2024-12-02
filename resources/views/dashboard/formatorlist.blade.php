@@ -1,10 +1,27 @@
 <x-dashboard-layout>
+    @if(session('error'))
+    <div class="bg-red-500 text-white p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <!-- Top Action Bar -->
     <div class="flex flex-row pr-4 mb-3 justify-between">
         <!-- Left Actions: Add, Delete, Filter -->
         <div id="functions-lhs" class="flex flex-row gap-3">
             <!-- Add Button -->
-            <a href="{{ route('dashboard.addformator') }}" class="bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex items-center h-12 px-4 py-2 rounded-xl gap-2">
+            <a href="{{ route('dashboard.formatorlist') }}" id="return_button" class="hidden bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2">
+                <x-carbon-arrow-left class="h-6" />
+                <span class="font-semibold">Return</span>
+            </a>
+
+            <a href="{{ route('dashboard.addformator') }}" class="bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex items-center h-12 px-4 py-2 rounded-lg gap-2">
                 <x-carbon-add class="h-8" />
                 <h2 class="font-semibold">Add</h2>
             </a>
@@ -13,23 +30,23 @@
             <form action="{{ route('formator.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2">
                     <x-carbon-trash-can class="h-6" />
                     <h1 class="font-semibold">Delete</h1>
                 </button>
             </form>
 
             <!-- Filter Button -->
-            <button id="filterButton" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center h-12 px-2 py-2 rounded-xl gap-2">
+            <button id="filterButton" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center h-12 px-2 py-2 rounded-lg gap-2">
                 <x-carbon-filter class="h-6" />
                 <h1 class="font-semibold">Filter</h1>
             </button>
         </div>
 
         <!-- Right Actions: Search -->
-        <form action="{{ route('dashboard.searchstudent') }}" method="GET" id="functions-rhs" class="flex flex-row gap-3">
-            <input type="text" name="search" placeholder="Enter Name or Student No." maxlength="30" class="bg-gray-100 flex w-60 h-12 px-4 py-2 rounded-xl" />
-            <input type="submit" value="Search" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-xl" />
+        <form action="{{ route('dashboard.formatorlist') }}" method="GET" id="functions-rhs" class="flex flex-row gap-3">
+            <input type="text" id="formator_search" name="formator_search" placeholder="Enter Name" maxlength="30" class="bg-gray-100 flex w-60 h-12 px-4 py-2 rounded-xl" value="{{ $search }}"/>
+            <input type="submit" value="Search" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-lg" />
         </form>
     </div>
 
@@ -86,7 +103,7 @@
                 <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Middle Name</th>
-                
+
                 <th class="text-left p-4 w-2/12 font-semibold">Teaching Year Start</th>
                 <th class="text-left p-4 w-2/12 font-semibold">NSTP Teaching Year Start</th>
                 <th class="text-left p-4 w-1/12 font-semibold">Units Count</th>
@@ -124,7 +141,7 @@
                                 {{ Str::upper($formator->f_MiddleName) }}
                             </a>
                         </td>
-        
+
                         <td class="p-4 text-lg text-left">
                             <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
                                 {{ $formator->f_TeachingYearStart }}
@@ -142,7 +159,7 @@
                         </td>
                         <td class="p-4 text-lg text-left">
                             <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
-                                {{ Str::upper($formator->f_Component) }}
+                                {{ Str::upper($formator->component->component_Name) }}
                             </a>
                         </td>
                 </tr>
@@ -155,13 +172,26 @@
         {{ $formators->links() }}
     </div>
     <script>
+        function checkURL(){
+            const url = window.location.href;
+            return url.includes('formator_search')
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const filterButton = document.getElementById('filterButton');
             const filterDropdown = document.getElementById('filterDropdown');
+            const searchBar = document.getElementById('formator_search');
+            const returnButton = document.getElementById('return_button');
 
             filterButton.addEventListener('click', function() {
                 filterDropdown.classList.toggle('hidden');
             });
+
+            if (searchBar && searchBar.value && checkURL()){
+                returnButton.classList.toggle('hidden');
+                returnButton.classList.add('flex');
+            }
         });
+
     </script>
 </x-dashboard-layout>

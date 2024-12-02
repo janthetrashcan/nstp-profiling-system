@@ -14,6 +14,7 @@ class ComponentSeeder extends Seeder
     public function run(): void
     {
         $data = [
+            ['component_Name' => 'UNSET'],
             ['component_Name' => 'CWTS'],
             ['component_Name' => 'LTS'],
             ['component_Name' => 'ROTC'],

@@ -20,7 +20,7 @@ class Formator extends Model
         'f_TeachingYearStart',
         'f_NSTPTeachingYearStart',
         'f_TeachingUnitCount',
-        'f_Component',
+        'component_id',
         'f_EmploymentStatus',
         'f_ActiveTeaching'
     ];
