@@ -98,8 +98,8 @@
                         <div>
                             <label for="f_EmploymentStatus" class="block text-sm font-medium text-gray-700">Employment Status</label>
                             <select name="f_EmploymentStatus" class="mt-1 p-2 border rounded w-full" required>
-                                <option value="hired" {{ $formator->f_EmploymentStatus == 'hired' ? 'selected' : '' }}>Hired</option>
-                                <option value="not hired" {{ $formator->f_EmploymentStatus == 'not hired' ? 'selected' : '' }}>Not Hired</option>
+                                <option value="part-time" {{ $formator->f_EmploymentStatus == 'part-time' ? 'selected' : '' }}>Part-time</option>
+                                <option value="full-time" {{ $formator->f_EmploymentStatus == 'full-time' ? 'selected' : '' }}>Full-time</option>
                             </select>
                         </div>
                     </div>

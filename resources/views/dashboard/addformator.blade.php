@@ -143,8 +143,8 @@
                             <label for="f_EmploymentStatus" class="block text-sm font-medium text-gray-700">Employment Status</label>
                             <select id="f_EmploymentStatus" name="f_EmploymentStatus" required class="mt-1 p-2 border rounded w-full">
                                 <option value="">Status</option>
-                                <option value="hired">Hired</option>
-                                <option value="not hired">Not Hired</option>
+                                <option value="part-time">Part-time</option>
+                                <option value="full-time">Full-time</option>
                             </select>
                             @error('f_EmploymentStatus')
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
