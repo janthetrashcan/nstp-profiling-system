@@ -25,8 +25,8 @@
     <!-- Profile Layout -->
     <div id="formator-profile" class="flex gap-x-6 p-6 bg-white rounded-xl shadow-lg">
 
-        <div id="formator-photo" class="w-32 h-32 bg-gray-200 rounded-full overflow-hidden shadow-md mt-20"> <!-- Added mt-4 to move it down -->
-            <img src="{{ $formator->profile_photo_url ?? 'path/to/default/photo.jpg' }}" alt="Profile Photo" class="w-full h-full object-cover rounded-full">
+        <div id="formator-photo" class="w-32 h-32 bg-gray-200 rounded-lg overflow-hidden shadow-md mt-20"> <!-- Added mt-4 to move it down -->
+            <img src="{{ $formator->profile_photo_url ?? '/user_profile.png' }}" alt="Profile Photo" class="w-full h-full object-cover">
         </div>
 
         <!-- Formator Information Section -->
@@ -65,7 +65,7 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="text-gray-500 font-semibold">Email Address</p>
-                        <p class="text-lg">{{ $formator->f_Email }}</p>
+                        <p class="text-lg">{{ $formator->f_EmailAddress }}</p>
                     </div>
                     <div>
                         <p class="text-gray-500 font-semibold">Teaching Year Start</p>

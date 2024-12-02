@@ -11,7 +11,7 @@
                 <x-carbon-edit class="h-6" />
                 <h1 class="font-semibold">Edit</h1>
             </a>
-            <form action="{{ route('student.destroy', $student->s_id) }}" method="POST" id="deleteSingleForm" onclick ="return confirm ('are you sure?')">
+            <form action="{{ route('student.destroy', $student->s_id) }}" method="POST" id="deleteSingleForm" onclick ="return confirm ('Delete selected student?')">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">

@@ -37,7 +37,7 @@
             </form>
 
             <!-- Filter Button -->
-            <button id="filterButton" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center h-12 px-2 py-2 rounded-lg gap-2">
+            <button id="filterButton" class="bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex items-center h-12 px-4 py-2 rounded-lg gap-2">
                 <x-carbon-filter class="h-6" />
                 <h1 class="font-semibold">Filter</h1>
             </button>

@@ -24,7 +24,8 @@ class SectionSeeder extends Seeder
             ['sec_Section' => 'H', 'f_id' => 1, 'component_id' => 2],
             ['sec_Section' => 'I', 'f_id' => 1, 'component_id' => 2],
             ['sec_Section' => 'J', 'f_id' => 1, 'component_id' => 2],
-            ['sec_Section' => 'A', 'f_id' => 1, 'component_id' => 3],
+            ['sec_Section' => 'A - ROTC', 'f_id' => 1, 'component_id' => 3],
+            ['sec_Section' => 'B - ROTC', 'f_id' => 1, 'component_id' => 3],
         ];
     foreach ($data as $instance){
         Section::create($instance);

@@ -14,10 +14,10 @@
                     <h1 class='font-semibold'>Delete</h1>
                 </button>
             </form>
-            <button class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
+            {{-- <button class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-2 py-2 justify-start items-center rounded-xl gap-2'>
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Filter</h1>
-            </button>
+            </button> --}}
         </div>
 
         <form action="{{ route('dashboard.searchstudent') }}" method="GET" id="functions-rhs" class='flex flex-row gap-x-3'>
