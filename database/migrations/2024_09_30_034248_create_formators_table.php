@@ -30,10 +30,7 @@ return new class extends Migration
             $table->integer('f_NSTPTeachingYearStart');
             $table->float('f_TeachingUnitCount')->nullbale();
             $table->string('f_EmploymentStatus');
-
-            $table->enum('f_ActiveTeaching1stSem',['active','inactive'])->nullable();
-            $table->enum('f_ActiveTeaching2ndSem',['active','inactive'])->nullable();
-            $table->string('f_SchoolYear')->nullable;
+            $table->enum('f_ActiveTeaching',['active','inactive']);
 
             $table->foreignId('component_id')->references('component_id')->on('components')->onDelete('set null');
             $table->timestamps();

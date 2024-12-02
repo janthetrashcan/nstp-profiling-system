@@ -51,8 +51,6 @@ return new class extends Migration
             $table->string('s_ContactPersonName');
             $table->string('s_ContactPersonNo');
 
-            $table->integer('s_Semester');
-
             $table->timestamps();
         });
     }

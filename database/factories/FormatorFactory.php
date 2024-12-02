@@ -31,11 +31,7 @@ class FormatorFactory extends Factory
             'f_NSTPTeachingYearStart' => fake()->randomNumber(2),
             'f_TeachingUnitCount' => fake()->randomNumber(2),
             'f_EmploymentStatus' => fake()->randomElement(['part-time', 'full-time']),
-
-            'f_ActiveTeaching1stSem' => fake()->randomElement(['active','inactive']),
-            'f_ActiveTeaching2ndSem' => fake()->randomElement(['active','inactive']),
-            'f_SchoolYear' => '2024-2025',
-
+            'f_ActiveTeaching' => fake()->randomElement(['active','inactive']),
 
             'component_id' => \App\Models\Component::inRandomOrder()->first()->component_id,
         ];

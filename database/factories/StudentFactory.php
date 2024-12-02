@@ -65,9 +65,6 @@ class StudentFactory extends Factory
             'sec_id' => \App\Models\Section::inRandomOrder()->first()->sec_id,
             'component_id' => \App\Models\Component::inRandomOrder()->first()->component_id,
             's_FinalGrade' => fake()->randomElement(['F', $s_FinalGrade, $s_FinalGrade, $s_FinalGrade]),
-
-            's_SchoolYear' => '2024-2025',
-            's_Semester' => 1,
         ];
     }
 }
