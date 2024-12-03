@@ -27,9 +27,9 @@ class DashboardController extends Controller
     }
 
     public function showFormatorList(Request $request){
-        $formators = Formator::query()->orderBy('f_id', 'asc')->paginate(10);
+        $formators = Formator::query()->orderBy('f_id', 'asc')->paginate(15);
         // dd($students);
-        return view('dashboard.formatorlist', ['formators' => $formators]);
+        return view('dashboard.formatorlist', ['formators' => $formators, 'search' => ""]);
     }
 
     public function showStudentProfile(string $s_id){
@@ -45,13 +45,14 @@ class DashboardController extends Controller
     public function showSectionList(Request $request){
         // dd($student);
         $sections = Section::query()->orderBy('sec_id', 'asc')->paginate(10);
-        return view('dashboard.sectionlist', ['sections' => $sections]); 
+        return view('dashboard.sectionlist', ['sections' => $sections]);
 }
     public function showProgramList(Request $request){
     // dd($student);
     $programs = Program::query()->orderBy('prog_id', 'asc')->paginate(10);
-    return view('dashboard.programlist', ['programs' => $programs]); 
+    return view('dashboard.programlist', ['programs' => $programs]);
 }
+
 
     /**
      * Show the form for creating a new resource.

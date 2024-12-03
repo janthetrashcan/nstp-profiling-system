@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id('sec_id');
             $table->char('sec_Section');
-            $table->enum('sec_Component',['cwts','lts','rotc']);
             $table->integer('sec_StudentCount')->nullable();
+            $table->integer('sec_Capacity')->nullable();
             $table->string('sec_BarangayAssigned')->nullable();
 
-            $table->foreignId('f_id')->references('f_id')->on('formators')->onDelete('set null');
+            $table->foreignId('f_id')->nullable()->references('f_id')->on('formators')->onDelete('set null');
+            $table->foreignId('component_id')->nullable()->references('component_id')->on('components')->onDelete('set null');
 
             $table->timestamps();
         });
