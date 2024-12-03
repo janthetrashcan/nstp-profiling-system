@@ -25,7 +25,7 @@
     <!-- Profile Layout -->
     <div id="formator-profile" class="flex gap-x-6 p-6 bg-white rounded-xl shadow-lg">
 
-        <div id="formator-photo" class="w-32 h-32 bg-gray-200 rounded-lg overflow-hidden shadow-md mt-20"> <!-- Added mt-4 to move it down -->
+        <div id="formator-photo" class="w-32 h-32 bg-gray-200 rounded-lg overflow-hidden shadow-md mt-20"> 
             <img src="{{ $formator->profile_photo_url ?? '/user_profile.png' }}" alt="Profile Photo" class="w-full h-full object-cover">
         </div>
 

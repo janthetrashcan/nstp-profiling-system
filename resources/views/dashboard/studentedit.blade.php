@@ -208,7 +208,7 @@
 
             <!-- Submit Button -->
             <div class="flex justify-end">
-                <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded-md shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Update Student Information
                 </button>
             </div>

@@ -122,7 +122,7 @@
                         <!-- Formator ID (employee_id) -->
                 <td class="p-4 text-lg text-left">
                     <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
-                        {{ $formator->employee_id }}  <!-- This is the employee ID you want -->
+                        {{ $formator->employee_id }}  
                     </a>
                 </td>
                         <!-- Formator Details -->
