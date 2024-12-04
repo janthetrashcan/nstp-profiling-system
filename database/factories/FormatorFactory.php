@@ -23,12 +23,12 @@ class FormatorFactory extends Factory
             'f_MiddleName' => fake()->lastName(),
 
             'f_Sex' => fake()->randomElement(['male','female']),
-            'f_Birthdate' => fake()->date('mm-dd-yyyy'),
+            'f_Birthdate' => fake()->date('m-d-Y'),
             'f_ContactNo' => strval(fake()->phoneNumber()),
             'f_EmailAddress' => fake()->email(),
 
-            'f_TeachingYearStart' => fake()->randomNumber(2),
-            'f_NSTPTeachingYearStart' => fake()->randomNumber(2),
+            'f_TeachingYearStart' => fake()->date('Y', 'now'),
+            'f_NSTPTeachingYearStart' => fake()->date('Y', 'now'),
             'f_TeachingUnitCount' => fake()->randomNumber(2),
             'f_EmploymentStatus' => fake()->randomElement(['part-time', 'full-time']),
             'f_ActiveTeaching' => fake()->randomElement(['active','inactive']),

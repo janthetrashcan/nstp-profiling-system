@@ -40,8 +40,8 @@ class StudentFactory extends Factory
             's_MiddleName' => fake()->lastName(),
 
             's_Sex' => fake()->randomElement(['male','female']),
-            's_Birthdate' => fake()->date('mm-dd-yyyy'),
-            's_ContactNo' => strval(fake()->phoneNumber()),
+            's_Birthdate' => fake()->date('m-d-Y'),
+            's_ContactNo' => fake()->regexify('/^(\+639\d{9}|09\d{9})$/'),
             's_EmailAddress' => fake()->email(),
 
             's_c_HouseNo' => $s_c_HouseNo,
@@ -60,7 +60,7 @@ class StudentFactory extends Factory
             's_p_CompleteAddress' => $s_p_HouseNo.', '.$s_p_Street.', '.$s_p_Barangay.', '.$s_p_City.', '.$s_p_Province,
 
             's_ContactPersonName' => fake()->name(),
-            's_ContactPersonNo' => strval(fake()->phoneNumber()),
+            's_ContactPersonNo' => fake()->regexify('/^(\+639\d{9}|09\d{9})$/'),
 
             'sec_id' => \App\Models\Section::inRandomOrder()->first()->sec_id,
             'component_id' => \App\Models\Component::inRandomOrder()->first()->component_id,
