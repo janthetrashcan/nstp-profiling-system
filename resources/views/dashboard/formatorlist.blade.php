@@ -27,7 +27,7 @@
             </a>
 
             <!-- Delete Button -->
-            <form action="{{ route('formator.destroy') }}" method="POST" id="deleteForm">
+            <form action="{{ route('formator.destroy') }}" method="POST" id="deleteForm" class="hidden">
                 @csrf
                 @method('DELETE')
                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2">
@@ -122,7 +122,7 @@
                         <!-- Formator ID (employee_id) -->
                 <td class="p-4 text-lg text-left">
                     <a href="{{ route('dashboard.showformator', $formator->f_id) }}">
-                        {{ $formator->employee_id }}  
+                        {{ $formator->employee_id }}
                     </a>
                 </td>
                         <!-- Formator Details -->

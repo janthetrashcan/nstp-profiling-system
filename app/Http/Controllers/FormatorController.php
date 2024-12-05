@@ -6,6 +6,7 @@ use App\Models\Formator;
 use App\Models\Program;
 use App\Models\Section;
 use App\Models\Component;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -149,10 +150,15 @@ class FormatorController extends Controller
         }
 
         if ($request->input('formator_ids')) {
-            // Multiple delete
-            $formatorIds = $request->input('formator_ids');
-            $deletedCount = Formator::whereIn('f_id', $formatorIds)->delete();
-            return redirect()->route('dashboard.formatorlist')->with('success', "$deletedCount Formators deleted successfully.");
+            try{
+                // Multiple delete
+                $formatorIds = $request->input('formator_ids');
+                $deletedCount = Formator::whereIn('f_id', $formatorIds)->delete();
+                return redirect()->route('dashboard.formatorlist')->with('success', "$deletedCount Formators deleted successfully.");
+                }
+            catch (Exception $e){
+                return redirect()->route('dashboard.formatorlist')->with('error', $e);
+            }
         }
 
         if ($f_id) {
