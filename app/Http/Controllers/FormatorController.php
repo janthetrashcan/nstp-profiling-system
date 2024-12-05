@@ -113,7 +113,7 @@ class FormatorController extends Controller
 
         try {
             $data = $request->validate([
-                'employee_id' => 'required|string|size:8|regex:/^\d{8}$/',
+                'employee_id' => 'required|string|size:6|regex:/^\d{8}$/',
                 'f_Surname' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 'f_FirstName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 'f_MiddleName' => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',

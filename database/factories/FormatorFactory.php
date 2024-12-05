@@ -17,7 +17,7 @@ class FormatorFactory extends Factory
     public function definition(): array
     {
         return [
-            'employee_id' => fake()->randomNumber(8),
+            'employee_id' => fake()->randomNumber(6),
             'f_Surname' => fake()->lastName(),
             'f_FirstName' => fake()->firstName(),
             'f_MiddleName' => fake()->lastName(),
