@@ -17,14 +17,14 @@ class FormatorFactory extends Factory
     public function definition(): array
     {
         return [
-            'employee_id' => fake()->randomNumber(6),
+            'employee_id' => fake()->randomNumber(8),
             'f_Surname' => fake()->lastName(),
             'f_FirstName' => fake()->firstName(),
             'f_MiddleName' => fake()->lastName(),
 
             'f_Sex' => fake()->randomElement(['male','female']),
             'f_Birthdate' => fake()->date('m-d-Y'),
-            'f_ContactNo' => strval(fake()->phoneNumber()),
+            'f_ContactNo' => fake()->regexify('/^(\+639\d{9}|09\d{9})$/'),
             'f_EmailAddress' => fake()->email(),
 
             'f_TeachingYearStart' => fake()->date('Y', 'now'),

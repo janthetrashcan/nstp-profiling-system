@@ -125,7 +125,7 @@
                     <label class="block text-sm font-medium text-gray-700">Section</label>
                     <select name="sec_id" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->section->sec_Section }}" required>
                         @foreach($sections as $section)
-                        <option value='{{ $section->sec_id }}'>{{ $section->sec_Section }}</option>
+                        <option value='{{ $section->sec_id }}' {{ $student->sec_id == $section->sec_id ? 'selected' : ''}}>{{ $section->sec_Section }}</option>
                         @endforeach
                     </select>
                     @error('section_id')
