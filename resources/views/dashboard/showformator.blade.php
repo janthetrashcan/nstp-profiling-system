@@ -3,18 +3,18 @@
     <div class="flex flex-row pr-4 mb-6 justify-between items-center">
         <!-- Left Function Buttons -->
         <div id="functions-lhs" class="flex gap-x-3">
-            <a href="{{ route('dashboard.formatorlist') }}" class="bg-gray-100 flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow">
+            <a href="{{ route('dashboard.formatorlist') }}" class="bg-gray-100 flex items-center h-12 px-4 py-2 rounded-lg gap-2 shadow">
                 <x-carbon-arrow-left class="h-6" />
                 <span class="font-semibold">Return</span>
             </a>
-            <a href="{{ route('dashboard.formatoredit', $formator->f_id) }}" class="bg-blue-500 hover:bg-blue-600 text-white flex items-center h-12 px-4 py-2 rounded-xl gap-2 shadow">
+            <a href="{{ route('dashboard.formatoredit', $formator->f_id) }}" class="bg-blue-500 hover:bg-blue-600 text-white flex items-center h-12 px-4 py-2 rounded-lg gap-2 shadow">
                 <x-carbon-edit class="h-6" />
                 <span class="font-semibold">Edit</span>
             </a>
             <form action="{{ route('formator.destroy', $formator->f_id) }}" method="POST" id="deleteSingleForm">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
+                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md " onclick ="return confirm ('Delete selected formator?')">
                     <x-carbon-trash-can class="h-6" />
                     <span class="font-semibold">Delete</span>
                 </button>
@@ -25,7 +25,7 @@
     <!-- Profile Layout -->
     <div id="formator-profile" class="flex gap-x-6 p-6 bg-white rounded-xl shadow-lg">
 
-        <div id="formator-photo" class="w-32 h-32 bg-gray-200 rounded-lg overflow-hidden shadow-md mt-20"> <!-- Added mt-4 to move it down -->
+        <div id="formator-photo" class="w-32 h-32 bg-gray-200 rounded-lg overflow-hidden shadow-md mt-20">
             <img src="{{ $formator->profile_photo_url ?? '/user_profile.png' }}" alt="Profile Photo" class="w-full h-full object-cover">
         </div>
 
@@ -38,7 +38,7 @@
                 <p class="text-gray-500 font-semibold mb-2">Personal Information</p>
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <p class="text-gray-500 font-semibold">Formator ID</p>
+                        <p class="text-gray-500 font-semibold">Employee ID</p>
                         <p class="text-lg">{{ $formator->employee_id }}</p>
                     </div>
                     <div>

@@ -46,7 +46,7 @@
             <a href="{{ route('dashboard.studentlist') }}"
               class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
               <span class="text-white text-xs mr-2">►</span>
-              <span class="mr-2 text-yellow-500">👤</span>
+              <span class="mr-2">👤</span>
               <span>Student Profile</span>
             </a>
           </li>
@@ -54,16 +54,16 @@
             <a href="{{ route('dashboard.formatorlist') }}"
               class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
               <span class="text-white text-xs mr-2">►</span>
-              <span class="mr-2 text-yellow-500">👤</span>
+              <span class="mr-2 ">👤</span>
               <span>Formator Profile</span>
             </a>
           </li>
         </ul>
       </nav>
-      <form method="POST" action="{{ route('logout') }}" style= "margin-top: 24rem;" class="flex justify-center mt-72">
+      <form method="POST" action="{{ route('logout') }}" style= "margin-top:24rem;" class="flex justify-center">
         @csrf
         <button type="submit"
-          class="w-4/5 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200 ">
+          class="w-4/5 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 ">
           Log out
         </button>
       </form>

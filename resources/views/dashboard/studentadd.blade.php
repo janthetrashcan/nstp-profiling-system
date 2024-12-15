@@ -1,5 +1,5 @@
 <x-dashboard-layout>
-<div class="bg-white shadow-md rounded-lg p-4 w-3/4 mx-auto mb-8"><!-- Changed max-w to full -->
+<div class="bg-white shadow-md rounded-lg p-4 w-3/4 mx-auto mb-8">
     <form action="{{ route('student.store') }}" method="POST">
             @csrf
             <div class='flex flex-row pr-4 mb-3 justify-between'>
@@ -19,7 +19,7 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-3 gap-4"> <!-- Grid for student info -->
+            <div class="grid grid-cols-3 gap-4">
                 <!-- Student ID -->
                 <div class="mb-4 col-span-3">
                     <label for="s_StudentNo" class="block text-sm font-medium text-gray-700">Student ID </label>
@@ -152,8 +152,7 @@
 
                 <!-- City and Provincial Address -->
                 <h2 class="col-span-3 text-lg font-semibold mb-4">Address</h2>
-                <div class="grid grid-cols-2 gap-4 col-span-3"> <!-- New grid for addresses -->
-                    <!-- City Address -->
+                <div class="grid grid-cols-2 gap-4 col-span-3">
                     <div class="mb-4">
                         <h3 class="font-semibold">City Address</h3>
                         <div>

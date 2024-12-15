@@ -78,7 +78,7 @@ class StudentController extends Controller
 
     // Custom sorting for grades
     if ($sortColumn === 's_FinalGrade') {
-        $query->orderByRaw("CASE 
+        $query->orderByRaw("CASE
             WHEN s_FinalGrade = 'F' THEN 9
             WHEN s_FinalGrade = '4' THEN 8
             WHEN s_FinalGrade = '3.5' THEN 7
@@ -122,13 +122,13 @@ class StudentController extends Controller
 
             // Prepare the validation rules
             $rules = [
-                's_StudentNo' => 'required|string|size:6',
-                's_Surname' => 'required|string|max:255',
-                's_FirstName' => 'required|string|max:255',
-                's_MiddleName' => 'nullable|string|max:255',
+                's_StudentNo' => 'required|string|size:6|regex:/^\d{6}$/',
+                's_Surname' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
+                's_FirstName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
+                's_MiddleName' => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 's_Sex' => 'required|string|in:male,female',
-                's_Birthdate' => 'required|date',
-                's_ContactNo' => 'required|string|max:15',
+                's_Birthdate' => 'required|date|after:1900-01-01|before:2025-01-01',
+                's_ContactNo' => ['required', 'string', 'max:15', 'regex:/^(\+639\d{9}|09\d{9})$/'],
                 's_EmailAddress' => 'required|email|max:255',
                 'program_id' => 'required|exists:programs,program_id',
                 'sec_id' => 'required|integer|exists:sections,sec_id',
@@ -139,9 +139,8 @@ class StudentController extends Controller
                 's_p_City' => 'required|string|max:255',
                 's_p_Province' => 'required|string|max:255',
                 's_FinalGrade' => 'nullable|string|in:F,1,1.5,2,2.5,3,3.5,4',
-
-                's_ContactPersonName' => 'required|string|max:255',
-                's_ContactPersonNo' => 'required|string|max:15',
+                's_ContactPersonName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
+                's_ContactPersonNo' => ['required', 'string', 'max:15', 'regex:/^\d+$/'],
             ];
 
             // If 'sameAsProvincial' is not checked, add city address validation rules
@@ -185,7 +184,6 @@ class StudentController extends Controller
             return redirect()->back()->withErrors($e->errors())->withInput();
 
         } catch (\Exception $e) {
-            dd($e);
             Log::error('Error in StudentController@store: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while adding the student. Please try again.');
         }
@@ -216,55 +214,59 @@ class StudentController extends Controller
 
     public function updateStudent(Request $request, string $s_id)
     {
+        $student = Student::where('s_id', $s_id)->first();
 
-    $student = Student::where('s_id', $s_id)->first();
-    if ($student === null) {
-        abort(404);
+        if ($student === null) {
+            abort(404);
+        }
+
+        try {
+            $data = $request->validate([
+                's_StudentNo' => 'required|string|size:6|regex:/^\d{6}$/',
+                's_Surname' => 'required|string|regex:/^[a-zA-Z\s]+$/',
+                's_FirstName' => 'required|string|regex:/^[a-zA-Z\s]+$/',
+                's_MiddleName' => 'nullable|string|regex:/^[a-zA-Z\s]+$/',
+                's_Suffix' => ['nullable', 'string', 'max:255', 'regex:/^(I{1,3}|II{1,3}|III{1,3}|IV|V?I{0,3}|VI{0,3}|VII{0,3}|VIII|IX|X)$|Jr\.$/'],
+                's_Sex' => 'required|string|in:male,female',
+                's_Birthdate' => 'required|date|after:1900-01-01|before:2025-01-01',
+                's_ContactNo' => ['required', 'string', 'max:15', 'regex:/^(\+639\d{9}|09\d{9})$/'],
+                's_EmailAddress' => 'required|email|max:255',
+                'program_id' => 'required|exists:programs,program_id',
+                'sec_id' => 'required|integer|exists:sections,sec_id',
+                'component_id' => 'required|integer|exists:components,component_id',
+                's_c_HouseNo' => 'required|string|max:255',
+                's_c_Street' => 'required|string|max:255',
+                's_c_Barangay' => 'required|string|max:255',
+                's_c_City' => 'required|string|max:255',
+                's_c_Province' => 'required|string|max:255',
+                's_p_HouseNo' => 'required|string|max:255',
+                's_p_Street' => 'required|string|max:255',
+                's_p_Barangay' => 'required|string|max:255',
+                's_p_City' => 'required|string|max:255',
+                's_p_Province' => 'required|string|max:255',
+                's_ContactPersonName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
+                's_ContactPersonNo' => ['required', 'string', 'max:15', 'regex:/^\d+$/'],
+                's_FinalGrade' => 'nullable|string|in:F,1,1.5,2,2.5,3,3.5,4',
+            ]);
+
+            // Merge composite attributes of City Address and Provincial Address
+            $data = array_merge($data, [
+                's_c_CompleteAddress' => $data['s_c_HouseNo'].', '.$data['s_c_Street'].', '.$data['s_c_Barangay'].', '.$data['s_c_City'].', '.$data['s_c_Province'],
+                's_p_CompleteAddress' => $data['s_p_HouseNo'].', '.$data['s_p_Street'].', '.$data['s_p_Barangay'].', '.$data['s_p_City'].', '.$data['s_p_Province'],
+            ]);
+
+            $student->update($data);
+
+            return redirect()->route('dashboard.showstudent', $student)->with('success', 'Student updated successfully.');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Validation failed: ' . json_encode($e->errors()));
+            return redirect()->back()->withInput()->withErrors($e->errors());
+        } catch (\Exception $e) {
+            Log::error('Error in StudentController@updateStudent: ' . $e->getMessage());
+            return redirect()->route('dashboard.showstudent', $student->s_id)->with('error', 'Error in updating student');
+        }
     }
-
-    try {
-        $data = $request->validate([
-            's_StudentNo' => 'required|string|size:6',
-            's_Surname' => 'required|string|max:255',
-            's_FirstName' => 'required|string|max:255',
-            's_MiddleName' => 'nullable|string|max:255',
-            's_Suffix' => 'nullable|string|max:255|/^(I{1,3}|II{1,3}|III{1,3}|IV|V?I{0,3}|VI{0,3}|VII{0,3}|VIII|IX|X)$|Jr\.$/',
-            's_Sex' => 'required|string|in:male,female',
-            's_Birthdate' => 'required|date',
-            's_ContactNo' => 'required|string|max:15',
-            's_EmailAddress' => 'required|email|max:255',
-            'program_id' => 'required|exists:programs,program_id',
-            'sec_id' => 'required|integer|exists:sections,sec_id',
-            'component_id' => 'required|integer|exists:components,component_id',
-            's_c_HouseNo' => 'required|string|max:255',
-            's_c_Street' => 'required|string|max:255',
-            's_c_Barangay' => 'required|string|max:255',
-            's_c_City' => 'required|string|max:255',
-            's_c_Province' => 'required|string|max:255',
-            's_p_HouseNo' => 'required|string|max:255',
-            's_p_Street' => 'required|string|max:255',
-            's_p_Barangay' => 'required|string|max:255',
-            's_p_City' => 'required|string|max:255',
-            's_p_Province' => 'required|string|max:255',
-            's_ContactPersonName' => 'required|string|max:255',
-            's_ContactPersonNo' => 'required|string|max:15',
-            's_FinalGrade' => 'nullable|string|in:F,1,1.5,2,2.5,3,3.5,4',
-        ]);
-
-        // Merge composite attributes of City Address and Provincial Address
-        $data = array_merge($data, [
-            's_c_CompleteAddress' => $data['s_c_HouseNo'].', '.$data['s_c_Street'].', '.$data['s_c_Barangay'].', '.$data['s_c_City'].', '.$data['s_c_Province'],
-            's_p_CompleteAddress' => $data['s_p_HouseNo'].', '.$data['s_p_Street'].', '.$data['s_p_Barangay'].', '.$data['s_p_City'].', '.$data['s_p_Province'],
-        ]);
-
-        $student->update($data);
-
-        return redirect()->route('dashboard.showstudent', $student)->with('success', 'Student updated successfully.');
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        dd($e);
-        return redirect()->route('dashboard.studentlist')->with('error', 'Error in updating student');
-    }
-}
 
 public function destroy(Request $request, $s_id = null)
 {

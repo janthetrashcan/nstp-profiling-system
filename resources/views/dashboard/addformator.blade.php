@@ -24,7 +24,7 @@
 
                 <!-- Personal Information Section -->
                 <div class="border-b pb-4 mb-4">
-                    <div class="grid grid-cols-3 gap-4"> <!-- 3-column grid -->
+                    <div class="grid grid-cols-3 gap-4">
                         <div>
                             <label for="employee_id" class="block text-sm font-medium text-gray-700">Employee ID</label>
                             <input type="text" id="employee_id" name="employee_id" required class="mt-1 p-2 border rounded w-full" />
@@ -73,7 +73,7 @@
 
                 <!-- Contact Information Section -->
                 <div class="border-b pb-4 mb-4">
-                    <div class="grid grid-cols-3 gap-4"> <!-- 3-column grid -->
+                    <div class="grid grid-cols-3 gap-4"> 
                         <div>
                             <label for="f_ContactNo" class="block text-sm font-medium text-gray-700">Contact Number</label>
                             <input type="text" id="f_ContactNo" name="f_ContactNo" required class="mt-1 p-2 border rounded w-full" />
@@ -93,7 +93,7 @@
 
                 <!-- Teaching Information Section -->
                 <div>
-                    <div class="grid grid-cols-3 gap-4"> <!-- 3-column grid -->
+                    <div class="grid grid-cols-3 gap-4"> 
                         <div>
                             <label for="f_TeachingYearStart" class="block text-sm font-medium text-gray-700">Teaching Year Start</label>
                             <input type="text" id="f_TeachingYearStart" name="f_TeachingYearStart" class="mt-1 p-2 border rounded w-full" />
@@ -155,7 +155,7 @@
 
                 <!-- Save Button -->
                 <div class="flex justify-end mt-6">
-                    <button type="submit" class="bg-blue-900 text-white px-6 py-2 rounded-lg font-bold">Save</button>
+                    <button type="submit" class="bg-blue-900 hover:bg-blue text-white px-6 py-2 rounded-lg font-bold">Save</button>
                 </div>
             </form>
         </div>
