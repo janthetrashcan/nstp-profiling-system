@@ -58,13 +58,24 @@
                     </div>
 
                     <!-- Include Failed Students Checkbox -->
-                    <div class='flex flex-row items-center gap-3'>
-                        <input type="checkbox" id="include-failed" name="include-failed">
-                        <label for="include-failed">Include Failed Students</label>
+
+                    <h2 class="text-2xl font-semibold text-left mb-1">Preferences</h2>
+                    <div id='export-preferences' class='flex flex-col gap-4'>
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer" name='include-failed'>
+                            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <span class="ms-3 font-normal text-gray-300 dark:text-gray-900">Include failed students</span>
+                        </label>
+
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="checkbox" value="" class="sr-only peer" name='include-failed'>
+                            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <span class="ms-3 font-normal text-gray-300 dark:text-gray-900">Export in single spreadsheet</span>
+                        </label>
                     </div>
 
                     <!-- Export Button -->
-                    <div class="flex justify-center gap-4">
+                    <div class="flex justify-end gap-3">
                         <button type='submit' class="px-6 py-2 bg-blue-900 text-white font-semibold rounded-lg hover:bg-blue-800 transition duration-300">
                             Export
                         </button>
@@ -72,7 +83,7 @@
                             Cancel
                         </a>
 
-                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -33,39 +33,45 @@
     <!-- Sidebar -->
     <aside id="sidebar"
       class="flex flex-col justify-between align-middle fixed top-20 left-0 bottom-0 w-64 bg-gray-800 text-white pt-6 pb-6 z-10 overflow-y-auto transform transition-transform duration-300">
-      <div>
+
+      <div class='w-fill'>
         <div class="p-4 pt-0">
             <a href="{{ route('dashboard.importstudents') }}"
             class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
-            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3">+</span>
+            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3 aspect-square"><x-carbon-add class='h-8' /></span>
             <span class="text-lg font-semibold">Import Forms</span>
             </a>
         </div>
         <div class="p-4 pt-0">
-            <a href="{{ route('dashboard.importstudents') }}"
+            <a href="{{ route('dashboard.exportstudentspage') }}"
             class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
-            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3">+</span>
+            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3"><x-carbon-export class='h-6 m-1'/></span>
             <span class="text-lg font-semibold">Export Data</span>
             </a>
         </div>
 
+        <div class='w-fill h-[1px] bg-white opacity-20 ml-4 mr-4 mt-2'>
+        </div>
 
-        <nav class="px-3 py-3">
+        <h1 class='px-4 mt-4 mb-2 text-2xl font-semibold cursor-default'>Profiles</h1>
+        <nav class="px-4 py-3">
             <ul>
             <li class="mb-3">
                 <a href="{{ route('dashboard.studentlist') }}"
-                class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
-                <span class="text-white text-xs mr-2">►</span>
-                <span class="mr-2">👤</span>
-                <span>Student Profile</span>
+                class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
+                {{ Request::is('dashboard/students*') ? 'text-black bg-gray-100' : '' }} ">
+                {{-- <span class="text-white text-xs mr-2">►</span> --}}
+                <span class="mr-3"><x-carbon-user class='h-8 font-outline-4 font-outline-black' /></span>
+                <span>Students</span>
                 </a>
             </li>
             <li class="mb-3">
                 <a href="{{ route('dashboard.formatorlist') }}"
-                class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
-                <span class="text-white text-xs mr-2">►</span>
-                <span class="mr-2 ">👤</span>
-                <span>Formator Profile</span>
+                class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
+                {{ Request::is('dashboard/formators*') ? 'text-black bg-gray-100' : '' }} ">
+                {{-- <span class="text-white text-xs mr-2">►</span> --}}
+                <span class="mr-3"><x-carbon-user-speaker class='h-8 font-outline-4 font-outline-black' /></span>
+                <span>Formators</span>
                 </a>
             </li>
             </ul>
@@ -99,6 +105,8 @@
       // Adjust Main Content Margin
       content.classList.toggle('ml-64');
     });
+
+
   </script>
 
 </body>
