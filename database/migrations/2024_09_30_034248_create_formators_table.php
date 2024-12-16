@@ -33,6 +33,8 @@ return new class extends Migration
             $table->enum('f_ActiveTeaching',['active','inactive']);
 
             $table->foreignId('component_id')->references('component_id')->on('components')->onDelete('set null');
+
+            $table->softDeletes();
             $table->timestamps();
         });
     }

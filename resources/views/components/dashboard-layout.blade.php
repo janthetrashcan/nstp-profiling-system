@@ -32,34 +32,46 @@
   <div class="flex mt-20 h-[calc(100vh-5rem)]">
     <!-- Sidebar -->
     <aside id="sidebar"
-      class="fixed top-20 left-0 bottom-0 w-64 bg-gray-800 text-white z-10 overflow-y-auto transform transition-transform duration-300">
-      <div class="p-4">
-        <a href="{{ route('dashboard.importstudents') }}"
-          class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300 mt-6">
-          <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3">+</span>
-          <span class="text-lg font-semibold">Import Forms</span>
-        </a>
+      class="flex flex-col justify-between align-middle fixed top-20 left-0 bottom-0 w-64 bg-gray-800 text-white pt-6 pb-6 z-10 overflow-y-auto transform transition-transform duration-300">
+      <div>
+        <div class="p-4 pt-0">
+            <a href="{{ route('dashboard.importstudents') }}"
+            class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
+            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3">+</span>
+            <span class="text-lg font-semibold">Import Forms</span>
+            </a>
+        </div>
+        <div class="p-4 pt-0">
+            <a href="{{ route('dashboard.importstudents') }}"
+            class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
+            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3">+</span>
+            <span class="text-lg font-semibold">Export Data</span>
+            </a>
+        </div>
+
+
+        <nav class="px-3 py-3">
+            <ul>
+            <li class="mb-3">
+                <a href="{{ route('dashboard.studentlist') }}"
+                class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+                <span class="text-white text-xs mr-2">►</span>
+                <span class="mr-2">👤</span>
+                <span>Student Profile</span>
+                </a>
+            </li>
+            <li class="mb-3">
+                <a href="{{ route('dashboard.formatorlist') }}"
+                class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
+                <span class="text-white text-xs mr-2">►</span>
+                <span class="mr-2 ">👤</span>
+                <span>Formator Profile</span>
+                </a>
+            </li>
+            </ul>
+        </nav>
       </div>
-      <nav class="px-3 py-3">
-        <ul>
-          <li class="mb-3">
-            <a href="{{ route('dashboard.studentlist') }}"
-              class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
-              <span class="text-white text-xs mr-2">►</span>
-              <span class="mr-2">👤</span>
-              <span>Student Profile</span>
-            </a>
-          </li>
-          <li class="mb-3">
-            <a href="{{ route('dashboard.formatorlist') }}"
-              class="flex items-center text-white hover:bg-gray-100 hover:text-black transition-colors duration-300 rounded-lg p-2">
-              <span class="text-white text-xs mr-2">►</span>
-              <span class="mr-2 ">👤</span>
-              <span>Formator Profile</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+
       <form method="POST" action="{{ route('logout') }}" style= "margin-top:24rem;" class="flex justify-center">
         @csrf
         <button type="submit"

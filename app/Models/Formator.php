@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Component;
+use Illuminate\Database\Eloquent\SoftDeletes;
 class Formator extends Model
 {
+    use HasFactory;
+    use SoftDeletes;
+
     protected $primaryKey = 'f_id';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'employee_id',
         'f_Surname',
@@ -28,6 +33,4 @@ class Formator extends Model
     public function component(){
         return $this->belongsTo(Component::class, 'component_id');
     }
-
-    use HasFactory;
 }

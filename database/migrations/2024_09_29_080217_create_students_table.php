@@ -50,6 +50,7 @@ return new class extends Migration
             // Contact Person
             $table->string('s_ContactPersonName');
             $table->string('s_ContactPersonNo');
+            $table->softDeletes();
 
             $table->timestamps();
         });
@@ -60,6 +61,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        // Schema::dropIfExists('students');
+        Schema::table('students', function(Blueprint $table){
+            $table->softDeletes();
+        });
+        Schema::table('students', function(Blueprint $table){
+            $table->dropSoftDeletes();
+        });
     }
 };

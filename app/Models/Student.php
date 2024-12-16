@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Program;
 use App\Models\Section;
 use App\Models\Component;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $primaryKey = 's_id';
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         's_StudentNo',
         's_Surname',
