@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('program_id')->references('program_id')->on('programs')->onDelete('set null');
             $table->foreignId('sec_id')->references('sec_id')->on('sections')->onDelete('set null');
             $table->foreignId('component_id')->nullable()->references('component_id')->on('components')->onDelete('set null');
+            $table->foreignId('batch_id')->nullable()->references('id')->on('batches')->onDelete('cascade');
+
             $table->string('s_FinalGrade')->nullable();
             $table->string('s_SchoolYear')->nullable();
 
@@ -50,6 +52,7 @@ return new class extends Migration
             // Contact Person
             $table->string('s_ContactPersonName');
             $table->string('s_ContactPersonNo');
+
             $table->softDeletes();
 
             $table->timestamps();

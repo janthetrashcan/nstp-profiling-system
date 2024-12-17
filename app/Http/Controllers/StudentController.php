@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportStudents;
+use App\Exports\ExportStudentsByComponent;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Student;
@@ -18,7 +19,7 @@ class StudentController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-{
+    {
     // Existing code for dropdown options
     $programs = Program::all();
     $components = Component::select('component_id', 'component_Name')->get();
@@ -374,7 +375,12 @@ public function exportStudents(Request $request){
         return redirect()->back()->with('warning', 'No students found.');
     }
 
-    return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
+    if(!$request->has('multisheet-export')){
+        return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
+    }
+    else if ($request->has('multisheet-export')){
+        return Excel::download(new ExportStudentsByComponent, 'students_by_component.xlsx');
+    }
 }
 }
 

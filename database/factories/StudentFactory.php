@@ -32,7 +32,7 @@ class StudentFactory extends Factory
         $s_FinalGrade = strval(fake()->numberBetween(1, 4));
 
         return [
-            's_StudentNo' => fake()->numberBetween(100000,999999),
+            's_StudentNo' => fake()->numberBetween(200000,259999),
             'program_id' => \App\Models\Program::inRandomOrder()->first()->program_id,
 
             's_Surname' => fake()->lastName(),

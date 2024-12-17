@@ -19,8 +19,8 @@ class ComponentSeeder extends Seeder
             ['component_Name' => 'LTS'],
             ['component_Name' => 'ROTC'],
         ];
-    foreach ($data as $componentInstance){
-        Component::create($componentInstance);
-    }
+        foreach ($data as $componentInstance){
+            Component::create($componentInstance);
+        }
     }
 }

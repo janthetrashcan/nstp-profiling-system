@@ -10,11 +10,6 @@
 </head>
 
 <body class="h-full">
-
-  <div class="hidden">
-    <x-window-alert message="message" />
-  </div>
-
   <!-- Header -->
   <header class="fixed top-0 left-0 right-0 z-20 h-20 bg-blue-900 flex items-center justify-between px-3 py-2 shadow-md">
     <div class="flex items-center gap-4">
@@ -36,16 +31,19 @@
 
       <div class='w-fill'>
         <div class="p-4 pt-0">
-            <a href="{{ route('dashboard.importstudents') }}"
+            <a
+            href="{{ route('dashboard.importstudents') }}"
             class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
-            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3 aspect-square"><x-carbon-add class='h-8' /></span>
+            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-1 mr-3 aspect-square"><x-carbon-document-add class='h-6 m-1' /></span>
             <span class="text-lg font-semibold">Import Forms</span>
             </a>
         </div>
         <div class="p-4 pt-0">
-            <a href="{{ route('dashboard.exportstudentspage') }}"
+            <a
+            href="{{ route('dashboard.exportstudentspage') }}"
+            {{-- onclick="Livewire.dispatch('openModal', { component: 'export-students' })" --}}
             class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
-            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-3 mr-3"><x-carbon-export class='h-6 m-1'/></span>
+            <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-1 mr-3"><x-carbon-export class='h-6 m-1'/></span>
             <span class="text-lg font-semibold">Export Data</span>
             </a>
         </div>
@@ -61,7 +59,7 @@
                 class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
                 {{ Request::is('dashboard/students*') ? 'text-black bg-gray-100' : '' }} ">
                 {{-- <span class="text-white text-xs mr-2">►</span> --}}
-                <span class="mr-3"><x-carbon-user class='h-8 font-outline-4 font-outline-black' /></span>
+                <span class="mr-3"><x-carbon-user class='h-6 my-1 font-outline-4 font-outline-black' /></span>
                 <span>Students</span>
                 </a>
             </li>
@@ -70,7 +68,7 @@
                 class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
                 {{ Request::is('dashboard/formators*') ? 'text-black bg-gray-100' : '' }} ">
                 {{-- <span class="text-white text-xs mr-2">►</span> --}}
-                <span class="mr-3"><x-carbon-user-speaker class='h-8 font-outline-4 font-outline-black' /></span>
+                <span class="mr-3"><x-carbon-user-speaker class='h-6 my-1 font-outline-4 font-outline-black' /></span>
                 <span>Formators</span>
                 </a>
             </li>
@@ -89,6 +87,7 @@
 
     <!-- Main Content Section -->
     <main id="content" class="ml-64 p-10 w-full h-full overflow-y-auto bg-white transition-[margin-left] duration-300">
+      @livewire('wire-elements-modal')
       {{ $slot }}
     </main>
   </div>

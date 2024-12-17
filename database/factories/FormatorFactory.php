@@ -27,9 +27,9 @@ class FormatorFactory extends Factory
             'f_ContactNo' => fake()->regexify('/^(\+639\d{9}|09\d{9})$/'),
             'f_EmailAddress' => fake()->email(),
 
-            'f_TeachingYearStart' => fake()->date('Y', 'now'),
-            'f_NSTPTeachingYearStart' => fake()->date('Y', 'now'),
-            'f_TeachingUnitCount' => fake()->randomNumber(2),
+            'f_TeachingYearStart' => fake()->numberBetween(2000,2024),
+            'f_NSTPTeachingYearStart' => fake()->numberBetween(2000,2024),
+            'f_TeachingUnitCount' => fake()->numberBetween(3, 12),
             'f_EmploymentStatus' => fake()->randomElement(['part-time', 'full-time']),
             'f_ActiveTeaching' => fake()->randomElement(['active','inactive']),
 
