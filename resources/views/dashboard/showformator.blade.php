@@ -1,4 +1,16 @@
 <x-dashboard-layout>
+    @if(session('error'))
+    <div class="bg-red-500 text-white p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+    @endif
+
+    @if(session('success'))
+    <div class="bg-green-500 text-white p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <!-- Top Navigation/Buttons -->
     <div class="flex flex-row pr-4 mb-6 justify-between items-center">
         <!-- Left Function Buttons -->
@@ -61,7 +73,7 @@
             </div>
 
             <!-- Combined Professional Information Fields -->
-            <div class="bg-gray-50 p-3 rounded-xl shadow-md">
+            <div class="bg-gray-50 p-3 rounded-xl shadow-md mb-3">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="text-gray-500 font-semibold">Email Address</p>
@@ -90,6 +102,16 @@
                     <div>
                         <p class="text-gray-500 font-semibold">Active Teaching</p>
                         <p class="text-lg">{{ $formator->f_ActiveTeaching ? 'Yes' : 'No' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Combined Professional Information Fields -->
+            <div class="bg-gray-50 p-3 rounded-xl shadow-md">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-500 font-semibold">Trainings</p>
+                        <p class="text-lg">{{ $formator->f_Trainings }}</p>
                     </div>
                 </div>
             </div>

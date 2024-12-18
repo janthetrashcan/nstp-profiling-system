@@ -17,6 +17,8 @@ return new class extends Migration
             $table->foreignId('program_id')->references('program_id')->on('programs')->onDelete('set null');
             $table->foreignId('sec_id')->references('sec_id')->on('sections')->onDelete('set null');
             $table->foreignId('component_id')->nullable()->references('component_id')->on('components')->onDelete('set null');
+            $table->foreignId('batch_id')->nullable()->references('id')->on('batches')->onDelete('cascade');
+
             $table->string('s_FinalGrade')->nullable();
             $table->string('s_SchoolYear')->nullable();
 
@@ -25,6 +27,7 @@ return new class extends Migration
             $table->string('s_FirstName');
             $table->string('s_MiddleName')->nullable();
             $table->string('s_Suffix')->nullable();
+            $table->string('s_FullName');
 
             $table->enum('s_Sex',['male','female']);
             $table->date('s_Birthdate');
@@ -51,6 +54,8 @@ return new class extends Migration
             $table->string('s_ContactPersonName');
             $table->string('s_ContactPersonNo');
 
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
@@ -60,6 +65,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        // Schema::dropIfExists('students');
+        Schema::table('students', function(Blueprint $table){
+            $table->softDeletes();
+        });
+        Schema::table('students', function(Blueprint $table){
+            $table->dropSoftDeletes();
+        });
     }
 };

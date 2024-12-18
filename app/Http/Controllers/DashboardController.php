@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Models\Formator;
 use App\Models\Program;
 use App\Models\Section;
+use App\Models\Batch;
 use App\Models\User;
 
 class DashboardController extends Controller
@@ -20,9 +21,14 @@ class DashboardController extends Controller
         return view('dashboard.index');
     }
 
-    public function showStudentList(Request $request){
-        $students = Student::query()->orderBy('s_StudentNo', 'asc')->paginate(10);
-        // dd($students);
+    public function showStudentList(Request $request, string $batch = null) {
+        if($batch === null){
+            $students = Student::query()->orderBy('s_StudentNo', 'asc')->paginate(10);
+        }
+        else{
+            $batchId = Batch::query()->where('batch', $batch)->pluck('id');
+            $students = Student::query()->where('batch_id', $batchId)->orderBy('s_StudentNo', 'asc')->paginate(10);
+        }
         return view('dashboard.studentlist', ['students' => $students]);
     }
 

@@ -16,21 +16,29 @@ class FormatorFactory extends Factory
      */
     public function definition(): array
     {
+        $f_Surname = fake('fil_PH')->lastName();
+        $f_FirstName = fake('fil_PH')->firstName();
+        $f_MiddleName = fake('fil_PH')->lastName();
+        $f_FullName = $f_Surname.' '.$f_FirstName.' '.$f_MiddleName;
+
         return [
             'employee_id' => fake()->randomNumber(6),
-            'f_Surname' => fake()->lastName(),
-            'f_FirstName' => fake()->firstName(),
-            'f_MiddleName' => fake()->lastName(),
+
+            'f_Surname' => $f_Surname,
+            'f_FirstName' => $f_FirstName,
+            'f_MiddleName' => $f_MiddleName,
+            'f_FullName' => $f_FullName,
 
             'f_Sex' => fake()->randomElement(['male','female']),
-            'f_Birthdate' => fake()->date('m-d-Y'),
+            'f_Birthdate' => fake()->date('Y-m-d'),
             'f_ContactNo' => fake()->regexify('/^(\+639\d{9}|09\d{9})$/'),
             'f_EmailAddress' => fake()->email(),
 
-            'f_TeachingYearStart' => fake()->date('Y', 'now'),
-            'f_NSTPTeachingYearStart' => fake()->date('Y', 'now'),
-            'f_TeachingUnitCount' => fake()->randomNumber(2),
-            'f_EmploymentStatus' => fake()->randomElement(['part-time', 'full-time']),
+            'f_TeachingYearStart' => fake()->numberBetween(2000,2024),
+            'f_NSTPTeachingYearStart' => fake()->numberBetween(2000,2024),
+            'f_TeachingUnitCount' => fake()->numberBetween(3, 12),
+            'f_EmploymentStatus' => fake()->randomElement(['part-time', 'full-time', 'contractual']),
+            'f_Trainings' => (fake()->company().' ('.fake('fil_PH')->city().' '.fake()->date('Y-m').')'),
             'f_ActiveTeaching' => fake()->randomElement(['active','inactive']),
 
             'component_id' => \App\Models\Component::inRandomOrder()->first()->component_id,

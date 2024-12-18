@@ -4,7 +4,7 @@
             @csrf
             <div class='flex flex-row pr-4 mb-3 justify-between'>
                 <div id='functions-lhs' class='flex flex-row gap-x-3'>
-                    <a href='{{ route('dashboard.studentlist') }}' class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
+                    <a href='{{ URL::previous() }}' class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
                         <x-carbon-arrow-left class='h-6' />
                         <h1 class='font-semibold'>Return</h1>
                     </a>
@@ -20,11 +20,28 @@
             @endif
 
             <div class="grid grid-cols-3 gap-4">
+                <!-- Academic Year -->
+                <div class="mb-4 col-span-3">
+                    <label for="batch_id" class="block text-sm font-medium text-gray-700">Academic Year</label>
+                    <select id="batch_id" name="batch_id" required class="mt-1 block w-1/3 border border-gray-300 rounded-md shadow-sm px-3 py-2">
+                        @foreach($batches as $batch)
+                            <option value="{{ $batch->id }}" {{
+                                (request('batch') == $batch->id) ? 'selected' : '' }}>{{ $batch->batch }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    @error('s_StudentNo')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+
+
                 <!-- Student ID -->
                 <div class="mb-4 col-span-3">
-                    <label for="s_StudentNo" class="block text-sm font-medium text-gray-700">Student ID </label>
-                    <label for="s_StudentNo" class="block text-sm font-medium text-red-500">*6 numbers</label>
-                    <input type="text" id="s_StudentNo" name="s_StudentNo" required class="mt-1 block w-1/3 border-gray-300 rounded-md shadow-sm px-3 py-2" />
+                    <label for="s_StudentNo" class="block text-sm font-medium text-gray-700">Student ID</label>
+                    <label for="s_StudentNo" class="block text-sm font-medium text-red-500">*6 digits</label>
+                    <input placeholder="######" type="text" id="s_StudentNo" name="s_StudentNo" required class="mt-1 block w-1/3 border-gray-300 rounded-md shadow-sm px-3 py-2" />
                     @error('s_StudentNo')
                         <div class="text-red-500 text-sm">{{ $message }}</div>
                     @enderror

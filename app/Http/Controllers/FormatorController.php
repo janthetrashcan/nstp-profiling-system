@@ -35,12 +35,10 @@ class FormatorController extends Controller
         }
 
         if ($request->filled('formator_search')) {
-            $query->where('f_Surname', 'like', "%$search")
+            $query->where('f_Surname', 'like', "%$search%")
             ->orWhere('f_FirstName', 'like', "%$search%")
-            ->orWhere('f_MiddleName', 'like', "%$search%");
-        }
-        else{
-            return view('dashboard.formatorlist', ['formators' => $query->paginate(15), 'search' => ""]);
+            ->orWhere('f_MiddleName', 'like', "%$search%")
+            ->orWhere('f_FullName', 'like', "%$search%");
         }
 
         $formators = $query->paginate(15);  // Adjust the number as needed
@@ -90,18 +88,31 @@ class FormatorController extends Controller
                 'f_NSTPTeachingYearStart' => 'required|string|size:4|regex:/^\d{4}$/',
                 'f_TeachingUnitCount' => 'required|string|max:10|regex:/^\d+$/',
                 'component_id' => 'required|integer|exists:components,component_id',
-                'f_EmploymentStatus' => 'required|string|in:part-time,full-time',
+                'f_EmploymentStatus' => 'required|string|in:part-time,full-time,contractual',
                 'f_ActiveTeaching' => 'required|string|in:active,inactive',
+                'f_Trainings' => 'nullable|string',
+            ]);
+
+            // merge composite attributes
+            $data = array_merge($data, [
+                'f_FullName' => $data['f_Surname'].' '.$data['f_FirstName'].' '.$data['f_MiddleName'],
             ]);
 
             $formator = Formator::create($data);
+
             return redirect()->route('dashboard.showformator', ['f_id' => $formator->f_id])->with('success', 'Formator added successfully.');
+
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation failed: ' . json_encode($e->errors()));
             return redirect()->back()->withErrors($e->errors())->withInput();
-        } catch (\Exception $e) {
+
+        } catch (Exception $e) {
+            dd($e);
             Log::error('Error in FormatorController@store: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'An unexpected error occurred. Please try again.')->withInput();
+            return redirect()->back()->with('error',
+            'An unexpected error occurred. Please try again.'
+
+            )->withInput();
         }
     }
 
@@ -114,7 +125,7 @@ class FormatorController extends Controller
 
         try {
             $data = $request->validate([
-                'employee_id' => 'required|string|size:6|regex:/^\d{8}$/',
+                'employee_id' => 'required|string|size:6|regex:/^\d{6}$/',
                 'f_Surname' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 'f_FirstName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 'f_MiddleName' => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',
@@ -126,12 +137,18 @@ class FormatorController extends Controller
                 'f_NSTPTeachingYearStart' => 'required|string|size:4|regex:/^\d{4}$/',
                 'f_TeachingUnitCount' => 'required|string|max:10|regex:/^\d+$/',
                 'component_id' => 'required|integer|exists:components,component_id',
-                'f_EmploymentStatus' => 'required|string|in:part-time,full-time',
+                'f_EmploymentStatus' => 'required|string|in:part-time,full-time,contractual',
                 'f_ActiveTeaching' => 'required|string|in:active,inactive',
+                'f_Trainings' => 'nullable|string',
+            ]);
+
+            // merge composite attributes
+            $data = array_merge($data, [
+                'f_FullName' => $data['f_Surname'].' '.$data['f_FirstName'].' '.$data['f_MiddleName'],
             ]);
 
             $formator->update($data);
-            return redirect()->route('dashboard.formatorlist')->with('success', 'Formator updated successfully.');
+            return redirect()->route('dashboard.showformator', $formator->f_id)->with('success', 'Formator updated successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation failed: ' . json_encode($e->errors()));
             return redirect()->back()->withErrors($e->errors())->withInput();

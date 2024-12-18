@@ -3,7 +3,7 @@
     <div class="flex flex-row pr-4 mb-6 justify-between items-center">
         <!-- Left Actions: Return, Edit, Delete -->
         <div id="functions-lhs" class="flex flex-row gap-x-3">
-            <a href="{{ route('dashboard.studentlist') }}" class="bg-gray-200 hover:bg-gray-300 transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
+            <a href="{{ route('dashboard.studentlist', ['batch' => $student->batch->id]) }}" class="bg-gray-200 hover:bg-gray-300 transition-all duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2 shadow-md">
                 <x-carbon-arrow-left class="h-6" />
                 <h1 class="font-semibold">Return</h1>
             </a>
@@ -32,6 +32,12 @@
         <!-- Personal Information -->
         <div id="student-info" class="flex flex-col gap-y-4 p-6 w-full md:w-96 rounded-xl bg-white shadow-lg">
             <h1 class="text-2xl font-bold text-gray-700 mb-4">Student Information</h1>
+
+            <!-- Family Name -->
+            <div class="flex flex-row gap-3">
+                <p class="font-semibold w-1/3 text-gray-600">Academic Year</p>
+                <p class="font-normal w-2/3 text-gray-800">{{ $student->batch->batch }}</p>
+            </div>
 
             <!-- Family Name -->
             <div class="flex flex-row gap-3">
