@@ -23,6 +23,7 @@ npm install
 ```
 composer require codeat3/blade-carbon-icons
 composer require maatwebsite/excel:3.1.60 --ignore-platform-reqs
+composer require livewire/livewire
 ```
 ```
 php artisan vendor:publish --tag=blade-carbon-icons-config
