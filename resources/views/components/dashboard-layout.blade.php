@@ -54,15 +54,32 @@
         <h1 class='px-4 mt-4 mb-2 text-2xl font-semibold cursor-default'>Profiles</h1>
         <nav class="px-4 py-3">
             <ul>
-            <li class="mb-3">
-                <a href="{{ route('dashboard.studentlist') }}"
-                class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
-                {{ Request::is('dashboard/students*') ? 'text-black bg-gray-100' : '' }} ">
-                {{-- <span class="text-white text-xs mr-2">►</span> --}}
-                <span class="mr-3"><x-carbon-user class='h-6 my-1 font-outline-4 font-outline-black' /></span>
-                <span>Students</span>
-                </a>
-            </li>
+            <div class='flex flex-col gap-3 mb-3'>
+                <li class="">
+                    <a href="{{ route('dashboard.studentlist') }}"
+                    class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
+                    {{ Request::is('dashboard/students*') ? 'text-black bg-gray-100' : '' }} ">
+                    {{-- <span class="text-white text-xs mr-2">►</span> --}}
+                    <span class="mr-3"><x-carbon-user class='h-6 my-1 font-outline-4 font-outline-black' /></span>
+                    <span>Students</span>
+                    </a>
+                </li>
+
+                @if (Request::is('dashboard/students*'))
+                @foreach(App\Models\Batch::all() as $batch)
+                <li class="">
+                    <a href="{{ route('dashboard.filterstudents', ['batch' => $batch->id]) }}"
+                    class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
+                    {{ Request::get('batch') == $batch->id ? 'underline bg-gray-700' : '' }} ">
+                    {{-- <span class="text-white text-xs mr-2">►</span> --}}
+                    <span class="mr-3"><x-carbon-chevron-right class='h-3 my-1 font-outline-4 font-outline-black' /></span>
+                    <span>{{ $batch->batch }}</span>
+                    </a>
+                </li>
+                @endforeach
+                @endif
+            </div>
+
             <li class="mb-3">
                 <a href="{{ route('dashboard.formatorlist') }}"
                 class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
@@ -76,10 +93,10 @@
         </nav>
       </div>
 
-      <form method="POST" action="{{ route('logout') }}" style= "margin-top:24rem;" class="flex justify-center">
+      <form method="POST" action="{{ route('logout') }}" class="flex justify-center">
         @csrf
         <button type="submit"
-          class="w-4/5 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 ">
+          class="w-4/5 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
           Log out
         </button>
       </form>

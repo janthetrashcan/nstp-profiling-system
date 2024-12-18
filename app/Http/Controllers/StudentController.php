@@ -10,6 +10,7 @@ use App\Models\Student;
 use App\Models\Program;
 use App\Models\Section;
 use App\Models\Component;
+use App\Models\Batch;
 use Illuminate\Support\Facades\Log;
 
 
@@ -24,10 +25,21 @@ class StudentController extends Controller
     $programs = Program::all();
     $components = Component::select('component_id', 'component_Name')->get();
     $sections = Section::all();
+    $batches = Batch::all();
 
     $query = Student::query();
 
+    $search = $request->input('search') ?? "";
+
     // Existing filters
+
+    if ($request->filled('search')){
+        $query->where('s_Surname', 'like', "%$search%")
+            ->orWhere('s_FirstName', 'like', "%$search%")
+            ->orWhere('s_MiddleName', 'like', "%$search%")
+            ->orWhere('s_FullName', 'like', "%$search%");
+    }
+
     if ($request->filled('program')) {
         $query->where('program_id', $request->input('program'));
     }
@@ -38,6 +50,10 @@ class StudentController extends Controller
 
     if ($request->filled('section')) {
         $query->where('sec_id', $request->input('section'));
+    }
+
+    if ($request->filled('batch')) {
+        $query->where('batch_id', $request->input('batch'));
     }
 
     // New filters for passed, failed, and grades
@@ -97,7 +113,7 @@ class StudentController extends Controller
     // Prepare grades for dropdown
     $grades = [1, 1.5, 2, 2.5, 3, 3.5, 4];
 
-    return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections', 'grades', 'sortColumn', 'sortDirection'));
+    return view('dashboard.studentlist', compact('students', 'programs', 'components', 'sections', 'grades', 'sortColumn', 'sortDirection', 'batches', 'search'));
 }
 
     /**
@@ -108,9 +124,10 @@ class StudentController extends Controller
           $programs = Program::all();
           $sections = Section::all();
           $components = Component::all();
+          $batches = Batch::all();
           $grades = ['F', '1', '1.5', '2', '2.5', '3', '3.5', '4'];
 
-          return view('dashboard.studentadd', compact('programs', 'sections', 'components', 'grades'));
+          return view('dashboard.studentadd', compact('programs', 'sections', 'components', 'grades','batches'));
     }
 
     /**
@@ -124,9 +141,9 @@ class StudentController extends Controller
             // Prepare the validation rules
             $rules = [
                 's_StudentNo' => 'required|string|size:6|regex:/^\d{6}$/',
-                's_Surname' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
-                's_FirstName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
-                's_MiddleName' => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',
+                's_Surname' => "required|string|max:255|regex:/^[a-zA-Z\s\'\-]+$/",
+                's_FirstName' => "required|string|max:255|regex:/^[a-zA-Z\s\'\-]+$/",
+                's_MiddleName' => "required|string|max:255|regex:/^[a-zA-Z\s\'\-]+$/",
                 's_Sex' => 'required|string|in:male,female',
                 's_Birthdate' => 'required|date|after:1900-01-01|before:2025-01-01',
                 's_ContactNo' => ['required', 'string', 'max:15', 'regex:/^(\+639\d{9}|09\d{9})$/'],
@@ -134,6 +151,7 @@ class StudentController extends Controller
                 'program_id' => 'required|exists:programs,program_id',
                 'sec_id' => 'required|integer|exists:sections,sec_id',
                 'component_id' => 'required|integer|exists:components,component_id',
+                'batch_id' => 'required|integer|exists:batches,id',
                 's_p_HouseNo' => 'nullable|string|max:255',
                 's_p_Street' => 'nullable|string|max:255',
                 's_p_Barangay' => 'required|string|max:255',
@@ -169,6 +187,7 @@ class StudentController extends Controller
 
             // Merge composite attributes of City Address and Provincial Address
             $data = array_merge($data, [
+                's_FullName' => $data['s_Surname'].' '.$data['s_FirstName'].' '.$data['s_MiddleName'],
                 's_c_CompleteAddress' => $data['s_c_HouseNo'].', '.$data['s_c_Street'].', '.$data['s_c_Barangay'].', '.$data['s_c_City'].', '.$data['s_c_Province'],
                 's_p_CompleteAddress' => $data['s_p_HouseNo'].', '.$data['s_p_Street'].', '.$data['s_p_Barangay'].', '.$data['s_p_City'].', '.$data['s_p_Province'],
             ]);
@@ -178,7 +197,7 @@ class StudentController extends Controller
 
             Log::info('Student created with ID: ' . $student->s_id);
 
-            return redirect()->route('dashboard.studentlist')->with('success', 'Student added successfully.');
+            return redirect()->route('dashboard.showstudent', $student->s_id)->with('success', 'Student added successfully.');
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             Log::error('Validation failed: ' . json_encode($e->errors()));
@@ -204,13 +223,14 @@ class StudentController extends Controller
         $programs = Program::all();
         $sections = Section::all();
         $components = Component::all();
+        $batches = Batch::all();
         $grades = ['F', '1', '1.5', '2', '2.5', '3', '3.5', '4'];
 
         $student = Student::where('s_id', $s_id)->first();
         if($student === null){
             abort(404);
         }
-        return view('dashboard.studentedit', compact('student','programs', 'sections', 'components', 'grades'));
+        return view('dashboard.studentedit', compact('student','programs', 'sections', 'components', 'grades', 'batches'));
     }
 
     public function updateStudent(Request $request, string $s_id)
@@ -224,9 +244,9 @@ class StudentController extends Controller
         try {
             $data = $request->validate([
                 's_StudentNo' => 'required|string|size:6|regex:/^\d{6}$/',
-                's_Surname' => 'required|string|regex:/^[a-zA-Z\s]+$/',
-                's_FirstName' => 'required|string|regex:/^[a-zA-Z\s]+$/',
-                's_MiddleName' => 'nullable|string|regex:/^[a-zA-Z\s]+$/',
+                's_Surname' => "required|string|max:255|regex:/^[a-zA-Z\s\'\-]+$/",
+                's_FirstName' => "required|string|max:255|regex:/^[a-zA-Z\s\'\-]+$/",
+                's_MiddleName' => "required|string|max:255|regex:/^[a-zA-Z\s\'\-]+$/",
                 's_Suffix' => ['nullable', 'string', 'max:255', 'regex:/^(I{1,3}|II{1,3}|III{1,3}|IV|V?I{0,3}|VI{0,3}|VII{0,3}|VIII|IX|X)$|Jr\.$/'],
                 's_Sex' => 'required|string|in:male,female',
                 's_Birthdate' => 'required|date|after:1900-01-01|before:2025-01-01',
@@ -235,6 +255,7 @@ class StudentController extends Controller
                 'program_id' => 'required|exists:programs,program_id',
                 'sec_id' => 'required|integer|exists:sections,sec_id',
                 'component_id' => 'required|integer|exists:components,component_id',
+                'batch_id' => 'required|integer|exists:batches,id',
                 's_c_HouseNo' => 'required|string|max:255',
                 's_c_Street' => 'required|string|max:255',
                 's_c_Barangay' => 'required|string|max:255',
@@ -252,6 +273,7 @@ class StudentController extends Controller
 
             // Merge composite attributes of City Address and Provincial Address
             $data = array_merge($data, [
+                's_FullName' => $data['s_Surname'].' '.$data['s_FirstName'].' '.$data['s_MiddleName'],
                 's_c_CompleteAddress' => $data['s_c_HouseNo'].', '.$data['s_c_Street'].', '.$data['s_c_Barangay'].', '.$data['s_c_City'].', '.$data['s_c_Province'],
                 's_p_CompleteAddress' => $data['s_p_HouseNo'].', '.$data['s_p_Street'].', '.$data['s_p_Barangay'].', '.$data['s_p_City'].', '.$data['s_p_Province'],
             ]);
@@ -319,14 +341,16 @@ public function exportStudentsPage(Request $request){
     $sections = Section::all();
     $programs = Program::all();
     $components = Component::all();
+    $batches = Batch::all();
 
-    return view('dashboard.studentexport', compact('sections','programs', 'components'));
+    return view('dashboard.studentexport', compact('sections','programs', 'components', 'batches'));
 }
 
 public function exportStudents(Request $request){
     $secID = $request->input('section-filter') ?? 'all';
     $componentID = $request->input('component-filter') ?? 'all';
     $programID = $request->input('program-filter') ?? 'all';
+    $batchID = $request->input('batch-filter') ?? 'all';
 
     // fetch students
     $query = Student::select('s_StudentNo','s_Surname','s_FirstName','s_MiddleName','program_id','s_Sex','s_Birthdate','s_c_CompleteAddress','s_p_CompleteAddress','s_ContactNo','s_EmailAddress','sec_id','component_id','s_FinalGrade','s_ContactPersonName', 's_ContactPersonNo')
@@ -336,6 +360,9 @@ public function exportStudents(Request $request){
     ->orderBy('program_id', 'asc');
 
     // filter students based on selected fields
+    if($batchID !== 'all'){
+        $query->where('batch_id', $batchID);
+    }
     if($secID !== 'all'){
         $query->where('sec_id', $secID);
     }
@@ -350,7 +377,7 @@ public function exportStudents(Request $request){
     }
 
     // set values
-    $filteredStudents = $query->with('program','section','component')->get()->map(function ($student){
+    $filteredStudents = $query->with('program','section','component','batch')->get()->map(function ($student){
         return[
             's_StudentNo' => $student->s_StudentNo,
             's_Surname' => $student->s_Surname,
@@ -368,8 +395,10 @@ public function exportStudents(Request $request){
             's_FinalGrade' => $student->s_FinalGrade,
             's_ContactPersonName' => $student->s_ContactPersonName,
             's_ContactPersonNo' => $student->s_ContactPersonNo,
+            'batch_id' => $student->batch->id,
         ];
     });
+    dd($filteredStudents);
 
     if(empty($filteredStudents->toArray())){
         return redirect()->back()->with('warning', 'No students found.');
@@ -379,7 +408,7 @@ public function exportStudents(Request $request){
         return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
     }
     else if ($request->has('multisheet-export')){
-        return Excel::download(new ExportStudentsByComponent, 'students_by_component.xlsx');
+        return Excel::download(new ExportStudentsByComponent($filteredStudents), 'students_by_component.xlsx');
     }
 }
 }

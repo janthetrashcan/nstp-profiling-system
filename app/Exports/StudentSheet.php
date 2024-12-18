@@ -7,13 +7,18 @@ use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use App\Models\Component;
 use App\Models\Student;
+use App\Models\Batch;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 class StudentSheet implements FromCollection, WithTitle, WithHeadings
 {
     protected $component;
+    protected $query;
 
-    public function __construct(Component $component)
+    public function __construct(Component $component, Collection $query)
     {
+        $this->query = $query;
         $this->component = $component;
     }
 
@@ -24,9 +29,12 @@ class StudentSheet implements FromCollection, WithTitle, WithHeadings
      */
     public function collection()
     {
-        return Student::where('component_id', $this->component->component_id)
-            ->select('s_StudentNo', 's_Surname', 's_FirstName', 's_MiddleName', 'program_id', 's_Sex', 's_Birthdate', 's_c_CompleteAddress', 's_p_CompleteAddress', 's_ContactNo', 's_EmailAddress', 'sec_id', 'component_id', 's_ContactPerson', 's_ContactPersonNo') // Customize fields as needed
-            ->get();
+        return $this->query->filter(function ($student){
+            // dd($student["batch_id"]);
+            if(isset($student["batch_id"]) && $student["batch_id" === $this->component->component_id]){
+                return $student["batch_id" == $this->component->component_id];
+            }
+        });
     }
 
     /**

@@ -11,7 +11,9 @@ Route::redirect('/','/dashboard/students')->name('dashboard');
 
 // Student group
 Route::middleware(['auth'])->group(function(){
-    Route::get('/dashboard/students', [DashboardController::class, 'showStudentList'])->name('dashboard.studentlist');
+    Route::get('/dashboard/students', [StudentController::class, 'index'])->name('dashboard.studentlist');
+    Route::get('/dashboard/students/filter', [StudentController::class, 'index'])->name('dashboard.filterstudents');
+
     Route::get('/dashboard/students/add', [StudentController::class, 'addStudent'])->name('dashboard.addstudent');
     Route::post('/dashboard/students', [StudentController::class, 'store'])->name('student.store' );
     Route::get('/dashboard/students/view/{s_id}', [DashboardController::class, 'showStudentProfile'])->name('dashboard.showstudent');
@@ -22,8 +24,6 @@ Route::middleware(['auth'])->group(function(){
     Route::put('/dashboard/students/update/{s_id}', [StudentController::class, 'updateStudent'])->name('student.update');
     Route::delete('/dashboard/students/delete', [StudentController::class, 'destroy'])->name('student.destroy');
     Route::delete('/dashboard/students/delete/{s_id?}', [StudentController::class, 'destroy'])->name('student.destroy');
-    Route::get('/dashboard/students', [StudentController::class, 'index'])->name('dashboard.studentlist');
-    Route::get('/dashboard/students/filter', [StudentController::class, 'index'])->name('dashboard.filterstudents');
 
     Route::get('/dashboard/students/import',[StudentController::class, 'importStudentsPage'])->name('dashboard.importstudents');
     Route::post('/dashboard/students/import/processing', [StudentImportController::class, 'import'])->name('students.import');

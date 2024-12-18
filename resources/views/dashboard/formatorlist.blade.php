@@ -98,7 +98,7 @@
         <!-- Table Header -->
         <thead class="bg-gray-200">
             <tr>
-                <th class="p-4 text-center w-4">Select</th>
+                <th class="p-4 text-center w-4"></th>
                 <th class="text-left p-4 w-2/12 font-semibold">Employee ID</th>
                 <th class="text-left p-4 w-2/12 font-semibold">Family Name</th>
                 <th class="text-left p-4 w-2/12 font-semibold">First Name</th>
@@ -112,6 +112,7 @@
         </thead>
 
         <!-- Table Body -->
+        @if($formators->isNotEmpty())
         <tbody>
             @foreach($formators as $formator)
                 <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
@@ -165,6 +166,12 @@
                 </tr>
             @endforeach
         </tbody>
+        @else
+        </table>
+        <div class='w-fill'>
+            <h2 class='text-xl text-center mt-8'>No results found</h2>
+        </div>
+        @endif
     </table>
 
     <!-- Pagination Section -->

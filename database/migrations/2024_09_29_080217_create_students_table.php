@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('s_FirstName');
             $table->string('s_MiddleName')->nullable();
             $table->string('s_Suffix')->nullable();
+            $table->string('s_FullName');
 
             $table->enum('s_Sex',['male','female']);
             $table->date('s_Birthdate');

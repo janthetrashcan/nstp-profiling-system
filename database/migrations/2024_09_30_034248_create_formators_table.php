@@ -18,7 +18,8 @@ return new class extends Migration
             // Name
             $table->string('f_Surname');
             $table->string('f_FirstName');
-            $table->string('f_MiddleName');
+            $table->string('f_MiddleName')->nullable();
+            $table->string('f_FullName');
 
             $table->string('f_Sex');
             $table->date('f_Birthdate');

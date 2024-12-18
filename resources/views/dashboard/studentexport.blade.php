@@ -15,11 +15,11 @@
 
                 <div class=''>
                     <h3 class="text-xl font-semibold text-left mb-4">Academic Year</h3>
-                    <select id='component-filter' name='component-filter' class="border p-2 rounded-md w-[100%]">
+                    <select id='batch-filter' name='batch-filter' class="border p-2 rounded-md w-[100%]">
                         <option value='select'>Select</option>
-                        @foreach($components as $component)
-                            <option value="{{ $component->component_id }}" {{ request('component') == $component ? 'selected' : '' }}>
-                                {{ Str::upper($component->component_Name) }}
+                        @foreach($batches as $batch)
+                            <option value="{{ $batch->id }}" {{ request('batch') == $batch->id ? 'selected' : '' }}>
+                                {{ Str::upper($batch->batch) }}
                             </option>
                         @endforeach
                     </select>

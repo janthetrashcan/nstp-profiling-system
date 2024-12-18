@@ -18,6 +18,7 @@ class Formator extends Model
         'f_Surname',
         'f_FirstName',
         'f_MiddleName',
+        'f_FullName',
         'f_Sex',
         'f_Birthdate',
         'f_ContactNo',

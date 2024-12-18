@@ -31,6 +31,20 @@
 
             <!-- Student Information -->
             <div class="grid grid-cols-3 gap-6">
+                <div class="mb-4 col-span-3">
+                    <label for="batch_id" class="block text-sm font-medium text-gray-700">Academic Year</label>
+                    <select id="batch_id" name="batch_id" required class="mt-1 block w-1/3 border border-gray-300 rounded-md shadow-sm px-3 py-2">
+                        @foreach($batches as $batch)
+                            <option value="{{ $batch->id }}" {{
+                                (request('batch') == $batch->id) ? 'selected' : '' }}>{{ $batch->batch }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('batch_id')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <!-- Student No -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Student No </label>

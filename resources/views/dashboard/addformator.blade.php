@@ -1,4 +1,10 @@
 <x-dashboard-layout>
+    @if(session('error'))
+    <div class="bg-red-500 text-white p-3 rounded mb-4">
+        {{ session('error') }}
+    </div>
+    @endif
+
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
             <a href='{{ route('dashboard.formatorlist') }}' class='bg-gray-100 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-xl gap-2'>
@@ -73,7 +79,7 @@
 
                 <!-- Contact Information Section -->
                 <div class="border-b pb-4 mb-4">
-                    <div class="grid grid-cols-3 gap-4"> 
+                    <div class="grid grid-cols-3 gap-4">
                         <div>
                             <label for="f_ContactNo" class="block text-sm font-medium text-gray-700">Contact Number</label>
                             <input type="text" id="f_ContactNo" name="f_ContactNo" required class="mt-1 p-2 border rounded w-full" />
@@ -93,7 +99,7 @@
 
                 <!-- Teaching Information Section -->
                 <div>
-                    <div class="grid grid-cols-3 gap-4"> 
+                    <div class="grid grid-cols-3 gap-4">
                         <div>
                             <label for="f_TeachingYearStart" class="block text-sm font-medium text-gray-700">Teaching Year Start</label>
                             <input type="text" id="f_TeachingYearStart" name="f_TeachingYearStart" class="mt-1 p-2 border rounded w-full" />

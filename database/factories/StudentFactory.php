@@ -31,13 +31,20 @@ class StudentFactory extends Factory
         $s_p_Province = fake()->streetName();
         $s_FinalGrade = strval(fake()->numberBetween(1, 4));
 
+        $s_Surname = fake()->lastName();
+        $s_FirstName = fake()->firstName();
+        $s_MiddleName = fake()->lastName();
+        $s_FullName = $s_Surname.' '.$s_FirstName.' '.$s_MiddleName;
+
         return [
             's_StudentNo' => fake()->numberBetween(200000,259999),
             'program_id' => \App\Models\Program::inRandomOrder()->first()->program_id,
+            'batch_id' => \App\Models\Batch::inRandomOrder()->first()->id,
 
-            's_Surname' => fake()->lastName(),
-            's_FirstName' => fake()->firstName(),
-            's_MiddleName' => fake()->lastName(),
+            's_Surname' => $s_Surname,
+            's_FirstName' => $s_FirstName,
+            's_MiddleName' => $s_MiddleName,
+            's_FullName' => $s_FullName,
 
             's_Sex' => fake()->randomElement(['male','female']),
             's_Birthdate' => fake()->date('m-d-Y'),

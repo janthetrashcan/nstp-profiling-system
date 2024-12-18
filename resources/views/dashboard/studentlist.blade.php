@@ -13,10 +13,11 @@
 
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
-            <a href="{{ route('dashboard.addstudent') }}" class='bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2'>
+            <a href="{{ route('dashboard.addstudent', ['batch' => request('batch')]) }}" class='bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2'>
                 <x-carbon-add class='h-8' />
                 <h2 class='font-semibold'>Add</h2>
             </a>
+
             <form action="{{ route('student.destroy') }}" method="POST" id="deleteForm">
                 @csrf
                 @method('DELETE')
@@ -25,6 +26,7 @@
                     <h1 class='font-semibold'>Delete</h1>
                 </button>
             </form>
+
             <button id="filterToggle" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2'>
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Filter</h1>
@@ -35,8 +37,9 @@
             </a>
         </div>
 
-        <form action="{{ route('dashboard.searchstudent') }}" method='GET' id='functions-rhs' class='flex flex-row gap-x-3'>
-            <input type='text' name='search' placeholder='Enter Name or Student No.' maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-lg gap-2' />
+        <form action="{{ route('dashboard.studentlist', ['batch' => request('batch')]) }}" method='GET' id='functions-rhs' class='flex flex-row gap-x-3'>
+            <input type='text' id='search' name='search' placeholder='Enter Name or Student No.' value="{{ request('search') }}" maxlength='30' class='bg-gray-100 flex flex-row w-60 h-12 px-4 py-2 justify-start items-center rounded-lg gap-2' />
+            <input type='text' name='batch' value='{{ request('batch') }}' class='hidden'>
             <input type='submit' value='Search' class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 p-3 rounded-lg' />
         </form>
     </div>
@@ -44,9 +47,9 @@
     @include('dashboard.studentfilter', ['programs' => $programs, 'components' => $components, 'sections' => $sections, 'grades' => [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5]])
     <!-- Table Structure -->
     <table class="min-w-full bg-white rounded-lg">
-        <thead class="bg-gray-200">
+        <thead class="bg-gray-200 h-[2rem]">
             <tr>
-                <th class="p-4 text-left w-[5%]">Select</th>
+                <th class="w-fit text-left"></th>
                 <th class="text-left p-4 w-1/12 font-semibold">
                     <a href="{{ route('dashboard.studentlist', ['sort' => 's_StudentNo', 'direction' => ($sortColumn === 's_StudentNo' && $sortDirection === 'asc') ? 'desc' : 'asc'] + request()->query()) }}">
                         Student ID
@@ -145,11 +148,13 @@
                 </th>
             </tr>
         </thead>
+
+        @if($students->isNotEmpty())
         <tbody id="studentTableBody">
             @foreach($students as $student)
             <tr class="border-b hover:bg-gray-100 transition-colors duration-200">
-                <td class="p-4 text-center w-[5%]">
-                    <input type='checkbox' name='student_ids[]' value='{{ $student->s_id }}' form="deleteForm" class='w-4 h-4'>
+                <td class="text-center w-[2%] px-4">
+                    <input type='checkbox' name='student_ids[]' value='{{ $student->s_id }}' form="deleteForm" class='student-checkbox w-4 h-4'>
                 </td>
                 <td class="p-4">
                     <a href="{{ route('dashboard.showstudent', $student->s_id) }}" class="text-lg overflow-x-hidden outline-r-2">
@@ -194,6 +199,13 @@
             </tr>
             @endforeach
         </tbody>
+
+        @else
+        </table>
+        <div class='w-fill'>
+            <h2 class='text-xl text-center mt-8'>No results found</h2>
+        </div>
+        @endif
     </table>
     <div class="mt-6 flex justify-end">
         {{ $students->appends(request()->query())->links() }}
@@ -272,5 +284,37 @@
                 }
             });
         }
+
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     // Select all checkbox functionality
+        //     // const selectAll = document.getElementById('select-all');
+        //     const studentCheckboxes = document.querySelectorAll('.student-checkbox');
+
+        //     // selectAll.addEventListener('change', function() {
+        //     //     studentCheckboxes.forEach(checkbox => {
+        //     //         checkbox.checked = selectAll.checked;
+        //     //     });
+        //     // });
+
+        //     // Bulk modal trigger
+        //     const openDeleteModal = document.getElementById('open-delete-modal');
+
+        //     openDeleteModal.addEventListener('click', function() {
+        //         // Collect all checked item IDs
+        //         const checkedStudents = Array.from(
+        //             document.querySelectorAll('.student-checkbox:checked')
+        //         ).map(checkbox => checkbox.value);
+
+        //         // Only proceed if items are selected
+        //         if (checkedStudents.length > 0) {
+        //             // Use Livewire dispatch to open modal with selected items
+        //             Livewire.dispatch('student-multi-remove-confirmation', {
+        //                 'studentIds': checkedStudents.join(',')
+        //             });
+        //         } else {
+        //             alert('Please select at least one item');
+        //         }
+        //     });
+        // });
     </script>
 </x-dashboard-layout>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Program;
 use App\Models\Section;
 use App\Models\Component;
+use App\Models\Batch;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
@@ -21,6 +22,7 @@ class Student extends Model
         's_Surname',
         's_FirstName',
         's_MiddleName',
+        's_FullName',
         's_Suffix',
         's_Sex',
         's_Birthdate',
@@ -29,6 +31,7 @@ class Student extends Model
         'program_id',
         'sec_id',
         'component_id',
+        'batch_id',
         's_c_HouseNo',
         's_c_Street',
         's_c_Barangay',
@@ -55,6 +58,10 @@ class Student extends Model
 
     public function component(){
         return $this->belongsTo(Component::class, 'component_id');
+    }
+
+    public function batch(){
+        return $this->belongsTo(Batch::class, 'batch_id');
     }
 }
 

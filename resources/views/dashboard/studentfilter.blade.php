@@ -1,6 +1,15 @@
-@if(isset($programs) && $programs->isNotEmpty() && isset($components) && $components->isNotEmpty() && isset($sections) && $sections->isNotEmpty())
+@if(isset($batches) && $batches->isNotEmpty() && isset($programs) && $programs->isNotEmpty() && isset($components) && $components->isNotEmpty() && isset($sections) && $sections->isNotEmpty())
     <div id="filterForm" class="mb-4 p-4 bg-white rounded-xl shadow-md {{ request('program') || request('component_id') || request('section') || request('status') || request('grade') ? '' : 'hidden' }}">
         <form action="{{ route('dashboard.filterstudents') }}" method="GET" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+
+            <select name="batch" id="batch-select" class="w-full p-2 border rounded">
+                <option value="">Select A.Y.</option>
+                @foreach($batches as $batch)
+                <option value="{{ $batch->id }}" {{ (request('batch') == $batch->id) ? 'selected' : '' }}>
+                    {{ $batch->batch }}
+                </option>
+                @endforeach
+            </select>
 
             <select name="program" id="program-select" class="w-full p-2 border rounded">
                 <option value="">Select Program</option>
@@ -47,10 +56,8 @@
             <div class='col-span-2 md:col-span-3 lg:col-span-5'>
                 <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Apply Filter</button>
                 @if(request('program') || request('component_id') || request('section') || request('status') || request('grade'))
-                <a href="{{ route('dashboard.studentlist') }}" class="ml-2 text-blue-500 hover:underline">Clear Filter</a>
+                <a href="{{ route('dashboard.studentlist', ['batch' => request('batch')]) }}" class="ml-2 text-blue-500 hover:underline">Clear Filter</a>
                 @endif
-
-
             </div>
         </form>
     </div>
