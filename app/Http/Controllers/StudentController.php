@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\ExportStudents;
-use App\Exports\ExportStudentsByComponent;
+use App\Exports\ExportData;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Student;
@@ -353,7 +353,7 @@ public function exportStudents(Request $request){
     $batchID = $request->input('batch-filter') ?? 'all';
 
     // fetch students
-    $query = Student::select('s_StudentNo','s_Surname','s_FirstName','s_MiddleName','program_id','s_Sex','s_Birthdate','s_c_CompleteAddress','s_p_CompleteAddress','s_ContactNo','s_EmailAddress','sec_id','component_id','s_FinalGrade','s_ContactPersonName', 's_ContactPersonNo')
+    $studentQuery = Student::select('s_StudentNo','s_Surname','s_FirstName','s_MiddleName','program_id','s_Sex','s_Birthdate','s_c_CompleteAddress','s_p_CompleteAddress','s_ContactNo','s_EmailAddress','sec_id','component_id','s_FinalGrade','s_ContactPersonName', 's_ContactPersonNo', 'batch_id')
     ->orderBy('s_Surname', 'asc')
     ->orderBy('component_id', 'asc')
     ->orderBy('sec_id', 'asc')
@@ -361,23 +361,23 @@ public function exportStudents(Request $request){
 
     // filter students based on selected fields
     if($batchID !== 'all'){
-        $query->where('batch_id', $batchID);
+        $studentQuery->where('batch_id', $batchID);
     }
     if($secID !== 'all'){
-        $query->where('sec_id', $secID);
+        $studentQuery->where('sec_id', $secID);
     }
     if($componentID !== 'all'){
-        $query->where('component_id', $componentID);
+        $studentQuery->where('component_id', $componentID);
     }
     if($programID !== 'all'){
-        $query->where('program_id', $programID);
+        $studentQuery->where('program_id', $programID);
     }
     if(!$request->input('include-failed')){
-        $query->where('s_FinalGrade','<>','F');
+        $studentQuery->where('s_FinalGrade','<>','F');
     }
 
     // set values
-    $filteredStudents = $query->with('program','section','component','batch')->get()->map(function ($student){
+    $filteredStudents = $studentQuery->with('program','section','component','batch')->get()->map(function ($student){
         return[
             's_StudentNo' => $student->s_StudentNo,
             's_Surname' => $student->s_Surname,
@@ -395,20 +395,23 @@ public function exportStudents(Request $request){
             's_FinalGrade' => $student->s_FinalGrade,
             's_ContactPersonName' => $student->s_ContactPersonName,
             's_ContactPersonNo' => $student->s_ContactPersonNo,
-            'batch_id' => $student->batch->id,
+            'batch_id' => $student->batch->batch,
         ];
     });
-    dd($filteredStudents);
 
-    if(empty($filteredStudents->toArray())){
-        return redirect()->back()->with('warning', 'No students found.');
-    }
+    // if(empty($filteredStudents->toArray())){
+    //     return redirect()->back()->with('warning', 'No students found.');
+    // }
+
+    // $formatorQuery = Formator::select('f_FullName','f_Birthdate','f_TeachingYearStart','f_NSTPTeachingYearStart','f_TeachingUnitCount','component_id','f_Trainings','f_EmploymentStatus','f_ContactNo','f_EmailAddress');
+
+
 
     if(!$request->has('multisheet-export')){
         return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
     }
     else if ($request->has('multisheet-export')){
-        return Excel::download(new ExportStudentsByComponent($filteredStudents), 'students_by_component.xlsx');
+        return Excel::download(new ExportData($filteredStudents, $filteredFormators), 'data.xlsx');
     }
 }
 }

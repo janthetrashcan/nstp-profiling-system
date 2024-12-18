@@ -29,12 +29,15 @@ class StudentSheet implements FromCollection, WithTitle, WithHeadings
      */
     public function collection()
     {
-        return $this->query->filter(function ($student){
-            // dd($student["batch_id"]);
-            if(isset($student["batch_id"]) && $student["batch_id" === $this->component->component_id]){
-                return $student["batch_id" == $this->component->component_id];
+        $this->query = $this->query->filter(function ($student){
+            // dd($student['component_id']);
+            if(
+            $student["component_id"] == Component::firstWhere('component_id', $this->component->component_id)->component_Name){
+                return $student;
             }
         });
+
+        return $this->query;
     }
 
     /**
@@ -68,8 +71,10 @@ class StudentSheet implements FromCollection, WithTitle, WithHeadings
             'Email Address',
             'Section',
             'Component',
+            'Final Grade',
             'Contact Person',
-            'Contact Person Number'
+            'Contact Person Number',
+            'Batch'
         ];
     }
 }

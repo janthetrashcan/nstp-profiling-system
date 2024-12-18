@@ -139,11 +139,25 @@
                             <select name="f_EmploymentStatus" class="mt-1 p-2 border rounded w-full" required>
                                 <option value="part-time" {{ $formator->f_EmploymentStatus == 'part-time' ? 'selected' : '' }}>Part-time</option>
                                 <option value="full-time" {{ $formator->f_EmploymentStatus == 'full-time' ? 'selected' : '' }}>Full-time</option>
+                                <option value="contractual" {{ $formator->f_EmploymentStatus == 'contractual' ? 'selected' : '' }}>Contractual</option>
                             </select>
                             @error('f_EmploymentStatus')
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div>
+                        <label for="f_Trainings" class="block text-sm font-medium text-gray-700">
+                            Trainings
+                            <p class='font-light italic text-gray-500 mb-2'>If multiple trainings, separate with enter key</p>
+                        </label>
+                        <textarea placeholder='Seminar/Training Title (Venue, Date)' id="f_Trainings" name="f_Trainings" class="mt-1 p-2 border border-gray-500 rounded w-full"></textarea>
+                        @error('f_Trainings')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -154,4 +168,58 @@
             </form>
         </div>
     </div>
+
+
+    <script>
+        // Get the textarea and form elements
+        const textarea = document.getElementById('f_Trainings');
+        const form = document.getElementById('add-formator-form');
+
+        // Function to auto-resize textarea
+        function autoResize() {
+            // Reset height to auto to correctly calculate scroll height
+            textarea.style.height = 'auto';
+
+            // Set height based on scroll height
+            textarea.style.height = `${textarea.scrollHeight}px`;
+        }
+
+        // Add event listener for input to dynamically resize
+        textarea.addEventListener('input', autoResize);
+
+        // Prevent form submission on Enter, allow new line instead
+        textarea.addEventListener('keydown', (e) => {
+            // Check if Enter is pressed without Shift
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // Prevent default Enter behavior
+
+                // Insert new line at cursor position
+                const start = textarea.selectionStart;
+                const end = textarea.selectionEnd;
+                textarea.value = textarea.value.substring(0, start)
+                    + "\n"
+                    + textarea.value.substring(end);
+                // Move cursor to the new line
+                textarea.selectionStart = textarea.selectionEnd = start + 1;
+
+                // Trigger auto-resize
+                autoResize();
+            }
+        });
+
+        // Handle form submission
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Here you would typically send the message
+            console.log('Message submitted:', textarea.value);
+
+            // Optional: Clear textarea after submission
+            textarea.value = '';
+            autoResize();
+        });
+
+        // Initial auto-resize
+        autoResize();
+    </script>
 </x-dashboard-layout>

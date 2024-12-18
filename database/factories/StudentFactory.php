@@ -47,7 +47,7 @@ class StudentFactory extends Factory
             's_FullName' => $s_FullName,
 
             's_Sex' => fake()->randomElement(['male','female']),
-            's_Birthdate' => fake()->date('m-d-Y'),
+            's_Birthdate' => fake()->date('Y-m-d'),
             's_ContactNo' => fake()->regexify('/^(\+639\d{9}|09\d{9})$/'),
             's_EmailAddress' => fake()->email(),
 

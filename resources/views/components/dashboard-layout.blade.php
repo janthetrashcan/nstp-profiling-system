@@ -40,7 +40,7 @@
         </div>
         <div class="p-4 pt-0">
             <a
-            href="{{ route('dashboard.exportstudentspage') }}"
+            href="{{ route('dashboard.exportdatapage') }}"
             {{-- onclick="Livewire.dispatch('openModal', { component: 'export-students' })" --}}
             class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
             <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-1 mr-3"><x-carbon-export class='h-6 m-1'/></span>

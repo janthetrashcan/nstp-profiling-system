@@ -31,10 +31,6 @@
                 <x-carbon-filter class='h-6' />
                 <h1 class='font-semibold'>Filter</h1>
             </button>
-            <a href='{{ route('dashboard.exportstudentspage') }}' id="exportStudents" class='bg-gray-200 hover:bg-gray-300 transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2'>
-                <x-carbon-export class='h-6' />
-                <h1 class='font-semibold'>Export</h1>
-            </a>
         </div>
 
         <form action="{{ route('dashboard.studentlist', ['batch' => request('batch')]) }}" method='GET' id='functions-rhs' class='flex flex-row gap-x-3'>

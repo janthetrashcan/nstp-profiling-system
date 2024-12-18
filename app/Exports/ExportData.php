@@ -10,14 +10,16 @@ use App\Models\Batch;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class ExportStudentsByComponent implements WithMultipleSheets
+class ExportData implements WithMultipleSheets
 {
     use Exportable;
 
-    protected $query;
+    protected $filteredStudents;
+    protected $filteredFormators;
 
-    public function __construct(Collection $query){
-        $this->query = $query;
+    public function __construct(Collection $filteredStudents, Collection $filteredFormators){
+        $this->filteredStudents = $filteredStudents;
+        $this->filteredFormators = $filteredFormators;
     }
 
     /**
@@ -31,12 +33,14 @@ class ExportStudentsByComponent implements WithMultipleSheets
 
         // Get all components
         $components = Component::all();
-        // dd($this->query);
+        // dd($this->filteredStudents);
 
         // Create a sheet for each component
         foreach ($components as $component) {
-            $sheets[] = new StudentSheet($component, $this->query);
+            $sheets[] = new StudentSheet($component, $this->filteredStudents);
         }
+
+        $sheets[] = new FormatorSheet($this->filteredFormators);
 
         return $sheets;
     }

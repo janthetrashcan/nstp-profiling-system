@@ -73,7 +73,7 @@
             </div>
 
             <!-- Combined Professional Information Fields -->
-            <div class="bg-gray-50 p-3 rounded-xl shadow-md">
+            <div class="bg-gray-50 p-3 rounded-xl shadow-md mb-3">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <p class="text-gray-500 font-semibold">Email Address</p>
@@ -102,6 +102,16 @@
                     <div>
                         <p class="text-gray-500 font-semibold">Active Teaching</p>
                         <p class="text-lg">{{ $formator->f_ActiveTeaching ? 'Yes' : 'No' }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Combined Professional Information Fields -->
+            <div class="bg-gray-50 p-3 rounded-xl shadow-md">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-gray-500 font-semibold">Trainings</p>
+                        <p class="text-lg">{{ $formator->f_Trainings }}</p>
                     </div>
                 </div>
             </div>

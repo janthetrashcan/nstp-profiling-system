@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\FormatorController;
 use App\Http\Controllers\StudentImportController;
+use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/','/dashboard/students')->name('dashboard');
@@ -27,8 +28,8 @@ Route::middleware(['auth'])->group(function(){
 
     Route::get('/dashboard/students/import',[StudentController::class, 'importStudentsPage'])->name('dashboard.importstudents');
     Route::post('/dashboard/students/import/processing', [StudentImportController::class, 'import'])->name('students.import');
-    Route::get('/dashboard/students/export',[StudentController::class, 'exportStudentsPage'])->name('dashboard.exportstudentspage');
-    Route::get('/dashboard/students/export/processing',[StudentController::class, 'exportStudents'])->name('dashboard.exportstudents');
+    Route::get('/dashboard/export',[ExportController::class, 'exportDataPage'])->name('dashboard.exportdatapage');
+    Route::get('/dashboard/export/processing',[ExportController::class, 'exportData'])->name('dashboard.exportdata');
 });
 
 // Formator group
