@@ -61,7 +61,7 @@ class StudentController extends Controller
         if ($request->input('status') === 'passed') {
             $query->whereIn('s_FinalGrade', [1, 1.5, 2, 2.5, 3, 3.5, 4]);
         } elseif ($request->input('status') === 'failed') {
-            $query->where('s_FinalGrade', 'F');
+            $query->where('s_FinalGrade', 'F', 'WF');
         }
     }
 
@@ -96,7 +96,7 @@ class StudentController extends Controller
     // Custom sorting for grades
     if ($sortColumn === 's_FinalGrade') {
         $query->orderByRaw("CASE
-            WHEN s_FinalGrade = 'F' THEN 9
+            WHEN s_FinalGrade = 'F' OR s_FinalGrade = 'WF' THEN 9
             WHEN s_FinalGrade = '4' THEN 8
             WHEN s_FinalGrade = '3.5' THEN 7
             WHEN s_FinalGrade = '3' THEN 6
@@ -125,7 +125,7 @@ class StudentController extends Controller
           $sections = Section::all();
           $components = Component::all();
           $batches = Batch::all();
-          $grades = ['F', '1', '1.5', '2', '2.5', '3', '3.5', '4'];
+          $grades = ['F', 'WF', '1', '1.5', '2', '2.5', '3', '3.5', '4'];
 
           return view('dashboard.studentadd', compact('programs', 'sections', 'components', 'grades','batches'));
     }
@@ -157,7 +157,7 @@ class StudentController extends Controller
                 's_p_Barangay' => 'required|string|max:255',
                 's_p_City' => 'required|string|max:255',
                 's_p_Province' => 'required|string|max:255',
-                's_FinalGrade' => 'nullable|string|in:F,1,1.5,2,2.5,3,3.5,4',
+                's_FinalGrade' => 'nullable|string|in:F,WF,1,1.5,2,2.5,3,3.5,4',
                 's_ContactPersonName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 's_ContactPersonNo' => ['required', 'string', 'max:15', 'regex:/^\d+$/'],
             ];
@@ -224,7 +224,7 @@ class StudentController extends Controller
         $sections = Section::all();
         $components = Component::all();
         $batches = Batch::all();
-        $grades = ['F', '1', '1.5', '2', '2.5', '3', '3.5', '4'];
+        $grades = ['F', 'WF', '1', '1.5', '2', '2.5', '3', '3.5', '4'];
 
         $student = Student::where('s_id', $s_id)->first();
         if($student === null){
@@ -268,7 +268,7 @@ class StudentController extends Controller
                 's_p_Province' => 'required|string|max:255',
                 's_ContactPersonName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 's_ContactPersonNo' => ['required', 'string', 'max:15', 'regex:/^\d+$/'],
-                's_FinalGrade' => 'nullable|string|in:F,1,1.5,2,2.5,3,3.5,4',
+                's_FinalGrade' => 'nullable|string|in:F,WF,1,1.5,2,2.5,3,3.5,4',
             ]);
 
             // Merge composite attributes of City Address and Provincial Address

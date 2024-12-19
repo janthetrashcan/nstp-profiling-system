@@ -185,30 +185,45 @@
                         <label class="block text-sm font-medium text-gray-700">House No</label>
                         <input type="text" name="s_c_HouseNo" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_c_HouseNo }}" required>
                     </div>
+                    @error('s_c_HouseNo')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
 
                     <!-- Street -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Street</label>
                         <input type="text" name="s_c_Street" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_c_Street }}" required>
                     </div>
+                    @error('s_c_Street')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
 
                     <!-- Barangay -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Barangay</label>
                         <input type="text" name="s_c_Barangay" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_c_Barangay }}" required>
                     </div>
+                    @error('s_c_Barangay')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
 
                     <!-- City -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">City</label>
                         <input type="text" name="s_c_City" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_c_City }}" required>
                     </div>
+                    @error('s_c_City')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
 
                     <!-- Province -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700">Province</label>
                         <input type="text" name="s_c_Province" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_c_Province }}" required>
                     </div>
+                    @error('s_c_Province')
+                        <div class="text-red-500 text-sm">{{ $message }}</div>
+                    @enderror
 
 
                     </div>
@@ -221,30 +236,45 @@
                             <label class="block text-sm font-medium text-gray-700">Provincial House No</label>
                             <input type="text" name="s_p_HouseNo" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_p_HouseNo }}" required>
                         </div>
+                        @error('s_p_HouseNo')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                        @enderror
 
                         <!-- Provincial Street -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Provincial Street</label>
                             <input type="text" name="s_p_Street" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_p_Street }}" required>
                         </div>
+                        @error('s_p_Street')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                        @enderror
 
                         <!-- Provincial Barangay -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Provincial Barangay</label>
                             <input type="text" name="s_p_Barangay" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_p_Barangay }}" required>
                         </div>
+                        @error('s_p_Barangay')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                        @enderror
 
                         <!-- Provincial City -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Provincial City</label>
                             <input type="text" name="s_p_City" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_p_City }}" required>
                         </div>
+                        @error('s_p_City')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                        @enderror
 
                         <!-- Provincial Province -->
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Provincial Province</label>
                             <input type="text" name="s_p_Province" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_p_Province }}" required>
                         </div>
+                        @error('s_p_Province')
+                            <div class="text-red-500 text-sm">{{ $message }}</div>
+                        @enderror
 
                 </div>
                 <!-- Emergency Contact Information -->
@@ -255,12 +285,18 @@
                     <label class="block text-sm font-medium text-gray-700">Contact Person Name</label>
                     <input type="text" name="s_ContactPersonName" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_ContactPersonName }}" required>
                 </div>
+                @error('s_ContactPersonName')
+                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                @enderror
 
                 <!-- Contact Person No -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700">Contact Person No</label>
                     <input type="text" name="s_ContactPersonNo" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ $student->s_ContactPersonNo }}" required>
                 </div>
+                @error('s_ContactPersonNo')
+                    <div class="text-red-500 text-sm">{{ $message }}</div>
+                @enderror
               </div>
             </div>
 

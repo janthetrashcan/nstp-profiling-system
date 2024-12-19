@@ -174,11 +174,12 @@ class ExportController extends Controller
         });
 
 
-        if(!$request->has('multisheet-export')){
-            return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
-        }
-        else if ($request->has('multisheet-export')){
-            return Excel::download(new ExportData($filteredStudents, $filteredFormators), 'data.xlsx');
-        }
+        // if(!$request->has('multisheet-export')){
+        //     return Excel::download(new ExportStudents($filteredStudents), 'students.xlsx');
+        // }
+        // else if ($request->has('multisheet-export')){
+        //     return Excel::download(new ExportData($filteredStudents, $filteredFormators), 'data.xlsx');
+        // }
+        return Excel::download(new ExportData($filteredStudents, $filteredFormators), 'data.xlsx');
     }
 }
