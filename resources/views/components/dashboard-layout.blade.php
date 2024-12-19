@@ -7,6 +7,7 @@
   <title>Dashboard</title>
   {{-- <link rel="stylesheet" href="/public/build/assets/app-CQMMHOql.css"> --}}
   @vite('resources/css/app.css')
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="h-full">
@@ -87,6 +88,16 @@
                 {{-- <span class="text-white text-xs mr-2">►</span> --}}
                 <span class="mr-3"><x-carbon-user-speaker class='h-6 my-1 font-outline-4 font-outline-black' /></span>
                 <span>Formators</span>
+                </a>
+            </li>
+
+            <li class="mb-3">
+                <a href="{{ route('programs.index') }}"
+                class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
+                {{ Request::is('dashboard/programs*') ? 'text-black bg-gray-100' : '' }} ">
+                {{-- <span class="text-white text-xs mr-2">►</span> --}}
+                <span class="mr-3"><x-carbon-user-speaker class='h-6 my-1 font-outline-4 font-outline-black' /></span>
+                <span>Programs</span>
                 </a>
             </li>
             </ul>

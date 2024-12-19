@@ -6,6 +6,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\FormatorController;
 use App\Http\Controllers\StudentImportController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\ProgramController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/','/dashboard/students')->name('dashboard');
@@ -44,6 +45,14 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/dashboard/formators/delete/{f_id?}', [FormatorController::class, 'destroy'])->name('formator.destroy');
     Route::get('/dashboard/formators', [FormatorController::class, 'index'])->name('dashboard.formatorlist');
 });
+
+// Programs group
+Route::middleware(['auth'])->group(function(){
+    Route::get('/dashboard/programs', [ProgramController::class, 'index'])->name('programs.index');
+    Route::post('/dashboard/programs/store', [ProgramController::class, 'store'])->name('programs.store');
+    Route::put('/dashboard/programs/update/{id}', [ProgramController::class, 'update'])->name('programs.update');
+    Route::delete('/dashboard/programs/delete/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
+ });
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

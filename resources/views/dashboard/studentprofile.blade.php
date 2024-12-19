@@ -11,18 +11,6 @@
     </div>
     @endif
 
-    @if(session('error'))
-    <div class="bg-red-500 text-white p-3 rounded mb-4">
-        {{ session('error') }}
-    </div>
-    @endif
-
-    @if(session('success'))
-    <div class="bg-green-500 text-white p-3 rounded mb-4">
-        {{ session('success') }}
-    </div>
-    @endif
-
 
     <!-- Top Action Bar -->
     <div class="flex flex-row pr-4 mb-6 justify-between items-center">

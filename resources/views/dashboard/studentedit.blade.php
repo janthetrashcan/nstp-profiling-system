@@ -36,7 +36,7 @@
                     <select id="batch_id" name="batch_id" required class="mt-1 block w-1/3 border border-gray-300 rounded-md shadow-sm px-3 py-2">
                         @foreach($batches as $batch)
                             <option value="{{ $batch->id }}" {{
-                                (request('batch') == $batch->id) ? 'selected' : '' }}>{{ $batch->batch }}
+                                ($student->batch_id == $batch->id) ? 'selected' : '' }}>{{ $batch->batch }}
                             </option>
                         @endforeach
                     </select>

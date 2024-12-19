@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id('program_id');
             $table->string('program_Code');
             $table->string('program_Title');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }
@@ -24,6 +26,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('programs');
+        // Schema::dropIfExists('students');
+        Schema::table('programs', function(Blueprint $table){
+            $table->softDeletes();
+        });
+        Schema::table('programs', function(Blueprint $table){
+            $table->dropSoftDeletes();
+        });
     }
 };

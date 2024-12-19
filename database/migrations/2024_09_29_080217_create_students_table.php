@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id('s_id');
             $table->string('s_StudentNo')->length(6); //->unique();
-            $table->foreignId('program_id')->references('program_id')->on('programs')->onDelete('set null');
+            $table->foreignId('program_id')->references('program_id')->on('programs')->cascadeOnDelete();
             $table->foreignId('sec_id')->references('sec_id')->on('sections')->onDelete('set null');
             $table->foreignId('component_id')->nullable()->references('component_id')->on('components')->onDelete('set null');
             $table->foreignId('batch_id')->nullable()->references('id')->on('batches')->onDelete('cascade');
