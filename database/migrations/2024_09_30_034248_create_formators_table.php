@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('formators', function (Blueprint $table) {
             $table->id('f_id');
-            $table->integer('employee_id');
+            $table->integer('employee_id')->nullable();
 
             // Name
             $table->string('f_Surname');

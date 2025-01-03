@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Batch;
 use LivewireUI\Modal\ModalComponent;
 use App\Models\Component;
 use App\Models\Section;
@@ -14,11 +15,14 @@ class ExportStudents extends ModalComponent
     public $sections;
     public $programs;
     public $students;
+    public $batches;
+
     public function mount(){
         $this->components = Component::all();
         $this->sections = Section::all();
         $this->programs = Program::all();
         $this->students = Student::all();
+        $this->batches = Batch::all();
     }
     public function render()
     {

@@ -52,10 +52,28 @@ class GoogleFormsImport implements ToModel, WithHeadingRow
                     's_p_CompleteAddress' => $row['house_number_province'].', '.$row['street_province'].', '.$row['barangay_province'].', '.$row['city_province'].', '.$row['province_city'],
                     'component_id' => isset($row['component']) ? Component::where('component_Name', '=', $row['component'])->first()->component_id : 1,
                 ];
+
+                $fieldsToUppercase = [
+                    's_Surname', 's_FirstName', 's_MiddleName',
+                    's_p_HouseNo', 's_p_Street', 's_p_Barangay', 's_p_City', 's_p_Province',
+                    's_c_HouseNo', 's_c_Street', 's_c_Barangay', 's_c_City', 's_c_Province',
+                    's_ContactPersonName', 's_c_CompleteAddress', 's_p_CompleteAddress',
+                ];
+
+                foreach ($fieldsToUppercase as $field) {
+                    $lastIndex = count($this->data) - 1;
+                    if (isset($this->data[$lastIndex][$field])) {
+                        // Check for variations of "N/A" using regex
+                        if (preg_match('/^N\/?A$/i', trim($this->data[$lastIndex][$field]))) {
+                            $this->data[$lastIndex][$field] = "";
+                        }
+                        $this->data[$lastIndex][$field] = strtoupper((string) $this->data[$lastIndex][$field]);
+                    }
+                }
             }
         }
         catch(\Exception $e){
-            return redirect()->back()->with('error', 'Error in importing registrar file: '.$e);
+            return redirect()->back()->with('error', 'Error in importing registrar file: ');
         }
 
         return null;

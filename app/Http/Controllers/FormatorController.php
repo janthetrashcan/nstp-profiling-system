@@ -71,7 +71,7 @@ class FormatorController extends Controller {
     public function store(Request $request) {
         try {
             $data = $request->validate([
-                'employee_id' => 'required|string',
+                'employee_id' => 'nullable|string',
                 'f_Surname' => 'required|string|max:255',
                 'f_FirstName' => 'required|string|max:255',
                 'f_MiddleName' => 'nullable|string|max:255',
@@ -88,26 +88,37 @@ class FormatorController extends Controller {
                 'f_Trainings' => 'nullable|string',
             ]);
 
-            // merge composite attributes
+            // Convert text fields to uppercase except email
+            $fieldsToUppercase = [
+                'f_Surname',
+                'f_FirstName',
+                'f_MiddleName',
+                'f_Trainings'
+            ];
+
+            foreach ($fieldsToUppercase as $field) {
+                if (isset($data[$field]) && $data[$field] !== null) {
+                    $data[$field] = strtoupper($data[$field]);
+                }
+            }
+
+            // Create uppercase full name
             $data = array_merge($data, [
-                'f_FullName' => $data['f_Surname'].' '.$data['f_FirstName'].' '.$data['f_MiddleName'],
+                'f_FullName' => strtoupper($data['f_Surname'].' '.$data['f_FirstName'].' '.($data['f_MiddleName'] ?? '')),
             ]);
 
             $formator = Formator::create($data);
 
-            return redirect()->route('dashboard.showformator', ['f_id' => $formator->f_id])->with('success', 'Formator added successfully.');
+            return redirect()->route('dashboard.showformator', ['f_id' => $formator->f_id])
+                ->with('success', 'Formator added successfully.');
 
         } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::error('Validation failed: ' . json_encode($e->errors()));
             return redirect()->back()->withErrors($e->errors())->withInput();
 
-        } catch (Exception $e) {
-            dd($e);
-            Log::error('Error in FormatorController@store: ' . $e->getMessage());
-            return redirect()->back()->with('error',
-            'An unexpected error occurred. Please try again.'
-
-            )->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'An unexpected error occurred. Please try again.')
+                ->withInput();
         }
     }
 
@@ -120,7 +131,7 @@ class FormatorController extends Controller {
 
         try {
             $data = $request->validate([
-                'employee_id' => 'required|string|size:6|regex:/^\d{6}$/',
+                'employee_id' => 'nullable|string|size:6|regex:/^\d{6}$/',
                 'f_Surname' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 'f_FirstName' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',
                 'f_MiddleName' => 'nullable|string|max:255|regex:/^[a-zA-Z\s]+$/',
@@ -137,6 +148,20 @@ class FormatorController extends Controller {
                 'f_Trainings' => 'nullable|string',
             ]);
 
+            // Convert text fields to uppercase except email
+            $fieldsToUppercase = [
+                'f_Surname',
+                'f_FirstName',
+                'f_MiddleName',
+                'f_Trainings'
+            ];
+
+            foreach ($fieldsToUppercase as $field) {
+                if (isset($data[$field]) && $data[$field] !== null) {
+                    $data[$field] = strtoupper($data[$field]);
+                }
+            }
+
             // merge composite attributes
             $data = array_merge($data, [
                 'f_FullName' => $data['f_Surname'].' '.$data['f_FirstName'].' '.$data['f_MiddleName'],
@@ -145,10 +170,8 @@ class FormatorController extends Controller {
             $formator->update($data);
             return redirect()->route('dashboard.showformator', $formator->f_id)->with('success', 'Formator updated successfully.');
         } catch (\Illuminate\Validation\ValidationException $e) {
-            Log::error('Validation failed: ' . json_encode($e->errors()));
             return redirect()->back()->withErrors($e->errors())->withInput();
         } catch (\Exception $e) {
-            Log::error('Error in FormatorController@updateFormator: ' . $e->getMessage());
             return redirect()->route('dashboard.formatorlist')->with('error', 'Error in updating formator. Please try again.');
         }
     }
@@ -162,7 +185,6 @@ public function destroy(Request $request, $f_id = null)
     }
 
     if ($request->input('formator_ids')) {
-        dd('formator_ids');
         // Multiple delete
         $formatorIds = $request->input('formator_ids');
         $deletecount = Formator::whereIn('f_id', $formatorIds)->delete();

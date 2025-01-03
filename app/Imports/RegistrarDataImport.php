@@ -48,6 +48,23 @@ class RegistrarDataImport implements ToModel, WithHeadingRow
                     'sec_id' => $section->sec_id,
                     'batch_id' => $batch->id,
                 ];
+
+                $fieldsToUppercase = [
+                    's_Surname', 's_FirstName', 's_MiddleName', 's_FullName',
+                    's_c_HouseNo', 's_c_Street', 's_c_Barangay', 's_c_City',
+                    's_ContactPersonName'
+                ];
+
+                foreach ($fieldsToUppercase as $field) {
+                    $lastIndex = count($this->data) - 1;
+                    if (isset($this->data[$lastIndex][$field])) {
+                        // Check for variations of "N/A" using regex
+                        if (preg_match('/^N\/?A$/i', trim($this->data[$lastIndex][$field]))) {
+                            $this->data[$lastIndex][$field] = "";
+                        }
+                        $this->data[$lastIndex][$field] = strtoupper((string) $this->data[$lastIndex][$field]);
+                    }
+                }
             }
         }
 

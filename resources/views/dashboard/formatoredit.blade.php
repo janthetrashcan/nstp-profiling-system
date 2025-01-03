@@ -22,7 +22,7 @@
                     <div class="grid grid-cols-3 gap-4"> <!-- Changed to 3 columns -->
                         <div>
                             <label for="employee_id" class="block text-sm font-medium text-gray-700">Employee ID</label>
-                            <input type="text" name="employee_id" class="mt-1 p-2 border rounded w-full" value="{{ $formator->employee_id }}" required />
+                            <input type="text" name="employee_id" class="mt-1 p-2 border rounded w-full" value="{{ isset($formator->employee_id) ? $formator->employee_id : ''  }}" />
                             @error('employee_id')
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
@@ -152,9 +152,9 @@
                     <div>
                         <label for="f_Trainings" class="block text-sm font-medium text-gray-700">
                             Trainings
-                            <p class='font-light italic text-gray-500 mb-2'>If multiple trainings, separate with enter key</p>
+                            <p class='font-light italic text-gray-500 mb-2'>If multiple trainings, separate with comma</p>
                         </label>
-                        <textarea placeholder='Seminar/Training Title (Venue, Date)' id="f_Trainings" name="f_Trainings" class="mt-1 p-2 border border-gray-500 rounded w-full"></textarea>
+                        <textarea placeholder='Seminar/Training Title (Venue, Date)' id="f_Trainings" name="f_Trainings" class="mt-1 p-2 border border-gray-500 rounded w-full">{{ $formator->f_Trainings }}</textarea>
                         @error('f_Trainings')
                             <div class="text-red-500 text-sm">{{ $message }}</div>
                         @enderror

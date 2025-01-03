@@ -55,6 +55,8 @@ class ProgramController extends Controller
 
     public function destroy(Program $program)
     {
+
+
         $program->delete();
         return redirect()->route('programs.index');
     }

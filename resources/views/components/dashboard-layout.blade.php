@@ -41,8 +41,8 @@
         </div>
         <div class="p-4 pt-0">
             <a
-            href="{{ route('dashboard.exportdatapage') }}"
-            {{-- onclick="Livewire.dispatch('openModal', { component: 'export-students' })" --}}
+            {{-- href="{{ route('dashboard.exportdatapage') }}" --}}
+            onclick="Livewire.dispatch('openModal', { component: 'export-students' })"
             class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
             <span class="text-lg font-bold bg-gray-200 text-gray-800 rounded-full p-1 mr-3"><x-carbon-export class='h-6 m-1'/></span>
             <span class="text-lg font-semibold">Export Data</span>
@@ -53,7 +53,7 @@
         </div>
 
         <h1 class='px-4 mt-4 mb-2 text-2xl font-semibold cursor-default'>Profiles</h1>
-        <nav class="px-4 py-3">
+        <nav class="px-4 py-3 overflow-y-scroll w-fill">
             <ul>
             <div class='flex flex-col gap-3 mb-3'>
                 <li class="">
@@ -96,7 +96,7 @@
                 class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg p-2
                 {{ Request::is('dashboard/programs*') ? 'text-black bg-gray-100' : '' }} ">
                 {{-- <span class="text-white text-xs mr-2">►</span> --}}
-                <span class="mr-3"><x-carbon-user-speaker class='h-6 my-1 font-outline-4 font-outline-black' /></span>
+                <span class="mr-3"><x-carbon-course class='h-6 my-1 font-outline-4 font-outline-black' /></span>
                 <span>Programs</span>
                 </a>
             </li>

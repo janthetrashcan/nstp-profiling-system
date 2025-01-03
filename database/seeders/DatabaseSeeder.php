@@ -39,10 +39,10 @@ class DatabaseSeeder extends Seeder
         $this->call(BatchSeeder::class);
         error_log('Programs seeded');
 
-        Formator::factory(5)->create();
+        // Formator::factory(5)->create();
         error_log('Formators added');
 
         $this->call(SectionSeeder::class);
-        Student::factory(30)->create();
+        // Student::factory(30)->create();
     }
 }

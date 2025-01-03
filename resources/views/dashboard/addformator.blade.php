@@ -33,7 +33,7 @@
                     <div class="grid grid-cols-3 gap-4">
                         <div>
                             <label for="employee_id" class="block text-sm font-medium text-gray-700">Employee ID</label>
-                            <input type="text" id="employee_id" name="employee_id" required class="mt-1 p-2 border rounded w-full" />
+                            <input type="text" id="employee_id" name="employee_id" class="mt-1 p-2 border rounded w-full" />
                             @error('employee_id')
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                             @enderror
@@ -176,7 +176,7 @@
 
                 <!-- Save Button -->
                 <div class="flex justify-end mt-6">
-                    <button type="submit" class="bg-blue-900 hover:bg-blue text-white px-6 py-2 rounded-lg font-bold">Save</button>
+                    <button type="submit" class="bg-blue-900 hover:bg-blue text-white px-6 py-2 rounded-lg font-bold">Add Formator</button>
                 </div>
             </form>
         </div>
@@ -226,10 +226,11 @@
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            // Here you would typically send the message
             console.log('Message submitted:', textarea.value);
 
             // Optional: Clear textarea after submission
+
+            form.submit();
             textarea.value = '';
             autoResize();
         });

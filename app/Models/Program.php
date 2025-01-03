@@ -21,4 +21,11 @@ class Program extends Model
     public function student(){
         return $this->hasMany(Student::class, 'program_id');
     }
+
+    protected static function booted()
+    {
+        static::deleting(function ($program) {
+            $program->student()->delete();
+        });
+    }
 }
