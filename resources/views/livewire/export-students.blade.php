@@ -1,4 +1,4 @@
-<div class='z-50'>
+<div class='z-50 max-w-8xl'>
     @if(session('warning'))
     <div class="bg-yellow-500 text-white p-3 rounded mb-4">
         {{ session('warning') }}
