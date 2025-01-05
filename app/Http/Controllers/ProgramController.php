@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Program;
 use Illuminate\Http\Request;
+use App\Models\Student;
 
 class ProgramController extends Controller
 {
@@ -26,7 +27,6 @@ class ProgramController extends Controller
 
     public function update(Request $request)
     {
-        // Find the program by program_Code
         $program = Program::find($request['program_id'])->first();
 
         // Validate input
@@ -36,10 +36,9 @@ class ProgramController extends Controller
         ]);
 
         if (!$program) {
-            return response()->json(['message' => 'Program not found'], 404);
+            return redirect()->route('programs.index')->with('error', 'ERROR: Program not found');
         }
 
-        // Update program attributes
         $program->program_Code = $validated['program_Code'];
         $program->program_Title = $validated['program_Title'];
 
@@ -47,17 +46,33 @@ class ProgramController extends Controller
             $program->save();
         }
         catch(\Exception $e){
-            return response()->json(['message' => 'Failed to update program'], 404);
+            return redirect()->route('programs.index')->with('error', 'ERROR: Could not update selected program. Please try again.');
         }
 
-        return response()->json(['message' => 'Program updated successfully'], 200);
+        return redirect()->route('programs.index')->with('success', 'Program successfully updated.');
     }
 
     public function destroy(Program $program)
     {
+        try{
+            $program->delete();
+        }
+        catch(\Exception $e){
+            return redirect()->route('programs.index')->with('error', 'ERROR: Could not remove selected program. Please try again.');
+        }
+        return redirect()->route('programs.index')->with('success', 'Program successfully removed.');
+    }
 
+    public function show(Program $program)
+    {
+        $students = Student::where('program_id', $program->id)->get();
+        $studentCount = $students->count();
 
-        $program->delete();
-        return redirect()->route('programs.index');
+        return view('dashboard.programs.show', compact('program', 'studentCount'));
+    }
+
+    public function edit(Program $program)
+    {
+
     }
 }

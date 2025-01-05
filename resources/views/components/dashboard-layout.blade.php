@@ -7,17 +7,18 @@
   <title>Dashboard</title>
   {{-- <link rel="stylesheet" href="/public/build/assets/app-CQMMHOql.css"> --}}
   @vite('resources/css/app.css')
+  @vite('resources/js/app.js')
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="h-full">
   <!-- Header -->
-  <header class="fixed top-0 left-0 right-0 z-20 h-16 bg-blue-900 flex items-center justify-between px-3 py-2 shadow-md">
+  <header class="fixed top-0 left-0 right-0 z-10 h-16 bg-blue-900 flex items-center justify-between px-3 py-2 shadow-md">
     <div class="flex items-center gap-4">
       <button id="menuToggle" class="text-white text-2xl cursor-pointer">☰</button>
       <img src="/sacsi-outline.png" alt="Logo" class="h-15 w-12">
       <h1 class="text-white font-bold text-2x1 drop-shadow-md font-sans serif">NSTP Profiling System</h1>
-</div>
+    </div>
     <div class="flex items-center gap-4">
       <h1 class="text-white font-bold text-xl drop-shadow-md">Welcome, Admin!</h1>
       <img src="/admin-profile.png" alt="Profile" class="h-15 w-12">
@@ -52,8 +53,8 @@
         <div class='w-fill h-[1px] bg-white opacity-20 ml-4 mr-4 mt-2'>
         </div>
 
-        <h1 class='px-4 mt-4 mb-2 text-xl font-semibold cursor-default'>Profiles</h1>
         <nav class="px-4 py-3 overflow-y-scroll w-fill">
+            <h1 class='mt-4 mb-2 text-xl font-semibold cursor-default'>Profiles</h1>
             <ul>
             <div class='flex flex-col gap-2 mb-3'>
                 <li class="">
@@ -90,7 +91,10 @@
                 <span>Formators</span>
                 </a>
             </li>
+            </ul>
 
+            <h1 class='mt-6 mb-2 text-xl font-semibold cursor-default'>Data</h1>
+            <ul>
             <li class="mb-3">
                 <a href="{{ route('programs.index') }}"
                 class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg py-1 px-2
@@ -115,8 +119,8 @@
 
     <!-- Main Content Section -->
     <main id="content" class="ml-64 p-10 w-full h-full overflow-y-auto bg-white transition-[margin-left] duration-300">
-      @livewire('wire-elements-modal')
-      {{ $slot }}
+        @livewire('wire-elements-modal')
+        {{ $slot }}
     </main>
   </div>
 
@@ -132,10 +136,6 @@
       // Adjust Main Content Margin
       content.classList.toggle('ml-64');
     });
-
-
   </script>
-
 </body>
-
 </html>

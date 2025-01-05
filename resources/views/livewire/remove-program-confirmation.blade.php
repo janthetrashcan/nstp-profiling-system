@@ -1,0 +1,27 @@
+<div class="p-7">
+    {{-- @php
+        $studentCount = App\Models\Student::where('program_id', $program->program_id)->count();
+    @endphp --}}
+
+    <h1 class="text-2xl font-bold text-red-700 mb-5 cursor-default">Remove Program</h1>
+
+    <div class="flex flex-col gap-3 mb-5">
+        <h1 class="text-gray-700">Do you wish to remove {{ $program->program_Code }} - {{ $program->program_Title }} from the database?</h1>
+
+        <p>Warning: This will remove {{ App\Models\Student::where('program_id', $program->program_id)->count() }} students from the database.</p>
+    </div>
+
+
+    <form action="{{ route('programs.destroy', $program) }}" method="POST" class="flex flex-row gap-2 justify-end">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm transition-all duration-200 flex flex-row w-fit h-fit px-4 py-3 justify-start items-center rounded-lg gap-2">
+            <x-carbon-trash-can class="h-5" />
+            <h1 class="font-semibold">Remove</h1>
+        </button>
+
+        <a wire:click="$dispatch('closeModal')" class="bg-gray-200 hover:bg-gray-100 text-gray-500 text-sm transition-all duration-200 flex flex-row w-fit h-fit px-4 py-3 justify-start items-center rounded-lg gap-2 cursor-pointer">
+            <h1 class="font-semibold">Cancel</h1>
+        </a>
+    </form>
+</div>

@@ -47,17 +47,16 @@ Route::middleware(['auth'])->group(function(){
 });
 
 // Programs group
-Route::middleware(['auth'])->group(function(){
-    Route::get('/dashboard/programs', [ProgramController::class, 'index'])->name('programs.index');
-    Route::post('/dashboard/programs/store', [ProgramController::class, 'store'])->name('programs.store');
-    Route::put('/dashboard/programs/update/{id}', [ProgramController::class, 'update'])->name('programs.update');
-    Route::delete('/dashboard/programs/delete/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
- });
+// Route::middleware(['auth'])->group(function(){
+//     Route::get('/dashboard/programs', [ProgramController::class, 'index'])->name('programs.index');
+//     Route::post('/dashboard/programs/store', [ProgramController::class, 'store'])->name('programs.store');
+//     Route::put('/dashboard/programs/update/{id}', [ProgramController::class, 'update'])->name('programs.update');
+//     Route::delete('/dashboard/programs/delete/{program}', [ProgramController::class, 'destroy'])->name('programs.destroy');
+//     Route::get('dashboard/programs/view/{program_id}', [ProgramController::class, 'show'])->name('programs.show');
+//  });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('programs', ProgramController::class);
 });
 
 require __DIR__.'/auth.php';
