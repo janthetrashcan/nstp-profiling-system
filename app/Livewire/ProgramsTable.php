@@ -12,12 +12,23 @@ use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 class ProgramsTable extends DataTableComponent
 {
     protected $model = Program::class;
+    // public array $bulkActions = [
+    //     'deleteSelected' => 'Remove Selected',
+    // ];
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id')
+        $this->setPrimaryKey('program_id')
         ->setLayout('layouts.app')
-        ->setSlot('programs-table');
+        ->setSlot('programs-table')
+        ->setSingleSortingDisabled()
+        ->setActionWrapperAttributes([
+            'class' => 'space-x-4'
+        ])
+        ->setActionsInToolbarEnabled()
+        ->setActionsRight();
+
+
         // ->setTableRowUrl(function($row) {
         //     return route('programs.show', $row);
         // });
@@ -25,6 +36,32 @@ class ProgramsTable extends DataTableComponent
         $this->setTheadAttributes([
             'class' => 'font-bold text-2xl bg-gray-300 text-white',
         ]);
+    }
+
+    public function deleteSelected()
+    {
+        foreach($this->getSelected() as $item)
+        {
+            $program = Program::findOrFail('program_id', $item);
+            try{
+                $program->delete();
+            }
+            catch(\Exception $e){
+                return redirect()->route('programs.index')->with('error', 'ERROR: Could not remove selected program. Please try again.');
+            }
+            return redirect()->route('programs.index')->with('success', 'Program successfully removed.');
+        }
+    }
+    public function actions(): array
+    {
+        return [
+            Action::make('Add Program')
+            ->setRoute('#')
+            ->setActionAttributes([
+                    'onclick' => "Livewire.dispatch('openModal', { component: 'create-program-modal' })",
+                    'class' => 'bg-blue-500 text-white mr-[-0.5rem]',
+            ]),
+        ];
     }
 
     public function columns(): array

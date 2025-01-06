@@ -1,16 +1,13 @@
-<div class="p-7">
-    {{-- @php
-        $studentCount = App\Models\Student::where('program_id', $program->program_id)->count();
-    @endphp --}}
+<div class="p-7 z-50">
+    <h1 class="text-2xl font-semibold text-red-500 mb-3 cursor-default">Remove Program</h1>
 
-    <h1 class="text-2xl font-bold text-red-700 mb-5 cursor-default">Remove Program</h1>
+    <div class="w-fill h-[1px] bg-gray-200 mb-5"></div>
 
     <div class="flex flex-col gap-3 mb-5">
-        <h1 class="text-gray-700">Do you wish to remove {{ $program->program_Code }} - {{ $program->program_Title }} from the database?</h1>
+        <h1 class="text-gray-700">Do you wish to remove {{ $program->program_Code }} - {{ $program->program_Title }}?</h1>
 
-        <p>Warning: This will remove {{ App\Models\Student::where('program_id', $program->program_id)->count() }} students from the database.</p>
+        <p>Note: This will remove {{ App\Models\Student::where('program_id', $program->program_id)->count() }} students from the database.</p>
     </div>
-
 
     <form action="{{ route('programs.destroy', $program) }}" method="POST" class="flex flex-row gap-2 justify-end">
         @csrf

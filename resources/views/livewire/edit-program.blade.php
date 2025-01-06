@@ -3,7 +3,9 @@
         @csrf
         @method('PUT')
 
-        <h1 class="text-2xl font-bold text-gray-700 mb-8 cursor-default">Edit Program</h1>
+        <h1 class="text-2xl font-semibold text-gray-700 mb-3 cursor-default">Edit Program</h1>
+
+        <div class="w-fill h-[1px] bg-gray-200 mb-5"></div>
 
         <input name="program_id" class="hidden" type="number" value="{{ $program->program_id }}">
 

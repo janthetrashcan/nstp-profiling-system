@@ -98,7 +98,7 @@
             <li class="mb-3">
                 <a href="{{ route('programs.index') }}"
                 class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg py-1 px-2
-                {{ Request::is('dashboard/programs*') ? 'text-black bg-gray-100' : '' }} ">
+                {{ Request::is('programs*') ? 'text-black bg-gray-100' : '' }} ">
                 {{-- <span class="text-white text-xs mr-2">►</span> --}}
                 <span class="mr-3"><x-carbon-course class='h-6 my-1 font-outline-4 font-outline-black' /></span>
                 <span>Programs</span>
