@@ -19,10 +19,6 @@
       <img src="/sacsi-outline.png" alt="Logo" class="h-15 w-12">
       <h1 class="text-white font-bold text-2x1 drop-shadow-md font-sans serif">NSTP Profiling System</h1>
     </div>
-    <div class="flex items-center gap-4">
-      <h1 class="text-white font-bold text-xl drop-shadow-md">Welcome, Admin!</h1>
-      <img src="/admin-profile.png" alt="Profile" class="h-15 w-12">
-    </div>
   </header>
 
   <!-- Main Layout -->
@@ -42,8 +38,8 @@
         </div>
         <div class="p-4 pt-0">
             <a
-            {{-- href="{{ route('dashboard.exportdatapage') }}" --}}
-            onclick="Livewire.dispatch('openModal', { component: 'export-students' })"
+            href="{{ route('dashboard.exportdatapage') }}"
+            {{-- onclick="Livewire.dispatch('openModal', { component: 'export-students' })" --}}
             class="flex items-center w-full px-4 py-4 bg-gray-700 text-white rounded-lg shadow-md hover:bg-gray-600 transition-colors duration-300">
             <span class="text-md font-bold bg-gray-200 text-gray-800 rounded-full p-1 mr-3"><x-carbon-export class='h-6 m-1'/></span>
             <span class="text-md font-semibold">Export Data</span>
@@ -95,26 +91,40 @@
 
             <h1 class='mt-6 mb-2 text-xl font-semibold cursor-default'>Data</h1>
             <ul>
-            <li class="mb-3">
-                <a href="{{ route('programs.index') }}"
-                class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg py-1 px-2
-                {{ Request::is('programs*') ? 'text-black bg-gray-100' : '' }} ">
-                {{-- <span class="text-white text-xs mr-2">►</span> --}}
-                <span class="mr-3"><x-carbon-course class='h-6 my-1 font-outline-4 font-outline-black' /></span>
-                <span>Programs</span>
-                </a>
-            </li>
+                <li class="mb-3">
+                    <a href="{{ route('programs.index') }}"
+                    class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg py-1 px-2
+                    {{ Request::is('programs*') ? 'text-black bg-gray-100' : '' }} ">
+                    {{-- <span class="text-white text-xs mr-2">►</span> --}}
+                    <span class="mr-3"><x-carbon-course class='h-6 my-1 font-outline-4 font-outline-black' /></span>
+                    <span>Programs</span>
+                    </a>
+                </li>
+                <li class="mb-3">
+                    <a href="{{ route('sections.index') }}"
+                    class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg py-1 px-2
+                    {{ Request::is('sections*') ? 'text-black bg-gray-100' : '' }} ">
+                    {{-- <span class="text-white text-xs mr-2">►</span> --}}
+                    <span class="mr-3"><x-carbon-group class='h-6 my-1 font-outline-4 font-outline-black' /></span>
+                    <span>Sections</span>
+                    </a>
+                </li>
             </ul>
         </nav>
       </div>
 
-      <form method="POST" action="{{ route('logout') }}" class="flex justify-center">
-        @csrf
-        <button type="submit"
-          class="w-4/5 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
-          Log out
-        </button>
-      </form>
+      <div class='flex flex-row gap-2 justify-between px-4'>
+            <div class="flex items-center gap-4">
+                <img src="/admin-profile.png" alt="Profile" class="h-15 w-12 rounded-lg">
+            </div>
+            <form method="POST" action="{{ route('logout') }}" class="flex justify-center">
+                @csrf
+                <button type="submit"
+                class="w-4/5 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm w-full">
+                Log out
+                </button>
+            </form>
+        </div>
     </aside>
 
     <!-- Main Content Section -->

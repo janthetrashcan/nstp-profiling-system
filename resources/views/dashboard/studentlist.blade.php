@@ -11,6 +11,14 @@
     </div>
     @endif
 
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold">Students List</h1>
+
+        @if (request()->has('batch'))
+        <h2 class="text-xl font-semibold mt-2">{{ App\Models\Batch::where('id', request('batch'))->first()->batch }}</h2>
+        @endif
+    </div>
+
     <div class='flex flex-row pr-4 mb-3 justify-between'>
         <div id='functions-lhs' class='flex flex-row gap-x-3'>
             <a href="{{ route('dashboard.addstudent', ['batch' => request('batch')]) }}" class='bg-blue-500 hover:bg-blue-600 text-white transition-colors duration-200 flex flex-row w-fit h-12 px-4 py-2 justify-start items-center rounded-lg gap-2'>

@@ -11,6 +11,8 @@
     </div>
     @endif
 
+    <p class="text-2xl font-bold mb-6">Formators List</p>
+
     <!-- Top Action Bar -->
     <div class="flex flex-row pr-4 mb-3 justify-between">
         <!-- Left Actions: Add, Delete, Filter -->

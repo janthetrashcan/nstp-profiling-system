@@ -12,7 +12,8 @@ class SectionController extends Controller
      */
     public function index()
     {
-        //
+        $sections = Section::all();
+        return view('dashboard.sections.sections', compact('sections'));
     }
 
     /**
@@ -52,7 +53,34 @@ class SectionController extends Controller
      */
     public function update(Request $request, Section $section)
     {
-        //
+        $section = Section::where('sec_id', $request['sec_id'])->first();
+
+        // Validate input
+        try{
+            $validated = $request->validate([
+                'sec_Section' => 'required|string|max:255',
+                'sec_Capacity' => 'required|integer',
+            ]);
+        }
+        catch(\Exception $e){
+            return redirect()->route('sections.index')->with('error', 'ERROR: Could not update selected section. Please try again.'.'\n'.$e);
+        }
+
+        if (!$section) {
+            return redirect()->route('sections.index')->with('error', 'ERROR: Section not found');
+        }
+
+        $section->sec_Section = $validated['sec_Section'];
+        $section->sec_Capacity = $validated['sec_Capacity'];
+
+        try{
+            $section->save();
+        }
+        catch(\Exception $e){
+            return redirect()->route('sections.index')->with('error', 'ERROR: Could not update selected section. Please try again.'.'\n'.$e);
+        }
+
+        return redirect()->route('sections.index')->with('success', 'Section successfully updated.');
     }
 
     /**
@@ -60,6 +88,12 @@ class SectionController extends Controller
      */
     public function destroy(Section $section)
     {
-        //
+        try{
+            $section->delete();
+        }
+        catch(\Exception $e){
+            return redirect()->route('sections.index')->with('error', 'ERROR: Could not remove selected section. Please try again.');
+        }
+        return redirect()->route('sections.index')->with('success', 'Section successfully removed.');
     }
 }

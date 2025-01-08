@@ -7,6 +7,7 @@ use App\Http\Controllers\FormatorController;
 use App\Http\Controllers\StudentImportController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\SectionController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/','/dashboard/students')->name('dashboard');
@@ -57,6 +58,7 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware('auth')->group(function () {
     Route::resource('programs', ProgramController::class);
+    Route::resource('sections', SectionController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -16,7 +16,7 @@
 
         <div class="flex flex-row justify-end gap-x-1">
             <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white text-sm transition-all duration-200 flex flex-row w-fit h-fit px-4 py-3 justify-start items-center rounded-lg gap-2">
-                <x-carbon-add class="h-5" />
+                <x-carbon-add-large class="h-5" />
                 <h1 class="font-semibold">Add</h1>
             </button>
 
