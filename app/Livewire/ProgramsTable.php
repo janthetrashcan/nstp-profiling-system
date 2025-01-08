@@ -19,7 +19,6 @@ class ProgramsTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('program_id')
-        ->setLayout('layouts.app')
         ->setSlot('programs-table')
         ->setSingleSortingDisabled()
         ->setActionWrapperAttributes([

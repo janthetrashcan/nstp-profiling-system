@@ -16,13 +16,13 @@ class ProgramController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'program_Code' => 'required',
             'program_Title' => 'required',
         ]);
 
-        Program::create($request->all());
-        return redirect()->route('programs.index');
+        Program::create($data);
+        return redirect()->route('programs.index')->with('success', 'Program successfully added.');
     }
 
     public function update(Request $request)

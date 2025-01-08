@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\StudentController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\StudentImportController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SectionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/','/dashboard/students')->name('dashboard');
@@ -28,8 +30,8 @@ Route::middleware(['auth'])->group(function(){
     Route::delete('/dashboard/students/delete', [StudentController::class, 'destroy'])->name('student.destroy');
     Route::delete('/dashboard/students/delete/{s_id?}', [StudentController::class, 'destroy'])->name('student.destroy');
 
-    Route::get('/dashboard/students/import',[StudentController::class, 'importStudentsPage'])->name('dashboard.importstudents');
-    Route::post('/dashboard/students/import/processing', [StudentImportController::class, 'import'])->name('students.import');
+    Route::get('/dashboard/import',[StudentController::class, 'importStudentsPage'])->name('dashboard.importstudents');
+    Route::post('/dashboard/import/processing', [StudentImportController::class, 'import'])->name('students.import');
     Route::get('/dashboard/export',[ExportController::class, 'exportDataPage'])->name('dashboard.exportdatapage');
     Route::get('/dashboard/export/processing',[ExportController::class, 'exportData'])->name('dashboard.exportdata');
 });
@@ -59,6 +61,10 @@ Route::middleware(['auth'])->group(function(){
 Route::middleware('auth')->group(function () {
     Route::resource('programs', ProgramController::class);
     Route::resource('sections', SectionController::class);
+});
+
+Route::middleware(['auth', 'is_admin'])->group(function (){
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__.'/auth.php';

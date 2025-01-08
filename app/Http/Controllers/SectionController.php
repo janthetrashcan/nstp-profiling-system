@@ -29,7 +29,18 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $data = $request->validate([
+                'sec_Section' => 'required|string|max:255',
+                'sec_Capacity' => 'nullable|integer',
+            ]);
+        }
+        catch(\Exception $e){
+            return redirect()->route('sections.index')->with('error', 'ERROR: Could not add section. Please try again.');
+        }
+
+        Section::create($data);
+        return redirect()->route('sections.index')->with('success', 'Section successfully added.');
     }
 
     /**

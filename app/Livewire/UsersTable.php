@@ -4,32 +4,23 @@ namespace App\Livewire;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\Section;
+use App\Models\User;
 use Rappasoft\LaravelLivewireTables\Views\Actions\Action;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
-use Rappasoft\LaravelLivewireTables\Views\Columns\CountColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
-use Livewire\Livewire;
 
-class SectionsTable extends DataTableComponent
+class UsersTable extends DataTableComponent
 {
-    protected $model = Section::class;
+    protected $model = User::class;
 
     public function configure(): void
     {
-        $this->setPrimaryKey('sec_id')
-        ->setSlot('sections-table')
+        $this->setPrimaryKey('id')
+        ->setSlot('programs-table')
         ->setSingleSortingDisabled()
-        ->setBulkActionsButtonAttributes([
-            'class' => '!-z-20',
+        ->setActionWrapperAttributes([
+            'class' => 'space-x-4'
         ])
-        ->setBulkActionsMenuAttributes([
-            'class' => 'bg-green-500 !-z-20',
-            'default-colors' => true,
-            'default-styling' => true,
-        ])
-        ->setClearSelectedOnSearch(false)
-        ->setHideBulkActionsWhenEmptyEnabled()
         ->setActionsInToolbarEnabled()
         ->setActionsRight();
     }
@@ -37,10 +28,10 @@ class SectionsTable extends DataTableComponent
     public function actions(): array
     {
         return [
-            Action::make('Add Section')
+            Action::make('Add User')
             ->setRoute('#')
             ->setActionAttributes([
-                    'onclick' => "Livewire.dispatch('openModal', { component: 'create-section-modal' })",
+                    'onclick' => "Livewire.dispatch('openModal', { component: 'create-user-modal' })",
                     'class' => 'bg-blue-500 text-white mr-[-0.5rem]',
             ]),
         ];
@@ -49,21 +40,20 @@ class SectionsTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("ID", "sec_id")
+            Column::make("ID", "id")
                 ->sortable(),
-            Column::make("Section", "sec_Section")
-                ->sortable()
-                ->searchable(),
-            CountColumn::make('Student Count')
-                ->setDataSource('student')
+            Column::make("Surname", "surname")
                 ->sortable(),
-            Column::make("Capacity", "sec_Capacity")
+            Column::make("First Name", "firstName")
+                ->sortable(),
+            Column::make("Middle Name", "middleName")
+                ->sortable(),
+            Column::make("Email", "email")
                 ->sortable(),
             Column::make("Created at", "created_at")
                 ->sortable(),
             Column::make("Updated at", "updated_at")
                 ->sortable(),
-
             ButtonGroupColumn::make('Actions')
             ->attributes(function($row) {
                 return [
@@ -77,7 +67,7 @@ class SectionsTable extends DataTableComponent
                 ->attributes(function($row) {
                     return [
                         'class' => 'underline text-blue-500 hover:no-underline',
-                        'onclick' => "Livewire.dispatch('openModal', { component: 'edit-section-modal', arguments: { section: $row } })",
+                        'onclick' => "Livewire.dispatch('openModal', { component: 'edit-user-modal', arguments: { user: $row } })",
                     ];
                 }),
                 LinkColumn::make('Remove')
@@ -86,20 +76,10 @@ class SectionsTable extends DataTableComponent
                 ->attributes(function($row) {
                     return [
                         'class' => 'underline text-red-500 hover:no-underline',
-                        'onclick' => "Livewire.dispatch('openModal', { component: 'remove-section-confirmation-modal', arguments: { section: $row } })",
+                        'onclick' => "Livewire.dispatch('openModal', { component: 'remove-user-confirmation-modal', arguments: { user: $row } })",
                     ];
                 }),
             ]),
         ];
-    }
-
-    public array $bulkActions = [
-        'editSelectedSectionsCapacity' => "Edit Capacity",
-        'removeSelectedSections' => 'Remove Selected',
-    ];
-
-    public function editSelectedSectionsCapacity()
-    {
-
     }
 }

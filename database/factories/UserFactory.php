@@ -24,7 +24,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'privilege' => 1,
+            'is_admin' => true,
             'surname' => 'test',
             'firstName' => 'test',
             'middleName' => 'test',

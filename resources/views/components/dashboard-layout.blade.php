@@ -109,18 +109,30 @@
                     <span>Sections</span>
                     </a>
                 </li>
+
+                @if (Auth::user()->is_admin)
+                <li class="mb-3">
+                    <a href="{{ route('users.index') }}"
+                    class="flex items-center hover:bg-blue-200 hover:bg-opacity-40 hover:text-white transition-colors duration-300 rounded-lg py-1 px-2 text-yellow-500
+                    {{ Request::is('users*') ? '!text-black !bg-gray-100' : '' }} ">
+                    {{-- <span class="text-white text-xs mr-2">►</span> --}}
+                    <span class="mr-3"><x-carbon-group class='h-6 my-1 font-outline-4 font-outline-black' /></span>
+                    <span>Users</span>
+                    </a>
+                </li>
+                @endif
             </ul>
         </nav>
       </div>
 
-      <div class='flex flex-row gap-2 justify-between px-4'>
+      <div class='flex flex-row gap-3 justify-between px-4'>
             <div class="flex items-center gap-4">
                 <img src="/admin-profile.png" alt="Profile" class="h-15 w-12 rounded-lg">
             </div>
-            <form method="POST" action="{{ route('logout') }}" class="flex justify-center">
+            <form method="POST" action="{{ route('logout') }}" class="flex justify-center w-full">
                 @csrf
                 <button type="submit"
-                class="w-4/5 px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm w-full">
+                class="px-3 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm w-full">
                 Log out
                 </button>
             </form>
