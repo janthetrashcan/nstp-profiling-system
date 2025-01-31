@@ -6,8 +6,10 @@ use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
 use Rappasoft\LaravelLivewireTables\Views\Actions\Action;
+use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class UsersTable extends DataTableComponent
 {
@@ -40,16 +42,22 @@ class UsersTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("ID", "id")
+            // Column::make("ID", "id")
+            //     ->sortable(),
+            BooleanColumn::make('Admin', 'is_admin')
+                // Note: Parameter `$row` available as of v2.4
+                ->setCallback(function(string $value, $row) {
+                    return $row->is_admin;
+                })
                 ->sortable(),
             Column::make("Surname", "surname")
-                ->sortable(),
+                ->sortable()->searchable(),
             Column::make("First Name", "firstName")
-                ->sortable(),
+                ->sortable()->searchable(),
             Column::make("Middle Name", "middleName")
-                ->sortable(),
+                ->sortable()->searchable(),
             Column::make("Email", "email")
-                ->sortable(),
+                ->sortable()->searchable(),
             Column::make("Created at", "created_at")
                 ->sortable(),
             Column::make("Updated at", "updated_at")

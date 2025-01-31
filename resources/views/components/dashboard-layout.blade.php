@@ -14,10 +14,10 @@
 <body class="h-full">
   <!-- Header -->
   <header class="fixed top-0 left-0 right-0 z-10 h-16 bg-blue-900 flex items-center justify-between px-3 py-2 shadow-md">
-    <div class="flex items-center gap-4">
+    <div class="flex items-center gap-3 cursor-default">
       <button id="menuToggle" class="text-white text-2xl cursor-pointer">☰</button>
-      <img src="/sacsi-outline.png" alt="Logo" class="h-15 w-12">
-      <h1 class="text-white font-bold text-2x1 drop-shadow-md font-sans serif">NSTP Profiling System</h1>
+      {{-- <img src="/sacsi-outline.png" alt="Logo" class="h-8 w-8"> --}}
+      <h1 class="bg-blue-200 px-4 py-2 rounded-full text-blue-900 font-bold text-md drop-shadow-md font-sans serif">NSTP Profiling System</h1>
     </div>
   </header>
 

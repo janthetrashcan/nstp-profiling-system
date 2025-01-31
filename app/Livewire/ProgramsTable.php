@@ -66,7 +66,7 @@ class ProgramsTable extends DataTableComponent
     public function columns(): array
     {
         return [
-            Column::make("Program ID", "program_id")
+            Column::make("ID", "program_id")
                 ->sortable(),
             Column::make("Program Code", "program_Code")
                 ->sortable()
